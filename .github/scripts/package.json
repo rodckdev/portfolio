@@ -1,0 +1,9 @@
+{
+  "name": "portfolio-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Scripts rodados por GitHub Actions para manter o site do portfólio.",
+  "dependencies": {
+    "@notionhq/client": "^2.2.15"
+  }
+}
