@@ -1,0 +1,52 @@
+name: Sync Notion posts
+
+# Alimenta assets/data/posts.json a partir do DB "Portfólio" do Notion.
+# Dispara por cron (diário 03:00 UTC) e manualmente (workflow_dispatch).
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-notion
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Query Notion and commit posts.json
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: .github/scripts
+        run: npm install --no-audit --no-fund
+
+      - name: Run sync
+        env:
+          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+          NOTION_PORTFOLIO_DB_ID: ${{ secrets.NOTION_PORTFOLIO_DB_ID }}
+        run: node .github/scripts/sync-notion.mjs
+
+      - name: Commit changes (se houver)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/data/posts.json
+          if git diff --cached --quiet; then
+            echo 'Sem alterações em posts.json.'
+            exit 0
+          fi
+          git commit -m 'chore: sync Notion posts [skip ci]'
+          git push

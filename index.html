@@ -47,6 +47,8 @@
           <a href="#progress">Progresso</a>
           <a href="#skills">Skills</a>
           <a href="#next">Próximas</a>
+          <a href="#projects">Projetos</a>
+          <a href="#posts">Posts</a>
           <a href="#cv">CV</a>
         </nav>
         <button class="print-btn no-print" type="button" onclick="window.print()">
@@ -663,6 +665,59 @@
         </div>
       </section>
 
+      <!-- ================================================== PROJETOS OSS -->
+      <section id="projects" class="section section-alt">
+        <div class="container">
+          <header class="section-head">
+            <span class="section-kicker">07 · Projetos abertos</span>
+            <h2>Repositórios com topic <code>portfolio</code></h2>
+            <p class="section-sub">
+              Feed direto do GitHub — cada repo marcado com a topic <code>portfolio</code>
+              aparece aqui automaticamente.
+            </p>
+          </header>
+          <div
+            id="projects-grid"
+            class="projects-grid"
+            data-github-user="rodckdev"
+            data-topic="portfolio"
+            aria-busy="true"
+          >
+            <p class="feed-state feed-loading">Carregando repositórios…</p>
+          </div>
+          <p class="feed-hint no-print">
+            Para incluir um repo aqui, adicione a topic <code>portfolio</code> em
+            <em>Settings → Topics</em> no GitHub.
+          </p>
+        </div>
+      </section>
+
+      <!-- ================================================== POSTS (NOTION) -->
+      <section id="posts" class="section">
+        <div class="container">
+          <header class="section-head">
+            <span class="section-kicker">08 · Posts publicados</span>
+            <h2>Feed do Notion — DB Portfólio</h2>
+            <p class="section-sub">
+              Entradas marcadas como <strong>publicáveis</strong> no Notion entram aqui
+              via GitHub Action (sincronização diária).
+            </p>
+          </header>
+          <div
+            id="posts-grid"
+            class="posts-grid"
+            data-posts-src="assets/data/posts.json"
+            aria-busy="true"
+          >
+            <p class="feed-state feed-loading">Carregando posts…</p>
+          </div>
+          <p class="feed-hint no-print">
+            Última sincronização: <span id="posts-updated">—</span>.
+            Pipeline: <code>email → IA → Notion → GitHub Action → site</code>.
+          </p>
+        </div>
+      </section>
+
       <!-- ================================================== COMITÊ -->
       <section id="committee" class="section">
         <div class="container">
@@ -689,7 +744,7 @@
       <section id="cv" class="section section-cv">
         <div class="container">
           <header class="section-head section-head-cv">
-            <span class="section-kicker">07 · CV snapshot</span>
+            <span class="section-kicker">09 · CV snapshot</span>
             <h2>One-pager do currículo</h2>
             <p class="section-sub no-print">
               Este card foi desenhado para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).
@@ -816,5 +871,6 @@
         sections.forEach((s) => io.observe(s));
       })();
     </script>
+    <script src="assets/js/feeds.js" defer></script>
   </body>
 </html>
