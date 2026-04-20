@@ -218,6 +218,7 @@ async function syncDeliverables(dbId) {
       sub: getRichText(p.Subtitle) || '',
       blocks,
       metrics: getMultiline(p.Metrics),
+      extras: extractExtras(p, KNOWN.deliverables),
     };
   });
 }
@@ -260,6 +261,7 @@ async function syncSkills(dbId) {
       gap,
       gapBadge: badgeForGap(gap),
       plan: getRichText(p.Plan) || '',
+      extras: extractExtras(p, KNOWN.skills),
     };
   });
 }
@@ -316,6 +318,7 @@ async function syncInitiatives(dbId) {
       tag: getRichText(p.Tag) || '',
       title: getTitle(p.Name) || '',
       fields,
+      extras: extractExtras(p, KNOWN.initiatives),
     };
   });
 }
@@ -361,6 +364,7 @@ async function syncInfluence(dbId) {
       order: getNumber(p.Order) || 0,
       tag: getTitle(p.Name) || '',
       body: getRichText(p.Body) || '',
+      extras: extractExtras(p, KNOWN.influence),
     };
   });
 }
@@ -394,9 +398,95 @@ async function syncProgress(dbId) {
       statusLabel: getRichText(p.StatusLabel) || '',
       target: getRichText(p.Target) || '',
       evidence: getRichText(p.Evidence) || '',
+      extras: extractExtras(p, KNOWN.progress),
     };
   });
 }
+
+// ---------------------------------------------------------------------------
+// Extras — colunas novas no Notion refletindo no site sem mexer no código
+// ---------------------------------------------------------------------------
+// Qualquer propriedade que NÃO esteja em `knownKeys` vira um item em `extras`:
+//   { key, label, kind, value }
+// Tipos suportados: rich_text, select, multi_select, number, url, email,
+// phone_number, checkbox, date. Vazios são descartados para não poluir.
+// A renderização no site adapta-se por `kind`:
+//   text/select        → linha de definição (dt/dd)
+//   multi_select       → chips
+//   url                → link clicável
+//   checkbox           → ✅ / ❌
+//   number             → número formatado
+//   date               → ISO (start) — o site formata
+function extractExtras(properties, knownKeys) {
+  if (!properties || typeof properties !== 'object') return [];
+  const known = new Set(knownKeys);
+  const extras = [];
+  for (const [label, prop] of Object.entries(properties)) {
+    if (known.has(label)) continue;
+    if (!prop || typeof prop !== 'object') continue;
+    const parsed = coerceProp(prop);
+    if (parsed == null) continue;
+    if (parsed.kind === 'text' && !parsed.value) continue;
+    if (parsed.kind === 'multi_select' && parsed.value.length === 0) continue;
+    extras.push({
+      key: slug(label),
+      label,
+      kind: parsed.kind,
+      value: parsed.value,
+    });
+  }
+  return extras;
+}
+
+function coerceProp(prop) {
+  switch (prop.type) {
+    case 'rich_text':
+      return { kind: 'text', value: getRichText(prop) };
+    case 'select':
+      return { kind: 'select', value: getSelect(prop) };
+    case 'multi_select': {
+      const value = (prop.multi_select || [])
+        .map((t) => t && t.name)
+        .filter(Boolean);
+      return { kind: 'multi_select', value };
+    }
+    case 'number':
+      return { kind: 'number', value: prop.number ?? null };
+    case 'url':
+      return { kind: 'url', value: prop.url || '' };
+    case 'email':
+      return { kind: 'url', value: prop.email ? `mailto:${prop.email}` : '' };
+    case 'phone_number':
+      return { kind: 'text', value: prop.phone_number || '' };
+    case 'checkbox':
+      return { kind: 'checkbox', value: !!prop.checkbox };
+    case 'date': {
+      const d = prop.date || {};
+      const value = d.end ? `${d.start} → ${d.end}` : d.start || '';
+      return { kind: 'date', value };
+    }
+    default:
+      // title, files, people, relation, rollup, formula, created_*, last_*
+      // ficam de fora: são derivados ou precisam de resolução extra.
+      return null;
+  }
+}
+
+// Propriedades que já são consumidas pelas funções sync* de cada seção.
+// Nada nessa lista vira "extras".
+const KNOWN = {
+  deliverables: [
+    'Name', 'Num', 'Order', 'Subtitle',
+    'WhatWasDone', 'TechnicalImpact', 'FinancialImpact', 'OperationalImpact',
+    'Stakeholders', 'Metrics', 'Published',
+  ],
+  skills: ['Name', 'Order', 'Current', 'Target', 'Gap', 'Plan', 'Published'],
+  initiatives: ['Name', 'Order', 'Tag', 'What', 'Why', 'Impact', 'Metric', 'Published'],
+  influence: ['Name', 'Order', 'Body', 'Published'],
+  progress: [
+    'Name', 'Order', 'Status', 'StatusLabel', 'Target', 'Evidence', 'Published',
+  ],
+};
 
 // ---------------------------------------------------------------------------
 // Notion helpers

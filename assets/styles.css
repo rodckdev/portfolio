@@ -739,6 +739,63 @@ strong {
   color: var(--ink-700);
 }
 
+/* Extras — colunas adicionadas no Notion aparecem aqui automaticamente */
+.deliverable dl.extras,
+.initiative dl.extras {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--ink-200, #e2e4ea);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+}
+.deliverable dl.extras dt,
+.initiative dl.extras dt {
+  color: var(--ink-500);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  padding-top: 0.18rem;
+}
+.deliverable dl.extras dd,
+.initiative dl.extras dd {
+  margin: 0;
+  color: var(--ink-700);
+}
+.extras-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-left: 0.5rem;
+}
+.extras-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(15, 23, 42, 0.05);
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--ink-700);
+}
+.extras-chip-label {
+  font-weight: 600;
+  color: var(--ink-500);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.extras-tag {
+  display: inline-block;
+  background: rgba(15, 23, 42, 0.07);
+  padding: 0.08rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  margin-right: 0.25rem;
+}
+
 @media (max-width: 900px) {
   .initiative-grid {
     grid-template-columns: 1fr;

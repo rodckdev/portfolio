@@ -148,6 +148,60 @@ Cada DB é opcional e independente. DB ausente ou vazio ⇒ `sync-notion.mjs`
 Política de segredos — onde vivem, como rotacionar, scanner de commits: ver
 [SECURITY.md](./SECURITY.md).
 
+## Adicionar uma nova coluna no Notion e ver no site (sem mexer em código)
+
+O sync extrai automaticamente qualquer propriedade que você criar em qualquer
+um dos 5 DBs do CMS. Basta criar a coluna no Notion, preencher nas páginas
+que você quer publicar, e rodar o Action — o valor aparece no site na próxima
+sincronização.
+
+### Tipos suportados (e como renderizam)
+
+| Tipo no Notion   | Onde aparece nos cards (Entregas / Iniciativas) | Onde aparece nas tabelas (Skills / Progresso) | Observação                |
+| ---------------- | ----------------------------------------------- | --------------------------------------------- | ------------------------- |
+| `Text`           | Linha `Label: valor`                            | Coluna nova com o valor                       | Vazio = oculta a linha    |
+| `Select`         | Linha `Label: opção`                            | Coluna nova com o texto da opção              | —                         |
+| `Multi-select`   | Chips coloridos                                 | Chips dentro da célula                        | —                         |
+| `Number`         | Número formatado pt-BR                          | Mesmo                                         | —                         |
+| `URL` / `Email`  | Link clicável (`target=_blank`)                 | Link clicável                                 | Email vira `mailto:`      |
+| `Phone`          | Texto simples                                   | Texto simples                                 | —                         |
+| `Checkbox`       | ✅ / ❌                                          | ✅ / ❌                                         | —                         |
+| `Date`           | `início → fim` ou `início`                     | Mesmo                                         | Data range se tiver `end` |
+
+Na seção **Influência** os extras viram *chips* depois do corpo do item.
+
+### Passo a passo — exemplo: adicionar coluna `Timeline` em Iniciativas
+
+1. No Notion, abra o DB `Site Initiatives` → **+** no header → **Text** →
+   nome `Timeline`.
+2. Preencha em uma ou mais páginas (ex: `Q2 2025 → Q3 2025`).
+3. Marque `Published` na(s) página(s).
+4. Rode o Action (ou espere o cron):
+   `gh workflow run sync-notion.yml --repo rodckdev/portfolio`
+5. Em ~1 min o site mostra `Timeline: Q2 2025 → Q3 2025` no card da iniciativa.
+
+### Tipos **não** suportados (e por quê)
+
+`Title` (é o `Name`, já consumido), `Files`, `People`, `Relation`, `Rollup`,
+`Formula`, `Created time/by`, `Last edited time/by` — precisam de resolução
+extra (upload, lookup) que foge do escopo. Se você precisar de algum, abre
+uma issue no repo.
+
+### Como o sync sabe o que é "conhecido" vs "extra"
+
+Em `.github/scripts/sync-notion.mjs`, o objeto `KNOWN` lista as propriedades
+que cada função `syncX` consome diretamente (ex. `Name`, `Order`, `Body`,
+`WhatWasDone`…). **Tudo fora dessa lista** vira `extras` no item e o
+renderer em `assets/js/site.js` cuida do resto. Se você quiser "promover"
+uma coluna extra a um campo destacado (com posição custom, badge, etc.),
+aí sim é código — pingar que eu codifico.
+
+### Chaves de item geradas pelo sync (para lembrar de não usar como label)
+
+`id`, `order`, `title`, `num`, `sub`, `blocks`, `metrics`, `tag`, `body`,
+`skill`, `current`, `currentBadge`, `target`, `gap`, `gapBadge`, `plan`,
+`dimension`, `status`, `statusLabel`, `evidence`, `fields`, `extras`.
+
 ## Publicar um projeto na seção "Projetos abertos"
 
 Em **Settings → Topics** do repo, adicione `portfolio`. A seção puxa direto
