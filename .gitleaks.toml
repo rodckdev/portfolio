@@ -1,0 +1,47 @@
+# gitleaks config — estende o set default com regras extras p/ Notion
+# https://github.com/gitleaks/gitleaks
+[extend]
+useDefault = true
+
+# Regras adicionais específicas deste projeto
+[[rules]]
+id = "notion-internal-integration-secret"
+description = "Notion Internal Integration Secret (secret_... ou ntn_...)"
+regex = '''(secret_|ntn_)[A-Za-z0-9]{40,}'''
+keywords = ["secret_", "ntn_"]
+
+[[rules]]
+id = "openai-api-key"
+description = "OpenAI API key"
+regex = '''sk-(proj-)?[A-Za-z0-9_-]{30,}'''
+keywords = ["sk-"]
+
+[[rules]]
+id = "github-pat-classic"
+description = "GitHub Personal Access Token (classic)"
+regex = '''ghp_[A-Za-z0-9]{30,}'''
+keywords = ["ghp_"]
+
+[[rules]]
+id = "github-pat-fine-grained"
+description = "GitHub Fine-grained PAT"
+regex = '''github_pat_[A-Za-z0-9_]{30,}'''
+keywords = ["github_pat_"]
+
+# Allowlist: ignora placeholders em docs/exemplos
+[allowlist]
+description = "docs/examples — placeholders não são credenciais reais"
+paths = [
+  '''(^|/)\.env\.example$''',
+  '''(^|/)README\.md$''',
+  '''(^|/)docs/.+\.md$''',
+  '''(^|/)SECURITY\.md$''',
+  '''(^|/)\.gitleaks\.toml$''',
+]
+regexes = [
+  '''secret_(xxx|XXX|XXXXXX)''',
+  '''ntn_(xxx|XXX|XXXXXX)''',
+  '''sk-(\.\.\.|xxx|or-v1-\.\.\.)''',
+  '''ghp_xxx''',
+  '''github_pat_xxx''',
+]
