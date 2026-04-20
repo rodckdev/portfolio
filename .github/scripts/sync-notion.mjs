@@ -201,6 +201,7 @@ async function syncDeliverables(dbId) {
     sorts: [{ property: 'Order', direction: 'ascending' }],
     page_size: 50,
   });
+  logFetched('deliverables', pages, (p) => getTitle(p.properties.Name));
   return pages.map((page) => {
     const p = page.properties;
     const blocks = [];
@@ -245,6 +246,7 @@ async function syncSkills(dbId) {
     sorts: [{ property: 'Order', direction: 'ascending' }],
     page_size: 50,
   });
+  logFetched('skills', pages, (p) => getTitle(p.properties.Name));
   return pages.map((page) => {
     const p = page.properties;
     const current = getSelect(p.Current);
@@ -300,6 +302,7 @@ async function syncInitiatives(dbId) {
     sorts: [{ property: 'Order', direction: 'ascending' }],
     page_size: 50,
   });
+  logFetched('initiatives', pages, (p) => getTitle(p.properties.Name));
   return pages.map((page) => {
     const p = page.properties;
     const fields = [];
@@ -308,6 +311,7 @@ async function syncInitiatives(dbId) {
     pushField(fields, 'Impacto', getRichText(p.Impact));
     pushField(fields, 'Métrica', getRichText(p.Metric));
     return {
+      id: slug(getTitle(p.Name)) || page.id,
       order: getNumber(p.Order) || 0,
       tag: getRichText(p.Tag) || '',
       title: getTitle(p.Name) || '',
@@ -318,6 +322,19 @@ async function syncInitiatives(dbId) {
 
 function pushField(fields, label, value) {
   if (value) fields.push({ label, value });
+}
+
+// Loga cada página retornada (titulo + id curto) — útil p/ debugar de fora
+// sem expor secrets. Aparece em Actions → Sync Notion content → Run logs.
+function logFetched(section, pages, titleOf) {
+  if (!Array.isArray(pages) || pages.length === 0) {
+    console.log(`[sync-notion]   ${section}: 0 páginas (Published=true vazio?)`);
+    return;
+  }
+  pages.forEach((p, i) => {
+    const title = titleOf ? titleOf(p) : p.id;
+    console.log(`[sync-notion]   ${section}[${i}] ${title} · ${p.id}`);
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -336,9 +353,11 @@ async function syncInfluence(dbId) {
     sorts: [{ property: 'Order', direction: 'ascending' }],
     page_size: 50,
   });
+  logFetched('influence', pages, (p) => getTitle(p.properties.Name));
   return pages.map((page) => {
     const p = page.properties;
     return {
+      id: slug(getTitle(p.Name)) || page.id,
       order: getNumber(p.Order) || 0,
       tag: getTitle(p.Name) || '',
       body: getRichText(p.Body) || '',
@@ -365,6 +384,7 @@ async function syncProgress(dbId) {
     sorts: [{ property: 'Order', direction: 'ascending' }],
     page_size: 50,
   });
+  logFetched('progress', pages, (p) => getTitle(p.properties.Name));
   return pages.map((page) => {
     const p = page.properties;
     return {
