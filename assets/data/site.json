@@ -1,94 +1,36 @@
 {
-  "meta": {
-    "title": "Rodrigo Kosai — Portfólio Profissional | Observabilidade, FinOps & AWS Scale",
-    "description": "Entregas técnicas 2024-2025: observabilidade em escala (250TB+/dia), FinOps com USD 11M+/ano em economia, Splunk HA multi-site e automação em AWS.",
-    "siteUrl": "https://rodckdev.github.io/portfolio/"
-  },
-  "hero": {
-    "eyebrow": "Entregas técnicas · 2024 – 2025",
-    "headlineParts": [
-      {
-        "text": "Observabilidade "
-      },
-      {
-        "text": "em escala",
-        "accent": true
-      },
-      {
-        "text": ", FinOps com "
-      },
-      {
-        "text": "USD 11M+/ano",
-        "accent": true
-      },
-      {
-        "text": " e infraestrutura "
-      },
-      {
-        "text": "AWS",
-        "accent": true
-      },
-      {
-        "text": " que sustenta milhares de engenheiros."
-      }
-    ],
-    "ledeHtml": "Sênior Site Reliability / Observability Engineer no Banco Itaú desde Aug/2021. Responsável pela operação de uma plataforma de telemetria crítica que serve <strong>2.000+ usuários</strong>, ingere <strong>250TB+/dia</strong> e roda sobre <strong>400+ EC2</strong>.",
-    "cta": [
-      {
-        "label": "Ver entregas",
-        "href": "#deliverables",
-        "kind": "primary"
-      },
-      {
-        "label": "CV snapshot ↓",
-        "href": "#cv",
-        "kind": "ghost"
-      }
-    ],
-    "cardTitle": "Impacto acumulado",
-    "metrics": [
-      {
-        "label": "Economia anual",
-        "value": "USD 11M+"
-      },
-      {
-        "label": "Ingestão diária",
-        "value": "250TB+"
-      },
-      {
-        "label": "Usuários atendidos",
-        "value": "2.000+"
-      },
-      {
-        "label": "Frota gerenciada",
-        "value": "400+ EC2"
-      },
-      {
-        "label": "Uptime plataforma",
-        "value": "99,99%"
-      },
-      {
-        "label": "Redução de toil",
-        "value": "-50%"
-      }
-    ]
-  },
-  "overview": {
-    "kicker": "01 · Status geral",
-    "title": "Visibilidade operacional para liderança & comitê",
-    "subHtml": "Este portfólio é um dashboard executivo: mostra o <em>que</em> foi entregue, <em>por que</em> importa tecnicamente e financeiramente, e <em>quem</em> se beneficia.",
-    "pills": [
-      "📅 Aug 2021 – presente · Banco Itaú",
-      "🏦 Financial Services · Platform / Observability",
-      "🌎 Multi-AZ · Multi-site HA",
-      "🛠️ Splunk · Datadog · AWS · Terraform · OTEL"
-    ]
-  },
   "deliverables": {
-    "kicker": "02 · Entregas principais",
-    "title": "Descritivo → Impacto → Stakeholders",
-    "sub": "Cinco frentes que definem o nível atual e sustentam a conversa de staff.",
     "items": [
+      {
+        "id": "teste1",
+        "num": "E6",
+        "order": 1,
+        "title": "teste1",
+        "sub": "",
+        "blocks": [
+          {
+            "heading": "Impacto financeiro",
+            "bullets": [
+              "teste para o deliverable"
+            ]
+          },
+          {
+            "heading": "Impacto operacional",
+            "bullets": [
+              "reducao custo"
+            ]
+          },
+          {
+            "heading": "Stakeholders beneficiados",
+            "bullets": [
+              "teste do teste do reteste"
+            ]
+          }
+        ],
+        "metrics": [
+          "kpi 90%"
+        ]
+      },
       {
         "id": "ha-multi-site-splunk-infraestrutura-moderna",
         "num": "E1",
@@ -175,85 +117,7 @@
             ]
           }
         ],
-        "metrics": [],
-        "table": {
-          "caption": "Como foi medido — breakdown das economias",
-          "headers": [
-            "Iniciativa",
-            "Economia",
-            "Métrica"
-          ],
-          "rows": [
-            [
-              "Consolidação Splunk",
-              "~USD 5M",
-              "Redução de cores + índices"
-            ],
-            [
-              "EC2 Graviton",
-              "USD 500K",
-              "Migração de 40% do workload"
-            ],
-            [
-              "Spot + SmartStore",
-              "~USD 3M",
-              "Mix de pricing otimizado"
-            ],
-            [
-              "Log ingestion",
-              "~USD 2,5M",
-              "30% de redução em volume"
-            ]
-          ]
-        }
         "metrics": []
-      },
-      {
-        "id": "datadog-apm-slos-observabilidade-moderna",
-        "num": "E3",
-        "order": 3,
-        "title": "Datadog APM + SLOs + observabilidade moderna",
-        "sub": "Traces, SLOs com burn rate, correlação logs + traces + metrics.",
-        "blocks": [
-          {
-            "heading": "O que foi feito",
-            "bullets": [
-              "Implementação de Datadog APM / Synthetics / SLOs.",
-              "Traces em serviços críticos com visibilidade end-to-end.",
-              "Monitors proativos com alertas de burn rate.",
-              "Correlação entre logs, traces e metrics."
-            ]
-          },
-          {
-            "heading": "Impacto técnico",
-            "bullets": [
-              "Root cause analysis 50% mais rápido (traces).",
-              "SLOs definem \"confiabilidade esperada\" × \"confiabilidade observada\".",
-              "Alertas agora previnem em vez de reagir."
-            ]
-          },
-          {
-            "heading": "Impacto operacional",
-            "bullets": [
-              "MTTR reduzido em 30–40% (observável em runbooks).",
-              "Menos falsos positivos (correlação por IA).",
-              "Engenheiros focam no que importa (políticas de burn rate)."
-            ]
-          },
-          {
-            "heading": "Stakeholders beneficiados",
-            "bullets": [
-              "NOC / SOC — ferramentas melhores.",
-              "Product teams — confiabilidade observável.",
-              "CTO / Tech Lead — SLO como disciplina."
-            ]
-          }
-        ],
-        "metrics": [
-          "p95 latency: 800ms → 480ms (-40%)",
-          "MTTR: ~90min → ~30–40min",
-          "Incidentes \"mystery\": ~20% → <5%"
-        ]
       },
       {
         "id": "automacao-50-de-reducao-de-toil",
@@ -296,128 +160,10 @@
           }
         ],
         "metrics": []
-      },
-      {
-        "id": "governance-data-retention-compliance",
-        "num": "E5",
-        "order": 5,
-        "title": "Governance + data retention + compliance",
-        "sub": "Padrões, retenção, trilha de auditoria e onboarding em 1 dia.",
-        "blocks": [
-          {
-            "heading": "O que foi feito",
-            "bullets": [
-              "Políticas padronizadas de alerting, dashboards e retenção.",
-              "Log sampling rules (−30% volume com qualidade preservada).",
-              "Audit trails completos (compliance).",
-              "Documentação de padrões e runbooks."
-            ]
-          },
-          {
-            "heading": "Impacto financeiro",
-            "bullets": [
-              "Compliance com regulações financeiras (crítico no Itaú).",
-              "Custo controlado sem sacrificar observability.",
-              "Novos times onboardam em 1 dia — antes, 1 mês."
-            ]
-          },
-          {
-            "heading": "Stakeholders beneficiados",
-            "bullets": [
-              "Compliance / Audit — governança e trilha auditável.",
-              "Times de engenharia — padrões claros.",
-              "Finance — previsibilidade de custo."
-            ]
-          }
-        ],
-        "metrics": []
-      }
-    ]
-  },
-  "influence": {
-    "kicker": "03 · Influência cross-team",
-    "title": "Arquitetura que outros times adotaram",
-    "sub": "Observability deixou de ser \"coisa da plataforma\" e virou \"padrão da empresa\".",
-    "items": [
-      {
-        "order": 1,
-        "tag": "Team A",
-        "body": "Adotou o observability governance framework → 20 serviços alinhados."
-      },
-      {
-        "order": 2,
-        "tag": "Team B",
-        "body": "Implementou o SLO framework que desenhei → 15 serviços com SLO."
-      },
-      {
-        "order": 3,
-        "tag": "Team C",
-        "body": "Migrou para Datadog usando o blueprint que criei → arquitetura replicável."
-      },
-      {
-        "order": 4,
-        "tag": "Platform team",
-        "body": "Adotou disciplina FinOps → USD 500K+ em savings iterativos."
-      }
-    ]
-  },
-  "progress": {
-    "kicker": "04 · Dashboard de progresso",
-    "title": "Status atual × target 2025",
-    "rows": [
-      {
-        "order": 1,
-        "dimension": "Splunk HA — operação",
-        "status": "stable",
-        "statusLabel": "✅ estável",
-        "target": "Manter 99,99%",
-        "evidence": "Uptime logs, query perf"
-      },
-      {
-        "order": 2,
-        "dimension": "FinOps",
-        "status": "stable",
-        "statusLabel": "✅ USD 11M entregue",
-        "target": "+5% ano",
-        "evidence": "Tickers AWS &amp; Splunk"
-      },
-      {
-        "order": 3,
-        "dimension": "Datadog APM / SLO",
-        "status": "warn",
-        "statusLabel": "⚠️ piloto",
-        "target": "40+ serviços com SLO",
-        "evidence": "3 serviços hoje → 40"
-      },
-      {
-        "order": 4,
-        "dimension": "OTEL",
-        "status": "mid",
-        "statusLabel": "🟨 LFS148 iniciado",
-        "target": "Blueprint + piloto",
-        "evidence": "Certificação em andamento"
-      },
-      {
-        "order": 5,
-        "dimension": "Influência cross-team",
-        "status": "warn",
-        "statusLabel": "⚠️ invisível",
-        "target": "Documentada",
-        "evidence": "3+ cases no portfólio"
-      },
-      {
-        "order": 6,
-        "dimension": "Visibilidade externa",
-        "status": "err",
-        "statusLabel": "❌ zero",
-        "target": "2 talks + 10 posts",
-        "evidence": "Nada hoje"
       }
     ]
   },
   "skills": {
-    "kicker": "05 · Skill matrix",
-    "title": "O que tem × o que falta para Staff",
     "rows": [
       {
         "order": 1,
@@ -492,8 +238,6 @@
     ]
   },
   "initiatives": {
-    "kicker": "06 · Próximas iniciativas staff-level",
-    "title": "Q2 / Q3 2025",
     "items": [
       {
         "order": 1,
@@ -566,122 +310,81 @@
       }
     ]
   },
-  "committee": {
-    "title": "Observações para o comitê",
-    "paragraphs": [
-      "<strong>Força.</strong> Não é só operador de ferramentas. É arquiteto que pensa em escala (USD 11M), automatiza (50% de toil) e padroniza (governance).",
-      "<strong>Gap.</strong> O trabalho precisa ficar visível para quem decide promoção. OTEL é o próximo passo do mercado. SLO é o próximo passo da carreira. Influência cross-team precisa ser documentada.",
-      "<strong>Potencial staff.</strong> Fechando OTEL + SLO + 3 cases de adoção até julho, está pronto para a conversa de promoção."
+  "influence": {
+    "items": [
+      {
+        "order": 1,
+        "tag": "Team A",
+        "body": "Adotou o observability governance framework → 20 serviços alinhados."
+      },
+      {
+        "order": 2,
+        "tag": "Team B",
+        "body": "Implementou o SLO framework que desenhei → 15 serviços com SLO."
+      },
+      {
+        "order": 3,
+        "tag": "Team C",
+        "body": "Migrou para Datadog usando o blueprint que criei → arquitetura replicável."
+      },
+      {
+        "order": 4,
+        "tag": "Platform team",
+        "body": "Adotou disciplina FinOps → USD 500K+ em savings iterativos."
+      }
     ]
   },
-  "cv": {
-    "kicker": "09 · CV snapshot",
-    "title": "One-pager do currículo",
-    "sub": "Este card foi desenhado para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).",
-    "name": "Rodrigo Kosai",
-    "role": "Senior Observability / Site Reliability Engineer · Banco Itaú",
-    "summary": "10+ anos em plataformas de telemetria e AWS em escala bancária. Responsável por USD 11M+/ano em economia via FinOps, 99,99% de uptime em Splunk HA multi-site (250TB+/dia) e pela introdução de Datadog APM, SLOs e automação que cortaram 50% do toil operacional.",
-    "contact": [
+  "progress": {
+    "rows": [
       {
-        "label": "Período",
-        "value": "Aug 2021 – presente"
+        "order": 1,
+        "dimension": "Splunk HA — operação",
+        "status": "stable",
+        "statusLabel": "✅ estável",
+        "target": "Manter 99,99%",
+        "evidence": "Uptime logs, query perf"
       },
       {
-        "label": "Escala",
-        "value": "250TB+/dia · 2.000+ users · 400+ EC2"
+        "order": 2,
+        "dimension": "FinOps",
+        "status": "stable",
+        "statusLabel": "✅ USD 11M entregue",
+        "target": "+5% ano",
+        "evidence": "Tickers AWS &amp; Splunk"
       },
       {
-        "label": "Email",
-        "value": "rckosai81@gmail.com",
-        "href": "mailto:rckosai81@gmail.com"
+        "order": 3,
+        "dimension": "Datadog APM / SLO",
+        "status": "warn",
+        "statusLabel": "⚠️ piloto",
+        "target": "40+ serviços com SLO",
+        "evidence": "3 serviços hoje → 40"
       },
       {
-        "label": "GitHub",
-        "value": "@rodckdev",
-        "href": "https://github.com/rodckdev"
+        "order": 4,
+        "dimension": "OTEL",
+        "status": "mid",
+        "statusLabel": "🟨 LFS148 iniciado",
+        "target": "Blueprint + piloto",
+        "evidence": "Certificação em andamento"
+      },
+      {
+        "order": 5,
+        "dimension": "Influência cross-team",
+        "status": "warn",
+        "statusLabel": "⚠️ invisível",
+        "target": "Documentada",
+        "evidence": "3+ cases no portfólio"
+      },
+      {
+        "order": 6,
+        "dimension": "Visibilidade externa",
+        "status": "err",
+        "statusLabel": "❌ zero",
+        "target": "2 talks + 10 posts",
+        "evidence": "Nada hoje"
       }
-    ],
-    "deliverables": [
-      {
-        "title": "HA multi-site Splunk",
-        "detail": "99,99% uptime, 250TB/dia, 0 RPO/RTO crítico por falha infra. Evitou ~USD 2M+/ano."
-      },
-      {
-        "title": "FinOps — USD 11M+/ano",
-        "detail": "consolidação Splunk (~USD 5M), Graviton (USD 500K), Spot + SmartStore (~USD 3M), ingestão −30% (~USD 2,5M). ROI ~12 meses."
-      },
-      {
-        "title": "Datadog APM + SLOs",
-        "detail": "p95 800ms → 480ms (−40%); MTTR ~90min → ~30–40min; incidentes \"mystery\" <5%."
-      },
-      {
-        "title": "Automação / self-healing",
-        "detail": "lifecycle EC2, capacity scaling e runbooks automatizados. Toil: 20 h/sem → 10 h/sem."
-      },
-      {
-        "title": "Governance & compliance",
-        "detail": "padrões de alerting, retenção e audit trails. Onboarding de novos times em 1 dia (antes, 1 mês)."
-      }
-    ],
-    "stack": [
-      [
-        "Splunk HA",
-        "SmartStore",
-        "Indexer clusters"
-      ],
-      [
-        "AWS EC2",
-        "Graviton",
-        "Spot",
-        "Lambda",
-        "Auto Scaling"
-      ],
-      [
-        "Datadog APM",
-        "Synthetics",
-        "SLOs",
-        "OTEL"
-      ],
-      [
-        "Terraform",
-        "CloudFormation",
-        "CI/CD"
-      ],
-      [
-        "FinOps",
-        "Governance",
-        "Runbooks",
-        "Compliance"
-      ]
-    ],
-    "kpis": [
-      {
-        "value": "USD 11M+",
-        "label": "economia / ano"
-      },
-      {
-        "value": "250TB+",
-        "label": "ingestão / dia"
-      },
-      {
-        "value": "99,99%",
-        "label": "uptime"
-      },
-      {
-        "value": "-50%",
-        "label": "toil operacional"
-      },
-      {
-        "value": "2.000+",
-        "label": "usuários"
-      },
-      {
-        "value": "400+",
-        "label": "EC2 gerenciadas"
-      }
-    ],
-    "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
+    ]
   },
-  "syncedAt": "2026-04-20T00:28:29.197Z"
-  "syncedAt": "2026-04-20T00:50:58.028Z"
+  "syncedAt": "2026-04-20T01:41:35.334Z"
 }
