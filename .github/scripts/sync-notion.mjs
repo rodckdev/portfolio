@@ -138,7 +138,17 @@ async function mergeSite(updates) {
       current[section] = {};
     }
     const key = section === 'progress' ? 'rows' : section === 'skills' ? 'rows' : 'items';
-    current[section][key] = fetched;
+    // Shallow-merge por id: campos do Notion sobrescrevem; campos locais que
+    // o Notion não conhece (ex: `table` em deliverables, desenhado no JSON)
+    // são preservados para não apagar a cada sync.
+    const prior = Array.isArray(current[section][key]) ? current[section][key] : [];
+    const priorById = new Map(
+      prior.filter((it) => it && typeof it === 'object' && it.id).map((it) => [it.id, it]),
+    );
+    current[section][key] = fetched.map((it) => {
+      const before = priorById.get(it?.id);
+      return before ? { ...before, ...it } : it;
+    });
     status[section] = { count: fetched.length, status: 'updated' };
   }
 
