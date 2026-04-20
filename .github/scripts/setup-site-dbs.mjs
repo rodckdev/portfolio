@@ -27,11 +27,16 @@ import { Client } from '@notionhq/client';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 
 const NOTION_API_KEY = process.env.NOTION_API_KEY;
 const PARENT_ID = process.env.NOTION_PARENT_PAGE_ID;
 const SEED = !process.argv.includes('--no-seed');
-const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../');
+// fileURLToPath funciona certo em Windows (C:\...) e POSIX; evita o bug de
+// `new URL(import.meta.url).pathname` que devolve "/C:/..." no Windows e
+// quebra fs.readFile silenciosamente no .catch(() => null) abaixo.
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(HERE, '../../');
 const SITE_JSON = path.join(ROOT, 'assets/data/site.json');
 
 if (!NOTION_API_KEY || !PARENT_ID) {
@@ -129,17 +134,23 @@ async function main() {
   }
 
   if (SEED) {
-    const raw = await fs.readFile(SITE_JSON, 'utf8').catch(() => null);
-    if (!raw) {
-      console.warn('[setup-site-dbs] site.json não encontrado — pulando seed');
-    } else {
-      const site = JSON.parse(raw);
-      await seedDeliverables(ids['Site Deliverables'], site.deliverables?.items || []);
-      await seedSkills(ids['Site Skills'], site.skills?.rows || []);
-      await seedInitiatives(ids['Site Initiatives'], site.initiatives?.items || []);
-      await seedInfluence(ids['Site Influence'], site.influence?.items || []);
-      await seedProgress(ids['Site Progress'], site.progress?.rows || []);
+    console.log(`[setup-site-dbs] lendo seed de ${SITE_JSON}`);
+    let raw;
+    try {
+      raw = await fs.readFile(SITE_JSON, 'utf8');
+    } catch (err) {
+      console.error(
+        `[setup-site-dbs] ERRO lendo ${SITE_JSON}: ${err?.message || err}\n` +
+          '  DBs foram criados vazios. Rode novamente com --no-seed ou popule manualmente.',
+      );
+      process.exit(1);
     }
+    const site = JSON.parse(raw);
+    await seedDeliverables(ids['Site Deliverables'], site.deliverables?.items || []);
+    await seedSkills(ids['Site Skills'], site.skills?.rows || []);
+    await seedInitiatives(ids['Site Initiatives'], site.initiatives?.items || []);
+    await seedInfluence(ids['Site Influence'], site.influence?.items || []);
+    await seedProgress(ids['Site Progress'], site.progress?.rows || []);
   }
 
   console.log('\n=== SECRETS (cole no repo rodckdev/portfolio) ===');
