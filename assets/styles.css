@@ -219,6 +219,18 @@ strong {
   color: var(--navy-900);
 }
 
+.site-nav a.nav-external {
+  border: 1px solid var(--border);
+  margin-left: 0.35rem;
+  color: var(--navy-800);
+}
+
+.site-nav a.nav-external::after {
+  content: ' →';
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0.65;
+}
+
 .print-btn {
   border: 1px solid var(--navy-900);
   background: var(--navy-900);

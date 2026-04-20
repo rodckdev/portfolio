@@ -1,0 +1,338 @@
+/* =====================================================================
+ * how-it-works.html — estilos específicos.
+ * Reaproveita tokens/classes do styles.css (container, section, hero,
+ * pill, callout, section-head, brand, site-header, site-footer).
+ * ===================================================================== */
+
+.hero-kicker {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-500);
+  margin: 0 0 1rem;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid rgba(212, 162, 74, 0.35);
+  border-radius: 999px;
+  background: rgba(212, 162, 74, 0.08);
+}
+
+.hero-lede {
+  font-size: 1.1rem;
+  color: var(--navy-100);
+  max-width: 42rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.hero-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+  margin: 0 0 0.75rem;
+}
+
+.tldr-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.tldr-list li {
+  color: var(--navy-100);
+  font-size: 0.95rem;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.tldr-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--gold-500);
+  font-weight: 700;
+}
+
+.tldr-list strong {
+  color: #fff;
+}
+
+.ascii-diagram {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  background: var(--navy-950);
+  color: #cbd6ea;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 1rem 0 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 720px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ----- Fluxos (3 cards numerados) ----- */
+
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .flow-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.flow-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.5rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flow-num {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--navy-900);
+  background: var(--gold-100);
+  border: 1px solid rgba(212, 162, 74, 0.4);
+  margin: 0 0 0.25rem;
+}
+
+.flow-card h3 {
+  margin: 0;
+}
+
+.flow-when {
+  color: var(--ink-500);
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.flow-steps {
+  margin: 0 0 0.5rem;
+  padding-left: 1.25rem;
+  color: var(--ink-700);
+}
+
+.flow-steps li {
+  margin-bottom: 0.35rem;
+}
+
+.flow-pros,
+.flow-cons {
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.flow-pros {
+  color: var(--ok-fg);
+}
+
+.flow-cons {
+  color: var(--ink-500);
+}
+
+/* ----- Tabela de mapeamento DB → seção ----- */
+
+.table-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+  margin: 0 0 1.5rem;
+}
+
+.map-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 640px;
+}
+
+.map-table th,
+.map-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+
+.map-table thead th {
+  background: var(--bg-alt);
+  font-weight: 600;
+  color: var(--navy-900);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.map-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.map-table .row-alt td {
+  background: rgba(212, 162, 74, 0.06);
+}
+
+.map-table code {
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+/* ----- Grid de segurança (4 cards) ----- */
+
+.sec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 1040px) {
+  .sec-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .sec-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sec-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold-500);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.sec-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--gold-500);
+  margin: 0 0 0.25rem;
+}
+
+.sec-card h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.sec-card p {
+  color: var(--ink-700);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ----- Timeline de releases ----- */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-left: 2px solid var(--border);
+  padding-left: 1.5rem;
+}
+
+.timeline li {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: calc(-1.5rem - 5px);
+  top: 1.25rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold-500);
+  border: 2px solid var(--bg);
+}
+
+.timeline-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--navy-100);
+  color: var(--navy-900);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  align-self: flex-start;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.timeline h3 {
+  font-size: 1rem;
+  margin: 0 0 0.35rem;
+}
+
+.timeline p {
+  color: var(--ink-700);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+.timeline a {
+  color: var(--navy-800);
+  border-bottom: 1px solid rgba(28, 58, 102, 0.3);
+}
+
+.timeline a:hover {
+  color: var(--navy-900);
+  border-color: var(--navy-900);
+}

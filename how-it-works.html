@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Como funciona — Portfólio alimentado por Notion | Rodrigo Kosai</title>
+    <meta
+      name="description"
+      content="Arquitetura do portfólio: Notion como CMS, GitHub Actions para sync, pipeline email→IA→Notion→site e camada de segurança com gitleaks."
+    />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="assets/how-it-works.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+    <header class="site-header" role="banner">
+      <div class="container nav-wrap">
+        <a class="brand" href="./" aria-label="Voltar ao portfólio">
+          <span class="brand-mark" aria-hidden="true">RK</span>
+          <span class="brand-text">
+            <span class="brand-name">Rodrigo Kosai</span>
+            <span class="brand-role">Como o portfólio funciona</span>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Seções desta página">
+          <a href="#tldr">TL;DR</a>
+          <a href="#architecture">Arquitetura</a>
+          <a href="#flows">3 fluxos</a>
+          <a href="#notion-cms">Notion CMS</a>
+          <a href="#security">Segurança</a>
+          <a href="#changelog">Releases</a>
+        </nav>
+        <a class="print-btn no-print" href="./">← Voltar ao portfólio</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ================================================================ HERO -->
+      <section id="tldr" class="hero">
+        <div class="container hero-grid">
+          <div>
+            <p class="hero-kicker">Doc interna · /how-it-works</p>
+            <h1>Como este portfólio é alimentado e atualizado</h1>
+            <p class="hero-lede">
+              O site é um HTML estático, mas o conteúdo é dinâmico: todo texto
+              vive em um JSON que pode vir de três fontes independentes — git,
+              Notion, ou email processado por IA. Uma GitHub Action sincroniza
+              tudo diariamente, e uma camada de segurança com gitleaks garante
+              que nenhum segredo entre no repo.
+            </p>
+            <p class="hero-meta">
+              <span class="pill pill-ok">Stack grátis</span>
+              <span class="pill pill-mid">GitHub Pages</span>
+              <span class="pill pill-mid">GitHub Actions</span>
+              <span class="pill pill-mid">Notion API</span>
+              <span class="pill pill-mid">Gitleaks</span>
+            </p>
+          </div>
+          <aside class="hero-card" aria-label="Resumo">
+            <p class="hero-card-label">Em 30 segundos</p>
+            <ul class="tldr-list">
+              <li><strong>1 single source of truth</strong> — <code>assets/data/site.json</code></li>
+              <li><strong>3 formas de editar</strong> — git, Notion, ou email com IA</li>
+              <li><strong>5 DBs no Notion</strong> viram as seções do site</li>
+              <li><strong>Sync diário às 03h UTC</strong> + dispatch manual</li>
+              <li><strong>Merge-update</strong> — DB vazio preserva o que já está publicado</li>
+              <li><strong>Gitleaks em cada PR</strong> — segredo nunca chega no main</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <!-- =========================================================== ARQUITETURA -->
+      <section id="architecture" class="section">
+        <div class="container">
+          <header class="section-head">
+            <span class="section-kicker">01 · Arquitetura</span>
+            <h2>Dois repos, um pipeline, três entradas</h2>
+            <p class="section-sub">
+              Nada de servidor próprio. Tudo roda em runners do GitHub e em
+              storage estático (Pages). Custo: zero.
+            </p>
+          </header>
+
+          <pre class="ascii-diagram" aria-label="Diagrama ASCII da arquitetura">
+ ┌─────────────────────┐     ┌─────────────────────┐     ┌──────────────────┐
+ │  Gmail / IMAP       │     │  Notion workspace   │     │  Edição manual   │
+ │  (caixa de entrada) │     │  (6 databases)      │     │  (GitHub web/CLI)│
+ └─────────┬───────────┘     └─────────┬───────────┘     └────────┬─────────┘
+           │                           │                          │
+           ▼                           ▼                          │
+ ┌─────────────────────┐     ┌─────────────────────┐              │
+ │ email-to-notion-ai  │     │ portfolio           │              │
+ │ (n8n ou standalone) │     │ Action sync-notion  │              │
+ │  OpenAI → Notion    │     │  cron 03h UTC       │              │
+ └─────────┬───────────┘     └─────────┬───────────┘              │
+           │ escreve em              │ lê Notion                │
+           ▼                         ▼                          │
+ ┌──────────────────────────────────────────────────┐           │
+ │   Notion DB "Portfólio" + 5 DBs de seção         │           │
+ └─────────────────────┬────────────────────────────┘           │
+                       │ query via REST API                    │
+                       ▼                                       │
+             ┌─────────────────────────┐      merge-update      │
+             │  .github/scripts/       │◄───────────────────────┘
+             │  sync-notion.mjs        │     commit direto se
+             │  (gera site.json)       │     Notion não responder
+             └─────────────┬───────────┘
+                           │ commit + push
+                           ▼
+                ┌─────────────────────┐
+                │  assets/data/       │
+                │  site.json          │    ◄─── single source of truth
+                │  posts.json         │
+                └─────────────┬───────┘
+                              │ fetch client-side
+                              ▼
+                   ┌─────────────────────┐
+                   │  GitHub Pages       │
+                   │  rodckdev.github.io │
+                   │  /portfolio/        │
+                   └─────────────────────┘
+</pre>
+
+          <div class="two-col">
+            <div class="callout">
+              <h2>Por que JSON no meio</h2>
+              <p>
+                Poderia chamar o Notion direto do browser, mas a
+                <strong>API key vazaria</strong> (JS roda no cliente) e teríamos
+                problema de <strong>CORS</strong>. O JSON committado resolve
+                os dois: token fica só no Action (server-side) e o site lê um
+                arquivo estático no próprio domínio.
+              </p>
+            </div>
+            <div class="callout">
+              <h2>Por que commit no próprio repo</h2>
+              <p>
+                O Action escreve o JSON atualizado direto em <code>main</code>.
+                Isso dá <strong>histórico versionado</strong> (dá pra reverter
+                qualquer mudança com <code>git revert</code>) e faz o Pages
+                redeployar sozinho — zero configuração de CDN.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= FLUXOS -->
+      <section id="flows" class="section section-alt">
+        <div class="container">
+          <header class="section-head">
+            <span class="section-kicker">02 · Três formas de editar</span>
+            <h2>Escolha o canal que encaixa no contexto</h2>
+            <p class="section-sub">
+              Os três convergem no mesmo <code>site.json</code>. Nenhum exclui
+              o outro; dá pra misturar.
+            </p>
+          </header>
+
+          <div class="flow-grid">
+            <article class="flow-card">
+              <p class="flow-num">A</p>
+              <h3>Git direto</h3>
+              <p class="flow-when">Quando: mudanças pontuais, mobile, sem internet no Notion.</p>
+              <ol class="flow-steps">
+                <li>Abrir <code>assets/data/site.json</code> na interface web do GitHub</li>
+                <li>Editar o campo → commit</li>
+                <li>Pages redeploya em ~30s</li>
+              </ol>
+              <p class="flow-pros"><strong>Prós:</strong> instantâneo, sem dependência externa.</p>
+              <p class="flow-cons"><strong>Contras:</strong> JSON puro, sem UI amigável.</p>
+            </article>
+
+            <article class="flow-card">
+              <p class="flow-num">B</p>
+              <h3>Notion como CMS</h3>
+              <p class="flow-when">Quando: você já está editando algo no Notion (mobile, rascunho, etc).</p>
+              <ol class="flow-steps">
+                <li>Editar uma linha em qualquer um dos 5 DBs (Deliverables, Skills, Initiatives, Influence, Progress)</li>
+                <li>Esperar o cron das 03h UTC <em>ou</em> rodar <code>gh workflow run sync-notion.yml</code></li>
+                <li>Action pega via API, gera <code>site.json</code>, commita, Pages redeploya</li>
+              </ol>
+              <p class="flow-pros"><strong>Prós:</strong> UI decente, edição colaborativa, edita do celular.</p>
+              <p class="flow-cons"><strong>Contras:</strong> latência de até 24h se não rodar manual.</p>
+            </article>
+
+            <article class="flow-card">
+              <p class="flow-num">C</p>
+              <h3>Email → IA → Notion</h3>
+              <p class="flow-when">Quando: chegou um email sobre uma entrega/marco que vale registrar.</p>
+              <ol class="flow-steps">
+                <li>Email chega no Gmail → <code>email-to-notion-ai</code> (n8n ou IMAP standalone) detecta</li>
+                <li>OpenAI estrutura em 13 campos + classifica <em>publicável?</em></li>
+                <li>Escreve no DB <strong>Atividades</strong> e, se publicável, também em <strong>Portfólio</strong></li>
+                <li>No próximo sync, entra na seção <em>08 · Posts publicados</em> do site</li>
+              </ol>
+              <p class="flow-pros"><strong>Prós:</strong> zero trabalho manual, fecha o loop "trabalho real → portfólio público".</p>
+              <p class="flow-cons"><strong>Contras:</strong> depende de filtro de relevância bem calibrado.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================== NOTION CMS -->
+      <section id="notion-cms" class="section">
+        <div class="container">
+          <header class="section-head">
+            <span class="section-kicker">03 · Notion como CMS</span>
+            <h2>Mapa DB → seção do site</h2>
+            <p class="section-sub">
+              Cada DB é independente. Ausente ou vazio = sync preserva o que já
+              está em <code>site.json</code> (merge-update).
+            </p>
+          </header>
+
+          <div class="table-wrap">
+            <table class="map-table">
+              <thead>
+                <tr>
+                  <th scope="col">Notion DB</th>
+                  <th scope="col">Secret (ID)</th>
+                  <th scope="col">Seção renderizada</th>
+                  <th scope="col">O que colocar lá</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Site Deliverables</strong></td>
+                  <td><code>NOTION_DELIVERABLES_DB_ID</code></td>
+                  <td>02 · Entregas principais</td>
+                  <td>E1–E5: descritivo, impacto técnico, financeiro, stakeholders, KPIs</td>
+                </tr>
+                <tr>
+                  <td><strong>Site Influence</strong></td>
+                  <td><code>NOTION_INFLUENCE_DB_ID</code></td>
+                  <td>03 · Influência cross-team</td>
+                  <td>Teams que adotaram padrões seus, impacto replicado</td>
+                </tr>
+                <tr>
+                  <td><strong>Site Progress</strong></td>
+                  <td><code>NOTION_PROGRESS_DB_ID</code></td>
+                  <td>04 · Dashboard de progresso</td>
+                  <td>Dimensão / status / target 2025 / evidência</td>
+                </tr>
+                <tr>
+                  <td><strong>Site Skills</strong></td>
+                  <td><code>NOTION_SKILLS_DB_ID</code></td>
+                  <td>05 · Skill matrix</td>
+                  <td>Skill, nível atual, esperado para Staff, gap, plano</td>
+                </tr>
+                <tr>
+                  <td><strong>Site Initiatives</strong></td>
+                  <td><code>NOTION_INITIATIVES_DB_ID</code></td>
+                  <td>06 · Próximas iniciativas</td>
+                  <td>O que, por que, impacto, timeline, métrica</td>
+                </tr>
+                <tr class="row-alt">
+                  <td><strong>Portfólio</strong> (do email-to-notion-ai)</td>
+                  <td><code>NOTION_PORTFOLIO_DB_ID</code></td>
+                  <td>08 · Posts publicados</td>
+                  <td>Entradas com <code>Publicable = true</code> (via IA)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            <h2>Regra de merge</h2>
+            <p>
+              O <code>sync-notion.mjs</code> faz <strong>shallow-merge por
+              <code>id</code></strong> — campos vindos do Notion sobrescrevem,
+              mas qualquer campo que só exista no <code>site.json</code> é
+              preservado. Isso permite enriquecer itens no JSON (ex.: tabela de
+              breakdown financeiro do E2) sem risco de o próximo sync apagar.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =============================================================== SECURITY -->
+      <section id="security" class="section section-alt">
+        <div class="container">
+          <header class="section-head">
+            <span class="section-kicker">04 · Camada de segurança</span>
+            <h2>Defesa em profundidade contra vazamento de segredos</h2>
+            <p class="section-sub">
+              Quatro barreiras, independentes entre si. Falhou uma, as outras
+              seguram.
+            </p>
+          </header>
+
+          <div class="sec-grid">
+            <article class="sec-card">
+              <p class="sec-num">1</p>
+              <h3><code>.gitignore</code> endurecido</h3>
+              <p>Bloqueia <code>.env*</code>, <code>*.pem</code>, <code>*.key</code>, <code>credentials.json</code>, <code>service-account*.json</code>, <code>*.tfvars</code>. Exceto os <code>.example</code>.</p>
+            </article>
+            <article class="sec-card">
+              <p class="sec-num">2</p>
+              <h3>Gitleaks em CI</h3>
+              <p>Escaneia cada PR, cada push em <code>main</code>, e varredura semanal do histórico inteiro (pega vazamento em branches velhos). Regras extras para Notion (<code>secret_.../ntn_...</code>), OpenAI (<code>sk-...</code>) e GitHub PATs.</p>
+            </article>
+            <article class="sec-card">
+              <p class="sec-num">3</p>
+              <h3>Secrets isolados por repo</h3>
+              <p>GitHub Actions secrets em <code>portfolio</code> e <code>email-to-notion-ai</code> são separados. Comprometimento de um não cascata para o outro. Valores mascarados como <code>***</code> nos logs.</p>
+            </article>
+            <article class="sec-card">
+              <p class="sec-num">4</p>
+              <h3>Runbook de rotação</h3>
+              <p><a href="https://github.com/rodckdev/portfolio/blob/main/SECURITY.md"><code>SECURITY.md</code></a> tem passo-a-passo para rotacionar <code>NOTION_API_KEY</code> / <code>OPENAI_API_KEY</code> / <code>GMAIL_APP_PASSWORD</code> e checklist de resposta a incidente.</p>
+            </article>
+          </div>
+
+          <div class="callout">
+            <h2>O que NÃO é segredo (e por quê)</h2>
+            <p>
+              O email de contato (<code>rckosai81@gmail.com</code>) é conteúdo
+              público — está no CV. DB IDs do Notion sozinhos não abrem nada
+              (exigem o token + integration conectada à página), mas ainda
+              ficam em secrets por defesa em profundidade. UUIDs de nós do n8n
+              no workflow JSON são internos do n8n, não credenciais.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================== CHANGELOG -->
+      <section id="changelog" class="section">
+        <div class="container">
+          <header class="section-head">
+            <span class="section-kicker">05 · Releases</span>
+            <h2>Histórico de mudanças do CMS</h2>
+            <p class="section-sub">
+              Cada item linka para o PR original. Ordem cronológica inversa.
+            </p>
+          </header>
+
+          <ol class="timeline">
+            <li>
+              <span class="timeline-tag">seg</span>
+              <div>
+                <h3>Camada de segurança (gitleaks + SECURITY.md)</h3>
+                <p>
+                  Scanner de segredos em CI (PR, push, cron semanal), regras
+                  para Notion/OpenAI/GitHub, <code>.gitignore</code>
+                  endurecido, runbook de rotação.
+                  <a href="https://github.com/rodckdev/portfolio/pull/5">PR #5</a> ·
+                  <a href="https://github.com/rodckdev/email-to-notion-ai/pull/3">email-to-notion-ai PR #3</a>
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="timeline-tag">fix</span>
+              <div>
+                <h3>Bugfix Windows path + shallow-merge</h3>
+                <p>
+                  <code>setup-site-dbs.mjs</code> usando <code>fileURLToPath</code>
+                  (estava falhando silenciosamente em Windows por causa do
+                  <code>/C:/...</code>). Sync agora faz merge por <code>id</code> em
+                  vez de replace — preserva campos locais como a tabela de
+                  breakdown do E2.
+                  <a href="https://github.com/rodckdev/portfolio/pull/4">PR #4</a>
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="timeline-tag">feat</span>
+              <div>
+                <h3>Notion como CMS do site inteiro</h3>
+                <p>
+                  Todo conteúdo sai do HTML e vai pro <code>site.json</code>.
+                  5 DBs novos no Notion alimentam as seções 02–06. Bootstrap
+                  via <code>setup-site-dbs.mjs</code> (seed do <code>site.json</code>
+                  atual). Merge-update preserva seção se DB estiver ausente.
+                  <a href="https://github.com/rodckdev/portfolio/pull/3">PR #3</a>
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="timeline-tag">feat</span>
+              <div>
+                <h3>Feeds dinâmicos (GitHub topics + Notion Portfólio)</h3>
+                <p>
+                  Seção 07 lê repos com topic <code>portfolio</code> via API
+                  pública do GitHub. Seção 08 lê o DB Portfólio via Action diária.
+                  <a href="https://github.com/rodckdev/portfolio/pull/2">PR #2</a>
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="timeline-tag">init</span>
+              <div>
+                <h3>Portfólio inicial + CV imprimível</h3>
+                <p>
+                  Site estático com hero, 5 entregas, influência, dashboard,
+                  skills, próximas iniciativas, observações. CV snapshot com
+                  CSS <code>@media print</code> → PDF A4 pronto para candidaturas.
+                  <a href="https://github.com/rodckdev/portfolio/pull/1">PR #1</a>
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer no-print" role="contentinfo">
+      <div class="container footer-grid">
+        <p class="footer-brand">© 2025 Rodrigo Kosai.</p>
+        <p class="footer-links">
+          <a href="./">← Portfólio</a>
+          <span aria-hidden="true"> · </span>
+          <a href="https://github.com/rodckdev/portfolio">Repo</a>
+          <span aria-hidden="true"> · </span>
+          <a href="https://github.com/rodckdev/portfolio/blob/main/SECURITY.md">Política de segredos</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
