@@ -158,11 +158,23 @@ async function mergeSite(updates) {
 }
 
 async function readJsonSafe(p) {
+  // Só é "safe" para ENOENT (primeiro run, arquivo ainda não existe).
+  // Qualquer outro erro (JSON inválido por conflito de merge, permissão, etc.)
+  // precisa falhar loud — senão o sync-notion silenciosamente apaga as
+  // seções estáticas (meta/hero/overview/committee/cv) que não vêm do Notion.
+  let raw;
   try {
-    const raw = await fs.readFile(p, 'utf8');
+    raw = await fs.readFile(p, 'utf8');
+  } catch (err) {
+    if (err && err.code === 'ENOENT') return {};
+    throw err;
+  }
+  try {
     return JSON.parse(raw);
-  } catch {
-    return {};
+  } catch (err) {
+    throw new Error(
+      `[sync-notion] ${p} inválido (${err.message}). Corrija o JSON antes de sincronizar — abortando para não apagar conteúdo.`,
+    );
   }
 }
 
