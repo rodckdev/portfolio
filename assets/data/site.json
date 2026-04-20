@@ -175,6 +175,37 @@
             ]
           }
         ],
+        "metrics": [],
+        "table": {
+          "caption": "Como foi medido — breakdown das economias",
+          "headers": [
+            "Iniciativa",
+            "Economia",
+            "Métrica"
+          ],
+          "rows": [
+            [
+              "Consolidação Splunk",
+              "~USD 5M",
+              "Redução de cores + índices"
+            ],
+            [
+              "EC2 Graviton",
+              "USD 500K",
+              "Migração de 40% do workload"
+            ],
+            [
+              "Spot + SmartStore",
+              "~USD 3M",
+              "Mix de pricing otimizado"
+            ],
+            [
+              "Log ingestion",
+              "~USD 2,5M",
+              "30% de redução em volume"
+            ]
+          ]
+        }
         "metrics": []
       },
       {
@@ -651,5 +682,6 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
+  "syncedAt": "2026-04-20T00:28:29.197Z"
   "syncedAt": "2026-04-20T00:50:58.028Z"
 }
