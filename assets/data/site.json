@@ -402,12 +402,16 @@
     "items": [
       {
         "order": 1,
-        "tag": "Junho - Novembro",
+        "tag": "Iniciativa 1 · Maio – Junho",
         "title": "Pipeline o11y",
         "fields": [
           {
             "label": "O que",
             "value": "arquitetura e POC"
+          },
+          {
+            "label": "Por que",
+            "value": "otel pipeline"
           },
           {
             "label": "Impacto",
@@ -420,25 +424,25 @@
         ]
       },
       {
-        "order": 1,
-        "tag": "Iniciativa 1 · Maio – Junho",
-        "title": "OTEL Blueprint + Production Pilot",
+        "order": 2,
+        "tag": "Iniciativa 2 · Junho – Julho",
+        "title": "SLO Framework Production",
         "fields": [
           {
             "label": "O que",
-            "value": "Arquitetura de OTEL collector, SDKs em 2–3 serviços."
+            "value": "Burn rate policies e error budgets em 3–5 serviços críticos."
           },
           {
             "label": "Por que",
-            "value": "OTEL é a direção do mercado (Splunk → Datadog → OTEL standards)."
+            "value": "SLO é confiabilidade mensurável e alinha engenharia com negócio."
           },
           {
             "label": "Impacto",
-            "value": "Telemetria vendor-neutral, −30% de lock-in."
+            "value": "−30% em incidentes virando emergência; decisões data-driven."
           },
           {
             "label": "Métrica",
-            "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção."
+            "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage."
           }
         ]
       },
@@ -583,5 +587,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-20T02:05:30.323Z"
+  "syncedAt": "2026-04-20T02:09:27.005Z"
 }
