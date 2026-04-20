@@ -7,27 +7,70 @@
   "hero": {
     "eyebrow": "Entregas técnicas · 2024 – 2025",
     "headlineParts": [
-      { "text": "Observabilidade " },
-      { "text": "em escala", "accent": true },
-      { "text": ", FinOps com " },
-      { "text": "USD 11M+/ano", "accent": true },
-      { "text": " e infraestrutura " },
-      { "text": "AWS", "accent": true },
-      { "text": " que sustenta milhares de engenheiros." }
+      {
+        "text": "Observabilidade "
+      },
+      {
+        "text": "em escala",
+        "accent": true
+      },
+      {
+        "text": ", FinOps com "
+      },
+      {
+        "text": "USD 11M+/ano",
+        "accent": true
+      },
+      {
+        "text": " e infraestrutura "
+      },
+      {
+        "text": "AWS",
+        "accent": true
+      },
+      {
+        "text": " que sustenta milhares de engenheiros."
+      }
     ],
     "ledeHtml": "Sênior Site Reliability / Observability Engineer no Banco Itaú desde Aug/2021. Responsável pela operação de uma plataforma de telemetria crítica que serve <strong>2.000+ usuários</strong>, ingere <strong>250TB+/dia</strong> e roda sobre <strong>400+ EC2</strong>.",
     "cta": [
-      { "label": "Ver entregas", "href": "#deliverables", "kind": "primary" },
-      { "label": "CV snapshot ↓", "href": "#cv", "kind": "ghost" }
+      {
+        "label": "Ver entregas",
+        "href": "#deliverables",
+        "kind": "primary"
+      },
+      {
+        "label": "CV snapshot ↓",
+        "href": "#cv",
+        "kind": "ghost"
+      }
     ],
     "cardTitle": "Impacto acumulado",
     "metrics": [
-      { "label": "Economia anual", "value": "USD 11M+" },
-      { "label": "Ingestão diária", "value": "250TB+" },
-      { "label": "Usuários atendidos", "value": "2.000+" },
-      { "label": "Frota gerenciada", "value": "400+ EC2" },
-      { "label": "Uptime plataforma", "value": "99,99%" },
-      { "label": "Redução de toil", "value": "-50%" }
+      {
+        "label": "Economia anual",
+        "value": "USD 11M+"
+      },
+      {
+        "label": "Ingestão diária",
+        "value": "250TB+"
+      },
+      {
+        "label": "Usuários atendidos",
+        "value": "2.000+"
+      },
+      {
+        "label": "Frota gerenciada",
+        "value": "400+ EC2"
+      },
+      {
+        "label": "Uptime plataforma",
+        "value": "99,99%"
+      },
+      {
+        "label": "Redução de toil",
+        "value": "-50%"
+      }
     ]
   },
   "overview": {
@@ -134,12 +177,32 @@
         ],
         "table": {
           "caption": "Como foi medido — breakdown das economias",
-          "headers": ["Iniciativa", "Economia", "Métrica"],
+          "headers": [
+            "Iniciativa",
+            "Economia",
+            "Métrica"
+          ],
           "rows": [
-            ["Consolidação Splunk", "~USD 5M", "Redução de cores + índices"],
-            ["EC2 Graviton", "USD 500K", "Migração de 40% do workload"],
-            ["Spot + SmartStore", "~USD 3M", "Mix de pricing otimizado"],
-            ["Log ingestion", "~USD 2,5M", "30% de redução em volume"]
+            [
+              "Consolidação Splunk",
+              "~USD 5M",
+              "Redução de cores + índices"
+            ],
+            [
+              "EC2 Graviton",
+              "USD 500K",
+              "Migração de 40% do workload"
+            ],
+            [
+              "Spot + SmartStore",
+              "~USD 3M",
+              "Mix de pricing otimizado"
+            ],
+            [
+              "Log ingestion",
+              "~USD 2,5M",
+              "30% de redução em volume"
+            ]
           ]
         }
       },
@@ -433,10 +496,22 @@
         "tag": "Iniciativa 1 · Maio – Junho",
         "title": "OTEL Blueprint + Production Pilot",
         "fields": [
-          { "label": "O que", "value": "Arquitetura de OTEL collector, SDKs em 2–3 serviços." },
-          { "label": "Por que", "value": "OTEL é a direção do mercado (Splunk → Datadog → OTEL standards)." },
-          { "label": "Impacto", "value": "Telemetria vendor-neutral, −30% de lock-in." },
-          { "label": "Métrica", "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção." }
+          {
+            "label": "O que",
+            "value": "Arquitetura de OTEL collector, SDKs em 2–3 serviços."
+          },
+          {
+            "label": "Por que",
+            "value": "OTEL é a direção do mercado (Splunk → Datadog → OTEL standards)."
+          },
+          {
+            "label": "Impacto",
+            "value": "Telemetria vendor-neutral, −30% de lock-in."
+          },
+          {
+            "label": "Métrica",
+            "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção."
+          }
         ]
       },
       {
@@ -444,10 +519,22 @@
         "tag": "Iniciativa 2 · Junho – Julho",
         "title": "SLO Framework Production",
         "fields": [
-          { "label": "O que", "value": "Burn rate policies e error budgets em 3–5 serviços críticos." },
-          { "label": "Por que", "value": "SLO é confiabilidade mensurável e alinha engenharia com negócio." },
-          { "label": "Impacto", "value": "−30% em incidentes virando emergência; decisões data-driven." },
-          { "label": "Métrica", "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage." }
+          {
+            "label": "O que",
+            "value": "Burn rate policies e error budgets em 3–5 serviços críticos."
+          },
+          {
+            "label": "Por que",
+            "value": "SLO é confiabilidade mensurável e alinha engenharia com negócio."
+          },
+          {
+            "label": "Impacto",
+            "value": "−30% em incidentes virando emergência; decisões data-driven."
+          },
+          {
+            "label": "Métrica",
+            "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage."
+          }
         ]
       },
       {
@@ -455,10 +542,22 @@
         "tag": "Iniciativa 3 · Julho",
         "title": "Cross-team Adoption Program",
         "fields": [
-          { "label": "O que", "value": "Documentar 3+ cases de adoção do padrão por outros times." },
-          { "label": "Por que", "value": "Staff = influenciador, não só especialista profundo." },
-          { "label": "Impacto", "value": "Cultura de observability padronizada e replicável." },
-          { "label": "Métrica", "value": "3+ cases documentados; 30+ serviços alinhados ao padrão." }
+          {
+            "label": "O que",
+            "value": "Documentar 3+ cases de adoção do padrão por outros times."
+          },
+          {
+            "label": "Por que",
+            "value": "Staff = influenciador, não só especialista profundo."
+          },
+          {
+            "label": "Impacto",
+            "value": "Cultura de observability padronizada e replicável."
+          },
+          {
+            "label": "Métrica",
+            "value": "3+ cases documentados; 30+ serviços alinhados ao padrão."
+          }
         ]
       }
     ]
@@ -479,33 +578,105 @@
     "role": "Senior Observability / Site Reliability Engineer · Banco Itaú",
     "summary": "10+ anos em plataformas de telemetria e AWS em escala bancária. Responsável por USD 11M+/ano em economia via FinOps, 99,99% de uptime em Splunk HA multi-site (250TB+/dia) e pela introdução de Datadog APM, SLOs e automação que cortaram 50% do toil operacional.",
     "contact": [
-      { "label": "Período", "value": "Aug 2021 – presente" },
-      { "label": "Escala", "value": "250TB+/dia · 2.000+ users · 400+ EC2" },
-      { "label": "Email", "value": "rckosai81@gmail.com", "href": "mailto:rckosai81@gmail.com" },
-      { "label": "GitHub", "value": "@rodckdev", "href": "https://github.com/rodckdev" }
+      {
+        "label": "Período",
+        "value": "Aug 2021 – presente"
+      },
+      {
+        "label": "Escala",
+        "value": "250TB+/dia · 2.000+ users · 400+ EC2"
+      },
+      {
+        "label": "Email",
+        "value": "rckosai81@gmail.com",
+        "href": "mailto:rckosai81@gmail.com"
+      },
+      {
+        "label": "GitHub",
+        "value": "@rodckdev",
+        "href": "https://github.com/rodckdev"
+      }
     ],
     "deliverables": [
-      { "title": "HA multi-site Splunk", "detail": "99,99% uptime, 250TB/dia, 0 RPO/RTO crítico por falha infra. Evitou ~USD 2M+/ano." },
-      { "title": "FinOps — USD 11M+/ano", "detail": "consolidação Splunk (~USD 5M), Graviton (USD 500K), Spot + SmartStore (~USD 3M), ingestão −30% (~USD 2,5M). ROI ~12 meses." },
-      { "title": "Datadog APM + SLOs", "detail": "p95 800ms → 480ms (−40%); MTTR ~90min → ~30–40min; incidentes \"mystery\" <5%." },
-      { "title": "Automação / self-healing", "detail": "lifecycle EC2, capacity scaling e runbooks automatizados. Toil: 20 h/sem → 10 h/sem." },
-      { "title": "Governance & compliance", "detail": "padrões de alerting, retenção e audit trails. Onboarding de novos times em 1 dia (antes, 1 mês)." }
+      {
+        "title": "HA multi-site Splunk",
+        "detail": "99,99% uptime, 250TB/dia, 0 RPO/RTO crítico por falha infra. Evitou ~USD 2M+/ano."
+      },
+      {
+        "title": "FinOps — USD 11M+/ano",
+        "detail": "consolidação Splunk (~USD 5M), Graviton (USD 500K), Spot + SmartStore (~USD 3M), ingestão −30% (~USD 2,5M). ROI ~12 meses."
+      },
+      {
+        "title": "Datadog APM + SLOs",
+        "detail": "p95 800ms → 480ms (−40%); MTTR ~90min → ~30–40min; incidentes \"mystery\" <5%."
+      },
+      {
+        "title": "Automação / self-healing",
+        "detail": "lifecycle EC2, capacity scaling e runbooks automatizados. Toil: 20 h/sem → 10 h/sem."
+      },
+      {
+        "title": "Governance & compliance",
+        "detail": "padrões de alerting, retenção e audit trails. Onboarding de novos times em 1 dia (antes, 1 mês)."
+      }
     ],
     "stack": [
-      ["Splunk HA", "SmartStore", "Indexer clusters"],
-      ["AWS EC2", "Graviton", "Spot", "Lambda", "Auto Scaling"],
-      ["Datadog APM", "Synthetics", "SLOs", "OTEL"],
-      ["Terraform", "CloudFormation", "CI/CD"],
-      ["FinOps", "Governance", "Runbooks", "Compliance"]
+      [
+        "Splunk HA",
+        "SmartStore",
+        "Indexer clusters"
+      ],
+      [
+        "AWS EC2",
+        "Graviton",
+        "Spot",
+        "Lambda",
+        "Auto Scaling"
+      ],
+      [
+        "Datadog APM",
+        "Synthetics",
+        "SLOs",
+        "OTEL"
+      ],
+      [
+        "Terraform",
+        "CloudFormation",
+        "CI/CD"
+      ],
+      [
+        "FinOps",
+        "Governance",
+        "Runbooks",
+        "Compliance"
+      ]
     ],
     "kpis": [
-      { "value": "USD 11M+", "label": "economia / ano" },
-      { "value": "250TB+", "label": "ingestão / dia" },
-      { "value": "99,99%", "label": "uptime" },
-      { "value": "-50%", "label": "toil operacional" },
-      { "value": "2.000+", "label": "usuários" },
-      { "value": "400+", "label": "EC2 gerenciadas" }
+      {
+        "value": "USD 11M+",
+        "label": "economia / ano"
+      },
+      {
+        "value": "250TB+",
+        "label": "ingestão / dia"
+      },
+      {
+        "value": "99,99%",
+        "label": "uptime"
+      },
+      {
+        "value": "-50%",
+        "label": "toil operacional"
+      },
+      {
+        "value": "2.000+",
+        "label": "usuários"
+      },
+      {
+        "value": "400+",
+        "label": "EC2 gerenciadas"
+      }
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
-  }
+  },
+  "syncedAt": "2026-04-20T00:21:02.073Z"
 }
