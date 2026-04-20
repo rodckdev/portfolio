@@ -1,7 +1,7 @@
-name: Sync Notion posts
+name: Sync Notion content
 
-# Alimenta assets/data/posts.json a partir do DB "Portfólio" do Notion.
-# Dispara por cron (diário 03:00 UTC) e manualmente (workflow_dispatch).
+# Alimenta assets/data/posts.json (DB Portfólio) e assets/data/site.json
+# (5 DBs de CMS) a partir do Notion. Dispara por cron (03:00 UTC) ou manual.
 
 on:
   schedule:
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   sync:
-    name: Query Notion and commit posts.json
+    name: Query Notion and commit JSON
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -37,16 +37,21 @@ jobs:
         env:
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
           NOTION_PORTFOLIO_DB_ID: ${{ secrets.NOTION_PORTFOLIO_DB_ID }}
+          NOTION_DELIVERABLES_DB_ID: ${{ secrets.NOTION_DELIVERABLES_DB_ID }}
+          NOTION_SKILLS_DB_ID: ${{ secrets.NOTION_SKILLS_DB_ID }}
+          NOTION_INITIATIVES_DB_ID: ${{ secrets.NOTION_INITIATIVES_DB_ID }}
+          NOTION_INFLUENCE_DB_ID: ${{ secrets.NOTION_INFLUENCE_DB_ID }}
+          NOTION_PROGRESS_DB_ID: ${{ secrets.NOTION_PROGRESS_DB_ID }}
         run: node .github/scripts/sync-notion.mjs
 
       - name: Commit changes (se houver)
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/data/posts.json
+          git add assets/data/posts.json assets/data/site.json
           if git diff --cached --quiet; then
-            echo 'Sem alterações em posts.json.'
+            echo 'Sem alterações em posts.json ou site.json.'
             exit 0
           fi
-          git commit -m 'chore: sync Notion posts [skip ci]'
+          git commit -m 'chore: sync Notion content [skip ci]'
           git push

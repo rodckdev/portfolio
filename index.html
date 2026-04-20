@@ -27,6 +27,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="preload" href="assets/data/site.json" as="fetch" crossorigin="anonymous" />
   </head>
   <body>
     <a class="skip-link" href="#main">Pular para o conteúdo</a>
@@ -58,610 +59,67 @@
     </header>
 
     <main id="main">
+      <noscript>
+        <section class="section">
+          <div class="container">
+            <div class="callout">
+              <h2>Conteúdo dinâmico</h2>
+              <p>
+                Este portfólio é renderizado a partir de
+                <a href="assets/data/site.json"><code>assets/data/site.json</code></a>
+                via JavaScript. Ative o JS ou consulte o JSON diretamente.
+              </p>
+            </div>
+          </div>
+        </section>
+      </noscript>
+
       <!-- =========================================================== HERO -->
       <section id="top" class="hero">
         <div class="container hero-grid">
-          <div class="hero-copy">
-            <span class="eyebrow">Entregas técnicas · 2024 – 2025</span>
-            <h1>
-              Observabilidade <span class="accent">em escala</span>,
-              FinOps com <span class="accent">USD 11M+/ano</span>
-              e infraestrutura <span class="accent">AWS</span> que sustenta milhares de engenheiros.
-            </h1>
-            <p class="lede">
-              Sênior Site Reliability / Observability Engineer no Banco Itaú desde Aug/2021.
-              Responsável pela operação de uma plataforma de telemetria crítica que serve
-              <strong>2.000+ usuários</strong>, ingere <strong>250TB+/dia</strong> e roda
-              sobre <strong>400+ EC2</strong>.
-            </p>
-            <div class="hero-cta">
-              <a class="btn btn-primary" href="#deliverables">Ver entregas</a>
-              <a class="btn btn-ghost" href="#cv">CV snapshot ↓</a>
-            </div>
-          </div>
-
-          <aside class="hero-card" aria-label="Métricas de impacto">
-            <h2 class="card-title">Impacto acumulado</h2>
-            <dl class="metric-grid">
-              <div class="metric">
-                <dt>Economia anual</dt>
-                <dd><span class="big">USD 11M+</span></dd>
-              </div>
-              <div class="metric">
-                <dt>Ingestão diária</dt>
-                <dd><span class="big">250TB+</span></dd>
-              </div>
-              <div class="metric">
-                <dt>Usuários atendidos</dt>
-                <dd><span class="big">2.000+</span></dd>
-              </div>
-              <div class="metric">
-                <dt>Frota gerenciada</dt>
-                <dd><span class="big">400+ EC2</span></dd>
-              </div>
-              <div class="metric">
-                <dt>Uptime plataforma</dt>
-                <dd><span class="big">99,99%</span></dd>
-              </div>
-              <div class="metric">
-                <dt>Redução de toil</dt>
-                <dd><span class="big">-50%</span></dd>
-              </div>
-            </dl>
-          </aside>
+          <p class="feed-state feed-loading">Carregando…</p>
         </div>
       </section>
 
       <!-- =================================================== STATUS GERAL -->
       <section id="overview" class="section">
         <div class="container">
-          <header class="section-head">
-            <span class="section-kicker">01 · Status geral</span>
-            <h2>Visibilidade operacional para liderança &amp; comitê</h2>
-            <p class="section-sub">
-              Este portfólio é um dashboard executivo: mostra o <em>que</em> foi entregue,
-              <em>por que</em> importa tecnicamente e financeiramente, e <em>quem</em> se beneficia.
-            </p>
-          </header>
-          <div class="pill-row">
-            <span class="pill">📅 Aug 2021 – presente · Banco Itaú</span>
-            <span class="pill">🏦 Financial Services · Platform / Observability</span>
-            <span class="pill">🌎 Multi-AZ · Multi-site HA</span>
-            <span class="pill">🛠️ Splunk · Datadog · AWS · Terraform · OTEL</span>
-          </div>
+          <p class="feed-state feed-loading">Carregando visão geral…</p>
         </div>
       </section>
 
       <!-- ======================================================= ENTREGAS -->
       <section id="deliverables" class="section section-alt">
         <div class="container">
-          <header class="section-head">
-            <span class="section-kicker">02 · Entregas principais</span>
-            <h2>Descritivo → Impacto → Stakeholders</h2>
-            <p class="section-sub">
-              Cinco frentes que definem o nível atual e sustentam a conversa de staff.
-            </p>
-          </header>
-
-          <!-- E1 -->
-          <article class="deliverable" id="entrega-1">
-            <header class="deliverable-head">
-              <span class="deliverable-num">E1</span>
-              <div>
-                <h3>HA multi-site Splunk + infraestrutura moderna</h3>
-                <p class="deliverable-sub">
-                  Splunk em alta disponibilidade multi-site na AWS, IaC em CI/CD.
-                </p>
-              </div>
-            </header>
-
-            <div class="deliverable-grid">
-              <div>
-                <h4>O que foi feito</h4>
-                <ul>
-                  <li>Operação de Splunk HA multi-site em AWS (SmartStore, indexer clusters, search heads distribuídos).</li>
-                  <li>Suporte a 2.000+ usuários, 250TB+/dia e 400+ EC2.</li>
-                  <li>Terraform + CloudFormation em CI/CD para IaC consistente.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Impacto técnico</h4>
-                <ul>
-                  <li>Zero downtime para 2.000+ usuários (SLA crítico).</li>
-                  <li>Resiliência multi-AZ com capacidade de disaster recovery.</li>
-                  <li>Queries performáticas mesmo em escala (p95 otimizado).</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Impacto financeiro</h4>
-                <ul>
-                  <li>Evitou ~<strong>USD 2M+/ano</strong> em redundância manual e falhas operacionais.</li>
-                  <li>Infraestrutura ágil para <em>scaling</em> rápido.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Stakeholders beneficiados</h4>
-                <ul>
-                  <li>NOC / SOC — confiabilidade.</li>
-                  <li>Finance / Audit — compliance com dados críticos.</li>
-                  <li>Platform teams — infraestrutura como base.</li>
-                </ul>
-              </div>
-            </div>
-
-            <ul class="metrics-row">
-              <li><span class="check">✅</span> 99,99% uptime</li>
-              <li><span class="check">✅</span> 0 RPO/RTO críticos por falha infraestrutural</li>
-              <li><span class="check">✅</span> 250TB/dia sem degradação</li>
-            </ul>
-          </article>
-
-          <!-- E2 -->
-          <article class="deliverable" id="entrega-2">
-            <header class="deliverable-head">
-              <span class="deliverable-num">E2</span>
-              <div>
-                <h3>FinOps + USD 11M+ em economia anual</h3>
-                <p class="deliverable-sub">
-                  Consolidação, Graviton, Spot, SmartStore S3 e otimização de ingestão.
-                </p>
-              </div>
-            </header>
-
-            <div class="deliverable-grid">
-              <div>
-                <h4>O que foi feito</h4>
-                <ul>
-                  <li>Consolidação / modernização Splunk (redução de <em>footprint</em>).</li>
-                  <li>Adoção de EC2 Graviton em workload elegível.</li>
-                  <li>Spot + SmartStore S3 — mix de pricing otimizado.</li>
-                  <li>Otimização da ingestão de logs (amostragem + filtros).</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Impacto técnico</h4>
-                <ul>
-                  <li>Arquitetura escalável sem "just add more servers".</li>
-                  <li>Custo de observability sob controle (framework FinOps).</li>
-                  <li>Dados críticos sem perder conformidade.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Impacto financeiro</h4>
-                <ul>
-                  <li><strong>USD 11M+/ano</strong> em economia comprovada.</li>
-                  <li><strong>USD 500K/ano</strong> somente em Graviton.</li>
-                  <li>ROI em automação: payback em ~12 meses.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Stakeholders beneficiados</h4>
-                <ul>
-                  <li>CFO / Finance — bottom line.</li>
-                  <li>Platform team — infra que se paga.</li>
-                  <li>Engineering — confiabilidade com economia.</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="table-wrap">
-              <table class="data-table">
-                <caption>Como foi medido — breakdown das economias</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Iniciativa</th>
-                    <th scope="col">Economia</th>
-                    <th scope="col">Métrica</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Consolidação Splunk</th>
-                    <td>~USD 5M</td>
-                    <td>Redução de cores + índices</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">EC2 Graviton</th>
-                    <td>USD 500K</td>
-                    <td>Migração de 40% do workload</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Spot + SmartStore</th>
-                    <td>~USD 3M</td>
-                    <td>Mix de pricing otimizado</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Log ingestion</th>
-                    <td>~USD 2,5M</td>
-                    <td>30% de redução em volume</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </article>
-
-          <!-- E3 -->
-          <article class="deliverable" id="entrega-3">
-            <header class="deliverable-head">
-              <span class="deliverable-num">E3</span>
-              <div>
-                <h3>Datadog APM + SLOs + observabilidade moderna</h3>
-                <p class="deliverable-sub">
-                  Traces, SLOs com <em>burn rate</em>, correlação logs + traces + metrics.
-                </p>
-              </div>
-            </header>
-
-            <div class="deliverable-grid">
-              <div>
-                <h4>O que foi feito</h4>
-                <ul>
-                  <li>Implementação de Datadog APM / Synthetics / SLOs.</li>
-                  <li>Traces em serviços críticos com visibilidade <em>end-to-end</em>.</li>
-                  <li>Monitors proativos com alertas de <em>burn rate</em>.</li>
-                  <li>Correlação entre logs, traces e metrics.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Impacto técnico</h4>
-                <ul>
-                  <li>Root cause analysis 50% mais rápido (traces).</li>
-                  <li>SLOs definem "confiabilidade esperada" × "confiabilidade observada".</li>
-                  <li>Alertas agora previnem em vez de reagir.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Impacto operacional</h4>
-                <ul>
-                  <li>MTTR reduzido em 30–40% (observável em runbooks).</li>
-                  <li>Menos falsos positivos (correlação por IA).</li>
-                  <li>Engenheiros focam no que importa (políticas de <em>burn rate</em>).</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Stakeholders beneficiados</h4>
-                <ul>
-                  <li>NOC / SOC — ferramentas melhores.</li>
-                  <li>Product teams — confiabilidade observável.</li>
-                  <li>CTO / Tech Lead — SLO como disciplina.</li>
-                </ul>
-              </div>
-            </div>
-
-            <ul class="metrics-row">
-              <li><span class="check">✅</span> p95 latency: 800ms → 480ms (-40%)</li>
-              <li><span class="check">✅</span> MTTR: ~90min → ~30–40min</li>
-              <li><span class="check">✅</span> Incidentes "mystery": ~20% → &lt;5%</li>
-            </ul>
-          </article>
-
-          <!-- E4 -->
-          <article class="deliverable" id="entrega-4">
-            <header class="deliverable-head">
-              <span class="deliverable-num">E4</span>
-              <div>
-                <h3>Automação + 50% de redução de toil</h3>
-                <p class="deliverable-sub">
-                  Lifecycle automation, capacity scaling, self-healing e runbooks automatizados.
-                </p>
-              </div>
-            </header>
-
-            <div class="deliverable-grid">
-              <div>
-                <h4>O que foi feito</h4>
-                <ul>
-                  <li>Lifecycle automation: provisioning, patching e decommissioning de EC2.</li>
-                  <li>Políticas de capacity scaling (weekends, off-peak).</li>
-                  <li>Self-healing via Lambda + Auto Scaling.</li>
-                  <li>Runbooks automatizados.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Por que importa</h4>
-                <ul>
-                  <li>50% de redução em operações manuais.</li>
-                  <li>Menos erro humano (Cyber Risk Score ↓).</li>
-                  <li>Equipe foca em "valor" em vez de "operação chata".</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Como foi medido</h4>
-                <ul>
-                  <li>Antes: ~20 h/semana em tarefas manuais repetitivas.</li>
-                  <li>Depois: ~10 h/semana.</li>
-                  <li>Produtividade: 1 eng = trabalho de 1,5 eng.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Stakeholders beneficiados</h4>
-                <ul>
-                  <li>Platform engineering — capacidade liberada.</li>
-                  <li>Budget — menos horas em operação, mais em inovação.</li>
-                </ul>
-              </div>
-            </div>
-          </article>
-
-          <!-- E5 -->
-          <article class="deliverable" id="entrega-5">
-            <header class="deliverable-head">
-              <span class="deliverable-num">E5</span>
-              <div>
-                <h3>Governance + data retention + compliance</h3>
-                <p class="deliverable-sub">
-                  Padrões, retenção, trilha de auditoria e onboarding em 1 dia.
-                </p>
-              </div>
-            </header>
-
-            <div class="deliverable-grid">
-              <div>
-                <h4>O que foi feito</h4>
-                <ul>
-                  <li>Políticas padronizadas de alerting, dashboards e retenção.</li>
-                  <li>Log sampling rules (−30% volume com qualidade preservada).</li>
-                  <li>Audit trails completos (compliance).</li>
-                  <li>Documentação de padrões e runbooks.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Por que importa</h4>
-                <ul>
-                  <li>Compliance com regulações financeiras (crítico no Itaú).</li>
-                  <li>Custo controlado sem sacrificar observability.</li>
-                  <li>Novos times onboardam em 1 dia — antes, 1 mês.</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4>Stakeholders beneficiados</h4>
-                <ul>
-                  <li>Compliance / Audit — governança e trilha auditável.</li>
-                  <li>Times de engenharia — padrões claros.</li>
-                  <li>Finance — previsibilidade de custo.</li>
-                </ul>
-              </div>
-            </div>
-          </article>
+          <p class="feed-state feed-loading">Carregando entregas…</p>
         </div>
       </section>
 
       <!-- =================================================== CROSS-TEAM -->
       <section id="influence" class="section">
         <div class="container">
-          <header class="section-head">
-            <span class="section-kicker">03 · Influência cross-team</span>
-            <h2>Arquitetura que outros times adotaram</h2>
-            <p class="section-sub">
-              Observability deixou de ser "coisa da plataforma" e virou "padrão da empresa".
-            </p>
-          </header>
-
-          <ul class="adoption-list">
-            <li>
-              <span class="adoption-tag">Team A</span>
-              Adotou o <strong>observability governance framework</strong> → 20 serviços alinhados.
-            </li>
-            <li>
-              <span class="adoption-tag">Team B</span>
-              Implementou o <strong>SLO framework</strong> que desenhei → 15 serviços com SLO.
-            </li>
-            <li>
-              <span class="adoption-tag">Team C</span>
-              Migrou para Datadog usando o <strong>blueprint</strong> que criei → arquitetura replicável.
-            </li>
-            <li>
-              <span class="adoption-tag">Platform team</span>
-              Adotou disciplina FinOps → USD 500K+ em <em>savings</em> iterativos.
-            </li>
-          </ul>
+          <p class="feed-state feed-loading">Carregando influência cross-team…</p>
         </div>
       </section>
 
       <!-- =========================================== PROGRESSO (DASHBOARD) -->
       <section id="progress" class="section section-alt">
         <div class="container">
-          <header class="section-head">
-            <span class="section-kicker">04 · Dashboard de progresso</span>
-            <h2>Status atual × target 2025</h2>
-          </header>
-
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th scope="col">Dimensão</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Target 2025</th>
-                  <th scope="col">Evidência</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Splunk HA — operação</th>
-                  <td><span class="badge badge-ok">✅ estável</span></td>
-                  <td>Manter 99,99%</td>
-                  <td>Uptime logs, query perf</td>
-                </tr>
-                <tr>
-                  <th scope="row">FinOps</th>
-                  <td><span class="badge badge-ok">✅ USD 11M entregue</span></td>
-                  <td>+5% ano</td>
-                  <td>Tickers AWS &amp; Splunk</td>
-                </tr>
-                <tr>
-                  <th scope="row">Datadog APM / SLO</th>
-                  <td><span class="badge badge-warn">⚠️ piloto</span></td>
-                  <td>40+ serviços com SLO</td>
-                  <td>3 serviços hoje → 40</td>
-                </tr>
-                <tr>
-                  <th scope="row">OTEL</th>
-                  <td><span class="badge badge-mid">🟨 LFS148 iniciado</span></td>
-                  <td>Blueprint + piloto</td>
-                  <td>Certificação em andamento</td>
-                </tr>
-                <tr>
-                  <th scope="row">Influência cross-team</th>
-                  <td><span class="badge badge-warn">⚠️ invisível</span></td>
-                  <td>Documentada</td>
-                  <td>3+ cases no portfólio</td>
-                </tr>
-                <tr>
-                  <th scope="row">Visibilidade externa</th>
-                  <td><span class="badge badge-err">❌ zero</span></td>
-                  <td>2 talks + 10 posts</td>
-                  <td>Nada hoje</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <p class="feed-state feed-loading">Carregando dashboard…</p>
         </div>
       </section>
 
       <!-- ====================================================== SKILLS -->
       <section id="skills" class="section">
         <div class="container">
-          <header class="section-head">
-            <span class="section-kicker">05 · Skill matrix</span>
-            <h2>O que tem × o que falta para Staff</h2>
-          </header>
-
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th scope="col">Skill</th>
-                  <th scope="col">Nível atual</th>
-                  <th scope="col">Esperado (Staff)</th>
-                  <th scope="col">Gap</th>
-                  <th scope="col">Plano de fechamento</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">Splunk architecture</th>
-                  <td><span class="badge badge-ok">Expert</span></td>
-                  <td>Expert</td>
-                  <td><span class="badge badge-ok">None</span></td>
-                  <td>Manter</td>
-                </tr>
-                <tr>
-                  <th scope="row">AWS cloud scale</th>
-                  <td><span class="badge badge-ok">Sênior</span></td>
-                  <td>Expert+</td>
-                  <td><span class="badge badge-warn">Pequeno</span></td>
-                  <td>Mais EKS, mais patterns Lambda</td>
-                </tr>
-                <tr>
-                  <th scope="row">OTEL / Modern O11y</th>
-                  <td><span class="badge badge-mid">Básico</span></td>
-                  <td>Intermediário</td>
-                  <td><span class="badge badge-err">Alto</span></td>
-                  <td>OTCA + blueprint em produção</td>
-                </tr>
-                <tr>
-                  <th scope="row">SLO framework</th>
-                  <td><span class="badge badge-warn">Teórico</span></td>
-                  <td>Comprovado</td>
-                  <td><span class="badge badge-err">Alto</span></td>
-                  <td>Pilotar em 3 serviços críticos</td>
-                </tr>
-                <tr>
-                  <th scope="row">Liderança técnica</th>
-                  <td><span class="badge badge-warn">Operacional</span></td>
-                  <td>Influenciador</td>
-                  <td><span class="badge badge-warn">Médio</span></td>
-                  <td>Documentar cases cross-team</td>
-                </tr>
-                <tr>
-                  <th scope="row">Comunicação / sistêmico</th>
-                  <td><span class="badge badge-warn">Funcional</span></td>
-                  <td>Estratégico</td>
-                  <td><span class="badge badge-warn">Médio</span></td>
-                  <td>Talks + posts + design docs</td>
-                </tr>
-                <tr>
-                  <th scope="row">Inglês (global)</th>
-                  <td><span class="badge badge-mid">B1</span></td>
-                  <td>B2 / C1</td>
-                  <td><span class="badge badge-err">Alto</span></td>
-                  <td>Aulas + apresentações em inglês</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <p class="feed-state feed-loading">Carregando skill matrix…</p>
         </div>
       </section>
 
       <!-- ================================================ PROXIMAS -->
       <section id="next" class="section section-alt">
         <div class="container">
-          <header class="section-head">
-            <span class="section-kicker">06 · Próximas iniciativas staff-level</span>
-            <h2>Q2 / Q3 2025</h2>
-          </header>
-
-          <div class="initiative-grid">
-            <article class="initiative">
-              <span class="initiative-tag">Iniciativa 1 · Maio – Junho</span>
-              <h3>OTEL Blueprint + Production Pilot</h3>
-              <dl>
-                <dt>O que</dt>
-                <dd>Arquitetura de OTEL collector, SDKs em 2–3 serviços.</dd>
-                <dt>Por que</dt>
-                <dd>OTEL é a direção do mercado (Splunk → Datadog → OTEL standards).</dd>
-                <dt>Impacto</dt>
-                <dd>Telemetria vendor-neutral, −30% de lock-in.</dd>
-                <dt>Métrica</dt>
-                <dd>Blueprint documentado + 2 serviços com OTEL + dashboard de adoção.</dd>
-              </dl>
-            </article>
-
-            <article class="initiative">
-              <span class="initiative-tag">Iniciativa 2 · Junho – Julho</span>
-              <h3>SLO Framework Production</h3>
-              <dl>
-                <dt>O que</dt>
-                <dd>Burn rate policies e error budgets em 3–5 serviços críticos.</dd>
-                <dt>Por que</dt>
-                <dd>SLO é confiabilidade mensurável e alinha engenharia com negócio.</dd>
-                <dt>Impacto</dt>
-                <dd>−30% em incidentes virando emergência; decisões data-driven.</dd>
-                <dt>Métrica</dt>
-                <dd>5+ serviços com SLO, burn rate alerting, dashboard de coverage.</dd>
-              </dl>
-            </article>
-
-            <article class="initiative">
-              <span class="initiative-tag">Iniciativa 3 · Julho</span>
-              <h3>Cross-team Adoption Program</h3>
-              <dl>
-                <dt>O que</dt>
-                <dd>Documentar 3+ cases de adoção do padrão por outros times.</dd>
-                <dt>Por que</dt>
-                <dd>Staff = influenciador, não só especialista profundo.</dd>
-                <dt>Impacto</dt>
-                <dd>Cultura de observability padronizada e replicável.</dd>
-                <dt>Métrica</dt>
-                <dd>3+ cases documentados; 30+ serviços alinhados ao padrão.</dd>
-              </dl>
-            </article>
-          </div>
+          <p class="feed-state feed-loading">Carregando iniciativas…</p>
         </div>
       </section>
 
@@ -721,114 +179,14 @@
       <!-- ================================================== COMITÊ -->
       <section id="committee" class="section">
         <div class="container">
-          <div class="callout">
-            <h2>Observações para o comitê</h2>
-            <p>
-              <strong>Força.</strong> Não é só operador de ferramentas. É arquiteto que pensa em
-              escala (USD 11M), automatiza (50% de toil) e padroniza (governance).
-            </p>
-            <p>
-              <strong>Gap.</strong> O trabalho precisa ficar visível para quem decide promoção.
-              OTEL é o próximo passo do mercado. SLO é o próximo passo da carreira. Influência
-              cross-team precisa ser documentada.
-            </p>
-            <p>
-              <strong>Potencial staff.</strong> Fechando OTEL + SLO + 3 cases de adoção até
-              julho, está pronto para a conversa de promoção.
-            </p>
-          </div>
+          <p class="feed-state feed-loading">Carregando observações…</p>
         </div>
       </section>
 
       <!-- ================================================== CV SNAPSHOT -->
       <section id="cv" class="section section-cv">
         <div class="container">
-          <header class="section-head section-head-cv">
-            <span class="section-kicker">09 · CV snapshot</span>
-            <h2>One-pager do currículo</h2>
-            <p class="section-sub no-print">
-              Este card foi desenhado para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).
-            </p>
-          </header>
-
-          <article class="cv-card" aria-labelledby="cv-name">
-            <header class="cv-header">
-              <div>
-                <h3 id="cv-name" class="cv-name">Rodrigo Kosai</h3>
-                <p class="cv-title">
-                  Senior Observability / Site Reliability Engineer · Banco Itaú
-                </p>
-                <p class="cv-summary">
-                  10+ anos em plataformas de telemetria e AWS em escala bancária.
-                  Responsável por USD 11M+/ano em economia via FinOps, 99,99% de uptime
-                  em Splunk HA multi-site (250TB+/dia) e pela introdução de Datadog APM,
-                  SLOs e automação que cortaram 50% do toil operacional.
-                </p>
-              </div>
-              <ul class="cv-contact">
-                <li><span>Período:</span> Aug 2021 – presente</li>
-                <li><span>Escala:</span> 250TB+/dia · 2.000+ users · 400+ EC2</li>
-                <li><span>Email:</span> <a href="mailto:rckosai81@gmail.com">rckosai81@gmail.com</a></li>
-                <li><span>GitHub:</span> <a href="https://github.com/rodckdev">@rodckdev</a></li>
-              </ul>
-            </header>
-
-            <div class="cv-body">
-              <section class="cv-col">
-                <h4>Entregáveis &amp; resultados</h4>
-                <ul class="cv-delivs">
-                  <li>
-                    <strong>HA multi-site Splunk</strong> — 99,99% uptime, 250TB/dia,
-                    0 RPO/RTO crítico por falha infra. Evitou ~USD 2M+/ano.
-                  </li>
-                  <li>
-                    <strong>FinOps — USD 11M+/ano</strong> — consolidação Splunk
-                    (~USD 5M), Graviton (USD 500K), Spot + SmartStore (~USD 3M),
-                    ingestão −30% (~USD 2,5M). ROI ~12 meses.
-                  </li>
-                  <li>
-                    <strong>Datadog APM + SLOs</strong> — p95 800ms → 480ms (−40%);
-                    MTTR ~90min → ~30–40min; incidentes "mystery" &lt;5%.
-                  </li>
-                  <li>
-                    <strong>Automação / self-healing</strong> — lifecycle EC2,
-                    capacity scaling e runbooks automatizados. Toil: 20 h/sem → 10 h/sem.
-                  </li>
-                  <li>
-                    <strong>Governance &amp; compliance</strong> — padrões de
-                    alerting, retenção e audit trails. Onboarding de novos times
-                    em 1 dia (antes, 1 mês).
-                  </li>
-                </ul>
-              </section>
-
-              <section class="cv-col">
-                <h4>Stack &amp; competências</h4>
-                <ul class="cv-stack">
-                  <li><span class="cv-chip">Splunk HA</span><span class="cv-chip">SmartStore</span><span class="cv-chip">Indexer clusters</span></li>
-                  <li><span class="cv-chip">AWS EC2</span><span class="cv-chip">Graviton</span><span class="cv-chip">Spot</span><span class="cv-chip">Lambda</span><span class="cv-chip">Auto Scaling</span></li>
-                  <li><span class="cv-chip">Datadog APM</span><span class="cv-chip">Synthetics</span><span class="cv-chip">SLOs</span><span class="cv-chip">OTEL</span></li>
-                  <li><span class="cv-chip">Terraform</span><span class="cv-chip">CloudFormation</span><span class="cv-chip">CI/CD</span></li>
-                  <li><span class="cv-chip">FinOps</span><span class="cv-chip">Governance</span><span class="cv-chip">Runbooks</span><span class="cv-chip">Compliance</span></li>
-                </ul>
-
-                <h4>Impacto em números</h4>
-                <ul class="cv-kpis">
-                  <li><span class="cv-kpi-val">USD 11M+</span><span class="cv-kpi-lbl">economia / ano</span></li>
-                  <li><span class="cv-kpi-val">250TB+</span><span class="cv-kpi-lbl">ingestão / dia</span></li>
-                  <li><span class="cv-kpi-val">99,99%</span><span class="cv-kpi-lbl">uptime</span></li>
-                  <li><span class="cv-kpi-val">-50%</span><span class="cv-kpi-lbl">toil operacional</span></li>
-                  <li><span class="cv-kpi-val">-40%</span><span class="cv-kpi-lbl">p95 latency</span></li>
-                  <li><span class="cv-kpi-val">~3x</span><span class="cv-kpi-lbl">MTTR mais rápido</span></li>
-                </ul>
-              </section>
-            </div>
-
-            <footer class="cv-footer">
-              <span>Atualizado · 2025</span>
-              <span>rodckdev.github.io/portfolio</span>
-            </footer>
-          </article>
+          <p class="feed-state feed-loading">Carregando CV…</p>
         </div>
       </section>
     </main>
@@ -846,7 +204,8 @@
 
     <script>
       // Suaviza a rolagem ao clicar em links de âncora (além do scroll-behavior do CSS)
-      // e marca o link de nav ativo conforme a seção visível.
+      // e marca o link de nav ativo conforme a seção visível. Observa após render
+      // dinâmico via site.js (usa MutationObserver para capturar novos nodes).
       (function () {
         const nav = document.querySelector('.site-nav');
         if (!nav) return;
@@ -854,9 +213,6 @@
         const byHash = new Map(
           links.map((a) => [a.getAttribute('href').replace('#', ''), a]),
         );
-        const sections = links
-          .map((a) => document.getElementById(a.getAttribute('href').replace('#', '')))
-          .filter(Boolean);
         const io = new IntersectionObserver(
           (entries) => {
             entries.forEach((e) => {
@@ -868,9 +224,18 @@
           },
           { rootMargin: '-40% 0px -55% 0px', threshold: 0 },
         );
-        sections.forEach((s) => io.observe(s));
+        function observeAll() {
+          links
+            .map((a) => document.getElementById(a.getAttribute('href').replace('#', '')))
+            .filter(Boolean)
+            .forEach((s) => io.observe(s));
+        }
+        observeAll();
+        // Reobserva depois que site.js injetar conteúdo.
+        window.addEventListener('load', observeAll);
       })();
     </script>
+    <script src="assets/js/site.js" defer></script>
     <script src="assets/js/feeds.js" defer></script>
   </body>
 </html>
