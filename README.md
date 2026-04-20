@@ -145,6 +145,9 @@ grava em `Atividades` + (se `publicavel=true`) em `Portfólio` → vira post.
 Cada DB é opcional e independente. DB ausente ou vazio ⇒ `sync-notion.mjs`
 **não mexe** naquela seção (preserva o que está comitado em `site.json`).
 
+Política de segredos — onde vivem, como rotacionar, scanner de commits: ver
+[SECURITY.md](./SECURITY.md).
+
 ## Publicar um projeto na seção "Projetos abertos"
 
 Em **Settings → Topics** do repo, adicione `portfolio`. A seção puxa direto
