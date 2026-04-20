@@ -246,7 +246,10 @@
         ],
         "metrics": []
       }
-    ]
+    ],
+    "kicker": "02 · Entregas principais",
+    "title": "Descritivo → Impacto → Stakeholders",
+    "sub": "Cinco frentes que definem o nível atual e sustentam a conversa de staff."
   },
   "influence": {
     "items": [
@@ -255,7 +258,10 @@
         "tag": "Team A",
         "body": "Adotou o observability governance framework → 20 serviços alinhados."
       }
-    ]
+    ],
+    "kicker": "03 · Influência cross-team",
+    "title": "Arquitetura que outros times adotaram",
+    "sub": "Observability deixou de ser \"coisa da plataforma\" e virou \"padrão da empresa\"."
   },
   "progress": {
     "rows": [
@@ -283,7 +289,9 @@
         "target": "Blueprint + piloto",
         "evidence": "Certificação em andamento"
       }
-    ]
+    ],
+    "kicker": "04 · Dashboard de progresso",
+    "title": "Status atual × target 2025"
   },
   "skills": {
     "rows": [
@@ -337,7 +345,9 @@
         "gapBadge": "err",
         "plan": "Aulas + apresentações em inglês"
       }
-    ]
+    ],
+    "kicker": "05 · Skill matrix",
+    "title": "O que tem × o que falta para Staff"
   },
   "initiatives": {
     "items": [
@@ -410,7 +420,9 @@
           }
         ]
       }
-    ]
+    ],
+    "kicker": "06 · Próximas iniciativas staff-level",
+    "title": "Q2 / Q3 2025"
   },
   "committee": {
     "title": "Observações para o comitê",

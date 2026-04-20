@@ -206,6 +206,8 @@
       });
       art.appendChild(ul);
     }
+    const extrasNode = buildExtrasDl(item.extras);
+    if (extrasNode) art.appendChild(extrasNode);
     return art;
   }
 
@@ -285,6 +287,8 @@
       } else if (item.body) {
         li.appendChild(document.createTextNode(' ' + item.body));
       }
+      const chips = buildExtrasChips(item.extras);
+      if (chips) li.appendChild(chips);
       ul.appendChild(li);
     });
     frag.appendChild(ul);
@@ -300,9 +304,13 @@
     const container = section.querySelector('.container');
     if (!container) return;
 
+    const rows = [...(p.rows || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
+    const extraCols = unionExtraColumns(rows);
     const wrap = el('div', 'table-wrap');
     const t = el('table', 'data-table');
-    const headers = ['Dimensão', 'Status', 'Target 2025', 'Evidência'];
+    const headers = ['Dimensão', 'Status', 'Target 2025', 'Evidência'].concat(
+      extraCols.map((c) => c.label),
+    );
     const thead = el('thead');
     const trh = el('tr');
     headers.forEach((h) => {
@@ -314,8 +322,7 @@
     t.appendChild(thead);
 
     const tbody = el('tbody');
-    const sorted = [...(p.rows || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
-    sorted.forEach((r) => {
+    rows.forEach((r) => {
       const tr = el('tr');
       const th = el('th', null, r.dimension || '');
       th.setAttribute('scope', 'row');
@@ -332,6 +339,7 @@
       else td3.textContent = r.evidence || '';
       tr.appendChild(td3);
 
+      appendExtraCells(tr, r.extras, extraCols);
       tbody.appendChild(tr);
     });
     t.appendChild(tbody);
@@ -349,9 +357,13 @@
     const container = section.querySelector('.container');
     if (!container) return;
 
+    const rows = [...(s.rows || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
+    const extraCols = unionExtraColumns(rows);
     const wrap = el('div', 'table-wrap');
     const t = el('table', 'data-table');
-    const headers = ['Skill', 'Nível atual', 'Esperado (Staff)', 'Gap', 'Plano de fechamento'];
+    const headers = [
+      'Skill', 'Nível atual', 'Esperado (Staff)', 'Gap', 'Plano de fechamento',
+    ].concat(extraCols.map((c) => c.label));
     const thead = el('thead');
     const trh = el('tr');
     headers.forEach((h) => {
@@ -363,8 +375,7 @@
     t.appendChild(thead);
 
     const tbody = el('tbody');
-    const sorted = [...(s.rows || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
-    sorted.forEach((r) => {
+    rows.forEach((r) => {
       const tr = el('tr');
       const th = el('th', null, r.skill || '');
       th.setAttribute('scope', 'row');
@@ -381,6 +392,7 @@
       tr.appendChild(tdGap);
 
       tr.appendChild(el('td', null, r.plan || ''));
+      appendExtraCells(tr, r.extras, extraCols);
       tbody.appendChild(tr);
     });
     t.appendChild(tbody);
@@ -404,12 +416,22 @@
       const art = el('article', 'initiative');
       if (item.tag) art.appendChild(el('span', 'initiative-tag', item.tag));
       art.appendChild(el('h3', null, item.title || ''));
-      if (Array.isArray(item.fields) && item.fields.length > 0) {
+      const hasFields = Array.isArray(item.fields) && item.fields.length > 0;
+      const hasExtras = Array.isArray(item.extras) && item.extras.length > 0;
+      if (hasFields || hasExtras) {
         const dl = el('dl');
-        item.fields.forEach((f) => {
-          dl.appendChild(el('dt', null, f.label || ''));
-          dl.appendChild(el('dd', null, f.value || ''));
-        });
+        if (hasFields) {
+          item.fields.forEach((f) => {
+            dl.appendChild(el('dt', null, f.label || ''));
+            dl.appendChild(el('dd', null, f.value || ''));
+          });
+        }
+        if (hasExtras) {
+          item.extras.forEach((ex) => {
+            dl.appendChild(el('dt', null, ex.label || ''));
+            dl.appendChild(buildExtraDd(ex));
+          });
+        }
         art.appendChild(dl);
       }
       grid.appendChild(art);
@@ -541,6 +563,98 @@
     if (className) node.className = className;
     if (text !== undefined && text !== null) node.textContent = text;
     return node;
+  }
+
+  // ---------------------------------------------------------------------
+  // Extras — render de colunas dinâmicas vindas do Notion.
+  // Contrato do item em site.json:
+  //   { key, label, kind, value }
+  // kind ∈ text | select | multi_select | number | url | checkbox | date
+  // Se você adicionar uma coluna nova em qualquer DB do Notion e ela não
+  // for nenhuma das colunas conhecidas (ver KNOWN no sync-notion.mjs), ela
+  // cai aqui automaticamente. Sem mudar código.
+  // ---------------------------------------------------------------------
+  function buildExtrasDl(extras) {
+    if (!Array.isArray(extras) || extras.length === 0) return null;
+    const dl = el('dl', 'extras');
+    extras.forEach((ex) => {
+      dl.appendChild(el('dt', null, ex.label || ''));
+      dl.appendChild(buildExtraDd(ex));
+    });
+    return dl;
+  }
+
+  function buildExtraDd(ex) {
+    const dd = el('dd');
+    renderExtraValue(dd, ex);
+    return dd;
+  }
+
+  function buildExtrasChips(extras) {
+    if (!Array.isArray(extras) || extras.length === 0) return null;
+    const wrap = el('span', 'extras-chips');
+    extras.forEach((ex) => {
+      const chip = el('span', 'extras-chip');
+      chip.appendChild(el('span', 'extras-chip-label', ex.label + ': '));
+      renderExtraValue(chip, ex);
+      wrap.appendChild(chip);
+    });
+    return wrap;
+  }
+
+  function renderExtraValue(target, ex) {
+    const kind = ex && ex.kind;
+    const v = ex ? ex.value : undefined;
+    if (kind === 'url' && typeof v === 'string' && v) {
+      const a = document.createElement('a');
+      a.href = v;
+      a.rel = 'noopener';
+      a.target = '_blank';
+      a.textContent = v.replace(/^mailto:/, '');
+      target.appendChild(a);
+      return;
+    }
+    if (kind === 'multi_select' && Array.isArray(v)) {
+      v.forEach((label) => target.appendChild(el('span', 'extras-tag', label)));
+      return;
+    }
+    if (kind === 'checkbox') {
+      target.appendChild(document.createTextNode(v ? '✅' : '❌'));
+      return;
+    }
+    if (kind === 'number' && v !== null && v !== undefined) {
+      target.appendChild(
+        document.createTextNode(
+          Number.isFinite(v) ? v.toLocaleString('pt-BR') : String(v),
+        ),
+      );
+      return;
+    }
+    if (v === null || v === undefined || v === '') return;
+    target.appendChild(document.createTextNode(String(v)));
+  }
+
+  // União ordenada (preserva primeira ocorrência) de colunas extras entre
+  // todas as linhas de uma tabela. Serve para skills e progress.
+  function unionExtraColumns(rows) {
+    const seen = new Map();
+    (rows || []).forEach((r) => {
+      (r.extras || []).forEach((ex) => {
+        if (!seen.has(ex.key)) seen.set(ex.key, { key: ex.key, label: ex.label });
+      });
+    });
+    return [...seen.values()];
+  }
+
+  function appendExtraCells(tr, extras, extraCols) {
+    const byKey = new Map();
+    (extras || []).forEach((ex) => byKey.set(ex.key, ex));
+    extraCols.forEach((col) => {
+      const td = el('td');
+      const ex = byKey.get(col.key);
+      if (ex) renderExtraValue(td, ex);
+      tr.appendChild(td);
+    });
   }
 
   function buildSectionHead(kicker, title, sub, subIsHtml) {
