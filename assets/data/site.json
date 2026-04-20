@@ -402,6 +402,25 @@
     "items": [
       {
         "order": 1,
+        "tag": "Junho - Novembro",
+        "title": "Pipeline o11y",
+        "fields": [
+          {
+            "label": "O que",
+            "value": "arquitetura e POC"
+          },
+          {
+            "label": "Impacto",
+            "value": "agnosticso"
+          },
+          {
+            "label": "Métrica",
+            "value": "reduzir o uso do pipe atual"
+          }
+        ]
+      },
+      {
+        "order": 1,
         "tag": "Iniciativa 1 · Maio – Junho",
         "title": "OTEL Blueprint + Production Pilot",
         "fields": [
@@ -420,29 +439,6 @@
           {
             "label": "Métrica",
             "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção."
-          }
-        ]
-      },
-      {
-        "order": 2,
-        "tag": "Iniciativa 2 · Junho – Julho",
-        "title": "SLO Framework Production",
-        "fields": [
-          {
-            "label": "O que",
-            "value": "Burn rate policies e error budgets em 3–5 serviços críticos."
-          },
-          {
-            "label": "Por que",
-            "value": "SLO é confiabilidade mensurável e alinha engenharia com negócio."
-          },
-          {
-            "label": "Impacto",
-            "value": "−30% em incidentes virando emergência; decisões data-driven."
-          },
-          {
-            "label": "Métrica",
-            "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage."
           }
         ]
       },
@@ -587,5 +583,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-20T01:41:35.334Z"
+  "syncedAt": "2026-04-20T02:05:30.323Z"
 }
