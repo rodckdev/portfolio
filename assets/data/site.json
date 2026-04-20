@@ -114,7 +114,8 @@
         ],
         "metrics": [
           "kpi 90%"
-        ]
+        ],
+        "extras": []
       },
       {
         "id": "ha-multi-site-splunk-infraestrutura-moderna",
@@ -159,7 +160,8 @@
           "99,99% uptime",
           "0 RPO/RTO críticos por falha infraestrutural",
           "250TB/dia sem degradação"
-        ]
+        ],
+        "extras": []
       },
       {
         "id": "finops-usd-11m-em-economia-anual",
@@ -202,7 +204,8 @@
             ]
           }
         ],
-        "metrics": []
+        "metrics": [],
+        "extras": []
       },
       {
         "id": "automacao-50-de-reducao-de-toil",
@@ -244,7 +247,8 @@
             ]
           }
         ],
-        "metrics": []
+        "metrics": [],
+        "extras": []
       }
     ],
     "kicker": "02 · Entregas principais",
@@ -254,9 +258,11 @@
   "influence": {
     "items": [
       {
+        "id": "team-a",
         "order": 1,
         "tag": "Team A",
-        "body": "Adotou o observability governance framework → 20 serviços alinhados."
+        "body": "Adotou o observability governance framework → 20 serviços alinhados.",
+        "extras": []
       }
     ],
     "kicker": "03 · Influência cross-team",
@@ -271,7 +277,8 @@
         "status": "stable",
         "statusLabel": "✅ USD 11M entregue",
         "target": "+5% ano",
-        "evidence": "Splunk Decommission"
+        "evidence": "Splunk Decommission",
+        "extras": []
       },
       {
         "order": 3,
@@ -279,7 +286,8 @@
         "status": "warn",
         "statusLabel": "⚠️ piloto",
         "target": "40+ serviços com SLO",
-        "evidence": "3 serviços hoje → 40"
+        "evidence": "3 serviços hoje → 40",
+        "extras": []
       },
       {
         "order": 4,
@@ -287,7 +295,8 @@
         "status": "mid",
         "statusLabel": "🟨 LFS148 iniciado",
         "target": "Blueprint + piloto",
-        "evidence": "Certificação em andamento"
+        "evidence": "Certificação em andamento",
+        "extras": []
       }
     ],
     "kicker": "04 · Dashboard de progresso",
@@ -303,7 +312,8 @@
         "target": "Expert+",
         "gap": "Pequeno",
         "gapBadge": "warn",
-        "plan": "Mais EKS, mais patterns Lambda"
+        "plan": "Mais EKS, mais patterns Lambda",
+        "extras": []
       },
       {
         "order": 3,
@@ -313,7 +323,8 @@
         "target": "Intermediário",
         "gap": "Alto",
         "gapBadge": "err",
-        "plan": "OTCA + blueprint em produção"
+        "plan": "OTCA + blueprint em produção",
+        "extras": []
       },
       {
         "order": 5,
@@ -323,7 +334,15 @@
         "target": "Influenciador",
         "gap": "Médio",
         "gapBadge": "warn",
-        "plan": "Documentar cases cross-team"
+        "plan": "Documentar cases cross-team",
+        "extras": [
+          {
+            "key": "nova-coluna",
+            "label": "nova coluna",
+            "kind": "text",
+            "value": "teste"
+          }
+        ]
       },
       {
         "order": 6,
@@ -333,7 +352,15 @@
         "target": "Estratégico",
         "gap": "Médio",
         "gapBadge": "warn",
-        "plan": "Talks + posts + design docs"
+        "plan": "Talks + posts + design docs",
+        "extras": [
+          {
+            "key": "nova-coluna",
+            "label": "nova coluna",
+            "kind": "text",
+            "value": "teste"
+          }
+        ]
       },
       {
         "order": 7,
@@ -343,7 +370,21 @@
         "target": "B2 / C1",
         "gap": "Alto",
         "gapBadge": "err",
-        "plan": "Aulas + apresentações em inglês"
+        "plan": "Aulas + apresentações em inglês",
+        "extras": [
+          {
+            "key": "teste-nova-coluna",
+            "label": "teste nova coluna ",
+            "kind": "text",
+            "value": "teste nova coluna"
+          },
+          {
+            "key": "nova-coluna",
+            "label": "nova coluna",
+            "kind": "text",
+            "value": "teste"
+          }
+        ]
       }
     ],
     "kicker": "05 · Skill matrix",
@@ -352,6 +393,7 @@
   "initiatives": {
     "items": [
       {
+        "id": "pipeline-o11y",
         "order": 1,
         "tag": "Iniciativa 1 · Maio – Junho",
         "title": "Pipeline o11y",
@@ -372,9 +414,11 @@
             "label": "Métrica",
             "value": "reduzir o uso do pipe atual"
           }
-        ]
+        ],
+        "extras": []
       },
       {
+        "id": "slo-framework-production",
         "order": 2,
         "tag": "Iniciativa 2 · Junho – Julho",
         "title": "SLO Framework Production",
@@ -395,9 +439,11 @@
             "label": "Métrica",
             "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage."
           }
-        ]
+        ],
+        "extras": []
       },
       {
+        "id": "cross-team-adoption-program",
         "order": 3,
         "tag": "Iniciativa 3 · Julho",
         "title": "Cross-team Adoption Program",
@@ -418,7 +464,8 @@
             "label": "Métrica",
             "value": "3+ cases documentados; 30+ serviços alinhados ao padrão."
           }
-        ]
+        ],
+        "extras": []
       }
     ],
     "kicker": "06 · Próximas iniciativas staff-level",
@@ -540,5 +587,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-20T14:10:27.407Z"
+  "syncedAt": "2026-04-20T15:09:15.219Z"
 }
