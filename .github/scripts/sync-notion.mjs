@@ -16,6 +16,8 @@
 //   NOTION_INITIATIVES_DB_ID   — site.json → initiatives
 //   NOTION_INFLUENCE_DB_ID     — site.json → influence
 //   NOTION_PROGRESS_DB_ID      — site.json → progress
+//   NOTION_KPIS_DB_ID          — site.json → hero.metrics + cv.kpis
+//   NOTION_CV_HIGHLIGHTS_DB_ID — site.json → cv.deliverables
 //
 // Sem NOTION_API_KEY o script sai com exit 0 (não quebra CI enquanto os
 // secrets não estão setados). Cada DB é opcional — ausência simplesmente
@@ -38,6 +40,8 @@ const DB_IDS = {
   initiatives: process.env.NOTION_INITIATIVES_DB_ID,
   influence: process.env.NOTION_INFLUENCE_DB_ID,
   progress: process.env.NOTION_PROGRESS_DB_ID,
+  kpis: process.env.NOTION_KPIS_DB_ID,
+  cvHighlights: process.env.NOTION_CV_HIGHLIGHTS_DB_ID,
 };
 
 if (!NOTION_API_KEY) {
@@ -66,8 +70,22 @@ async function main() {
   if (DB_IDS.influence) siteUpdates.influence = await syncInfluence(DB_IDS.influence);
   if (DB_IDS.progress) siteUpdates.progress = await syncProgress(DB_IDS.progress);
 
-  if (Object.keys(siteUpdates).length > 0) {
-    const sections = await mergeSite(siteUpdates);
+  // Path-based updates (hero.metrics, cv.kpis, cv.deliverables) — DBs
+  // compactos que alimentam listas aninhadas em vez de seções inteiras.
+  const pathUpdates = {};
+  if (DB_IDS.kpis) {
+    const { hero, cv } = await syncKpis(DB_IDS.kpis);
+    pathUpdates['hero.metrics'] = hero;
+    pathUpdates['cv.kpis'] = cv;
+  }
+  if (DB_IDS.cvHighlights) {
+    pathUpdates['cv.deliverables'] = await syncCvHighlights(DB_IDS.cvHighlights);
+  }
+
+  const anyUpdate =
+    Object.keys(siteUpdates).length > 0 || Object.keys(pathUpdates).length > 0;
+  if (anyUpdate) {
+    const sections = await mergeSite(siteUpdates, pathUpdates);
     summary.push(
       ...Object.entries(sections).map(([k, v]) => `${k}: ${v.count} (${v.status})`),
     );
@@ -121,7 +139,7 @@ function toPost(page) {
 // ---------------------------------------------------------------------------
 // site.json — merge-update
 // ---------------------------------------------------------------------------
-async function mergeSite(updates) {
+async function mergeSite(updates, pathUpdates = {}) {
   const current = await readJsonSafe(SITE_PATH);
   const status = {};
 
@@ -152,9 +170,35 @@ async function mergeSite(updates) {
     status[section] = { count: fetched.length, status: 'updated' };
   }
 
+  // pathUpdates: { 'hero.metrics': [...], 'cv.kpis': [...], 'cv.deliverables': [...] }
+  // DB vazio = mantém o que está comitado (skipped-empty). Sem ID por item,
+  // é sobrescrita total — ordem e presença vêm 100% do Notion.
+  for (const [dotted, fetched] of Object.entries(pathUpdates)) {
+    if (!Array.isArray(fetched)) {
+      status[dotted] = { count: 0, status: 'invalid' };
+      continue;
+    }
+    if (fetched.length === 0) {
+      status[dotted] = { count: 0, status: 'skipped-empty' };
+      continue;
+    }
+    setPath(current, dotted, fetched);
+    status[dotted] = { count: fetched.length, status: 'updated' };
+  }
+
   current.syncedAt = new Date().toISOString();
   await writeJson(SITE_PATH, current);
   return status;
+}
+
+function setPath(obj, dotted, value) {
+  const parts = dotted.split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i += 1) {
+    if (!cur[parts[i]] || typeof cur[parts[i]] !== 'object') cur[parts[i]] = {};
+    cur = cur[parts[i]];
+  }
+  cur[parts[parts.length - 1]] = value;
 }
 
 async function readJsonSafe(p) {
@@ -404,6 +448,69 @@ async function syncProgress(dbId) {
 }
 
 // ---------------------------------------------------------------------------
+// KPIs — alimenta tanto hero.metrics quanto cv.kpis a partir de um único DB.
+// Schema:
+//   Name (title)               → label (ex: "Economia anual")
+//   Value (rich_text)          → valor exibido (ex: "USD 11M+")
+//   HeroOrder (number)         → posição no hero; vazio = não aparece no hero
+//   CvOrder (number)           → posição no CV; vazio = não aparece no CV
+//   Published (checkbox)       → filtro
+// ---------------------------------------------------------------------------
+async function syncKpis(dbId) {
+  console.log('[sync-notion] kpis ← DB', dbId);
+  const pages = await queryAll({
+    database_id: dbId,
+    filter: publishedFilter(),
+    page_size: 50,
+  });
+  logFetched('kpis', pages, (p) => getTitle(p.properties.Name));
+  const heroItems = [];
+  const cvItems = [];
+  pages.forEach((page) => {
+    const p = page.properties;
+    const label = getTitle(p.Name) || '';
+    const value = getRichText(p.Value) || '';
+    if (!label && !value) return;
+    const heroOrder = getNumber(p.HeroOrder);
+    const cvOrder = getNumber(p.CvOrder);
+    if (heroOrder != null) heroItems.push({ _order: heroOrder, label, value });
+    if (cvOrder != null) cvItems.push({ _order: cvOrder, value, label });
+  });
+  heroItems.sort((a, b) => a._order - b._order);
+  cvItems.sort((a, b) => a._order - b._order);
+  return {
+    hero: heroItems.map(({ _order, ...rest }) => rest),
+    cv: cvItems.map(({ _order, ...rest }) => rest),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// CV Highlights — alimenta a lista de destaques do one-pager (cv.deliverables)
+// Schema:
+//   Name (title)               → título do destaque (ex: "HA multi-site Splunk")
+//   Detail (rich_text)         → descrição curta (1-2 linhas)
+//   Order (number)             → ordenação
+//   Published (checkbox)       → filtro
+// ---------------------------------------------------------------------------
+async function syncCvHighlights(dbId) {
+  console.log('[sync-notion] cv highlights ← DB', dbId);
+  const pages = await queryAll({
+    database_id: dbId,
+    filter: publishedFilter(),
+    sorts: [{ property: 'Order', direction: 'ascending' }],
+    page_size: 50,
+  });
+  logFetched('cv-highlights', pages, (p) => getTitle(p.properties.Name));
+  return pages.map((page) => {
+    const p = page.properties;
+    return {
+      title: getTitle(p.Name) || '',
+      detail: getRichText(p.Detail) || '',
+    };
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Extras — colunas novas no Notion refletindo no site sem mexer no código
 // ---------------------------------------------------------------------------
 // Qualquer propriedade que NÃO esteja em `knownKeys` vira um item em `extras`:
@@ -486,6 +593,8 @@ const KNOWN = {
   progress: [
     'Name', 'Order', 'Status', 'StatusLabel', 'Target', 'Evidence', 'Published',
   ],
+  kpis: ['Name', 'Value', 'HeroOrder', 'CvOrder', 'Published'],
+  cvHighlights: ['Name', 'Detail', 'Order', 'Published'],
 };
 
 // ---------------------------------------------------------------------------
