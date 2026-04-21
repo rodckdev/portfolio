@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 // setup-site-dbs.mjs — bootstrap one-shot (roda localmente, NÃO no Action).
 //
-// Cria no workspace do Notion os 5 DBs que alimentam o site:
+// Cria no workspace do Notion os 7 DBs que alimentam o site:
 //   - Site Deliverables
 //   - Site Skills
 //   - Site Initiatives
 //   - Site Influence
 //   - Site Progress
+//   - Site KPIs             (hero.metrics + cv.kpis)
+//   - Site CV Highlights    (cv.deliverables)
 //
 // Todos como filhos da página apontada por NOTION_PARENT_PAGE_ID, com schema
 // exatamente compatível com o que `sync-notion.mjs` espera. Depois de criar,
@@ -19,9 +21,10 @@
 //   node .github/scripts/setup-site-dbs.mjs          # cria + seed
 //   node .github/scripts/setup-site-dbs.mjs --no-seed   # só cria os DBs
 //
-// Ao final imprime os 5 IDs — copie para os secrets do repo:
+// Ao final imprime os IDs — copie para os secrets do repo:
 //   NOTION_DELIVERABLES_DB_ID, NOTION_SKILLS_DB_ID, NOTION_INITIATIVES_DB_ID,
-//   NOTION_INFLUENCE_DB_ID, NOTION_PROGRESS_DB_ID.
+//   NOTION_INFLUENCE_DB_ID, NOTION_PROGRESS_DB_ID, NOTION_KPIS_DB_ID,
+//   NOTION_CV_HIGHLIGHTS_DB_ID.
 
 import { Client } from '@notionhq/client';
 import fs from 'node:fs/promises';
@@ -118,6 +121,19 @@ const SCHEMAS = {
     Evidence: { rich_text: {} },
     Published: { checkbox: {} },
   },
+  'Site KPIs': {
+    Name: { title: {} },
+    Value: { rich_text: {} },
+    HeroOrder: { number: {} },
+    CvOrder: { number: {} },
+    Published: { checkbox: {} },
+  },
+  'Site CV Highlights': {
+    Name: { title: {} },
+    Detail: { rich_text: {} },
+    Order: { number: {} },
+    Published: { checkbox: {} },
+  },
 };
 
 async function main() {
@@ -151,6 +167,12 @@ async function main() {
     await seedInitiatives(ids['Site Initiatives'], site.initiatives?.items || []);
     await seedInfluence(ids['Site Influence'], site.influence?.items || []);
     await seedProgress(ids['Site Progress'], site.progress?.rows || []);
+    await seedKpis(
+      ids['Site KPIs'],
+      site.hero?.metrics || [],
+      site.cv?.kpis || [],
+    );
+    await seedCvHighlights(ids['Site CV Highlights'], site.cv?.deliverables || []);
   }
 
   console.log('\n=== SECRETS (cole no repo rodckdev/portfolio) ===');
@@ -159,6 +181,8 @@ async function main() {
   console.log(`NOTION_INITIATIVES_DB_ID=${ids['Site Initiatives']}`);
   console.log(`NOTION_INFLUENCE_DB_ID=${ids['Site Influence']}`);
   console.log(`NOTION_PROGRESS_DB_ID=${ids['Site Progress']}`);
+  console.log(`NOTION_KPIS_DB_ID=${ids['Site KPIs']}`);
+  console.log(`NOTION_CV_HIGHLIGHTS_DB_ID=${ids['Site CV Highlights']}`);
   console.log('===============================================');
 }
 
@@ -244,6 +268,60 @@ async function seedInfluence(dbId, items) {
       },
     });
     console.log(`  · influence seeded: ${it.tag}`);
+  }
+}
+
+// KPIs: faz a união hero.metrics ∪ cv.kpis (mesmo label mesma linha).
+// HeroOrder e CvOrder refletem a ordem original em cada lista; se um KPI não
+// aparece em uma das duas, o campo fica null (não exibe naquele bloco).
+async function seedKpis(dbId, heroMetrics, cvKpis) {
+  const byLabel = new Map();
+  (heroMetrics || []).forEach((m, i) => {
+    const key = String(m.label || '').trim().toLowerCase();
+    if (!key) return;
+    const existing = byLabel.get(key) || { label: m.label, value: m.value || '' };
+    existing.heroOrder = i + 1;
+    if (!existing.value) existing.value = m.value || '';
+    byLabel.set(key, existing);
+  });
+  (cvKpis || []).forEach((k, i) => {
+    const key = String(k.label || '').trim().toLowerCase();
+    if (!key) return;
+    const existing = byLabel.get(key) || { label: k.label, value: k.value || '' };
+    existing.cvOrder = i + 1;
+    if (!existing.value) existing.value = k.value || '';
+    byLabel.set(key, existing);
+  });
+  for (const row of byLabel.values()) {
+    await notion.pages.create({
+      parent: { database_id: dbId },
+      properties: {
+        Name: titleProp(row.label),
+        Value: rt(row.value),
+        HeroOrder: num(row.heroOrder),
+        CvOrder: num(row.cvOrder),
+        Published: { checkbox: true },
+      },
+    });
+    console.log(
+      `  · kpi seeded: ${row.label} (hero=${row.heroOrder ?? '-'}, cv=${row.cvOrder ?? '-'})`,
+    );
+  }
+}
+
+async function seedCvHighlights(dbId, items) {
+  for (let i = 0; i < (items || []).length; i += 1) {
+    const h = items[i];
+    await notion.pages.create({
+      parent: { database_id: dbId },
+      properties: {
+        Name: titleProp(h.title),
+        Detail: rt(h.detail),
+        Order: num(i + 1),
+        Published: { checkbox: true },
+      },
+    });
+    console.log(`  · cv highlight seeded: ${h.title}`);
   }
 }
 
