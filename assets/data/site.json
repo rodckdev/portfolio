@@ -87,16 +87,28 @@
   "deliverables": {
     "items": [
       {
-        "id": "teste1",
+        "id": "fluentbit-o11y-logs-routing",
         "num": "E6",
         "order": 1,
-        "title": "teste1",
-        "sub": "",
+        "title": "Fluentbit o11y - logs routing",
+        "sub": "Info Logs to S3, Saving DD logs ingest.",
         "blocks": [
+          {
+            "heading": "O que foi feito",
+            "bullets": [
+              "Implementação no innersource."
+            ]
+          },
+          {
+            "heading": "Impacto técnico",
+            "bullets": [
+              "logs não criticos para cheap tier, Uso sob demanda. Redução de custo no armazenamento e ingestão Datadog."
+            ]
+          },
           {
             "heading": "Impacto financeiro",
             "bullets": [
-              "teste para o deliverable"
+              "Redução de eventos eviandos ao Datadog. Saving USD 100K"
             ]
           },
           {
@@ -108,19 +120,61 @@
           {
             "heading": "Stakeholders beneficiados",
             "bullets": [
-              "teste do teste do reteste"
+              "Comunidade"
             ]
           }
         ],
-        "metrics": [
-          "kpi 90%"
+        "metrics": [],
+        "extras": []
+      },
+      {
+        "id": "finops-usd-11m-em-economia-anual",
+        "num": "E2",
+        "order": 1,
+        "title": "FinOps + USD 11M+ em economia anual",
+        "sub": "Consolidação, Graviton, Spot, SmartStore S3 e otimização de ingestão.",
+        "blocks": [
+          {
+            "heading": "O que foi feito",
+            "bullets": [
+              "Consolidação / modernização Splunk (redução de footprint).",
+              "Adoção de EC2 Graviton em workload elegível.",
+              "Spot + SmartStore S3 — mix de pricing otimizado.",
+              "Otimização da ingestão de logs (amostragem + filtros)."
+            ]
+          },
+          {
+            "heading": "Impacto técnico",
+            "bullets": [
+              "Arquitetura escalável sem \"just add more servers\".",
+              "Custo de observability sob controle (framework FinOps).",
+              "Dados críticos sem perder conformidade."
+            ]
+          },
+          {
+            "heading": "Impacto financeiro",
+            "bullets": [
+              "USD 11M+/ano em economia comprovada.",
+              "USD 500K/ano somente em Graviton.",
+              "ROI em automação: payback em ~12 meses."
+            ]
+          },
+          {
+            "heading": "Stakeholders beneficiados",
+            "bullets": [
+              "CFO / Finance — bottom line.",
+              "Platform team — infra que se paga.",
+              "Engineering — confiabilidade com economia."
+            ]
+          }
         ],
+        "metrics": [],
         "extras": []
       },
       {
         "id": "ha-multi-site-splunk-infraestrutura-moderna",
         "num": "E1",
-        "order": 1,
+        "order": 2,
         "title": "HA multi-site Splunk + infraestrutura moderna",
         "sub": "Splunk em alta disponibilidade multi-site na AWS, IaC em CI/CD.",
         "blocks": [
@@ -164,50 +218,6 @@
         "extras": []
       },
       {
-        "id": "finops-usd-11m-em-economia-anual",
-        "num": "E2",
-        "order": 2,
-        "title": "FinOps + USD 11M+ em economia anual",
-        "sub": "Consolidação, Graviton, Spot, SmartStore S3 e otimização de ingestão.",
-        "blocks": [
-          {
-            "heading": "O que foi feito",
-            "bullets": [
-              "Consolidação / modernização Splunk (redução de footprint).",
-              "Adoção de EC2 Graviton em workload elegível.",
-              "Spot + SmartStore S3 — mix de pricing otimizado.",
-              "Otimização da ingestão de logs (amostragem + filtros)."
-            ]
-          },
-          {
-            "heading": "Impacto técnico",
-            "bullets": [
-              "Arquitetura escalável sem \"just add more servers\".",
-              "Custo de observability sob controle (framework FinOps).",
-              "Dados críticos sem perder conformidade."
-            ]
-          },
-          {
-            "heading": "Impacto financeiro",
-            "bullets": [
-              "USD 11M+/ano em economia comprovada.",
-              "USD 500K/ano somente em Graviton.",
-              "ROI em automação: payback em ~12 meses."
-            ]
-          },
-          {
-            "heading": "Stakeholders beneficiados",
-            "bullets": [
-              "CFO / Finance — bottom line.",
-              "Platform team — infra que se paga.",
-              "Engineering — confiabilidade com economia."
-            ]
-          }
-        ],
-        "metrics": [],
-        "extras": []
-      },
-      {
         "id": "automacao-50-de-reducao-de-toil",
         "num": "E4",
         "order": 4,
@@ -247,7 +257,9 @@
             ]
           }
         ],
-        "metrics": [],
+        "metrics": [
+          "Changes: 10 → 5, % execucao automatizado: +80% , Lead Time: +40%"
+        ],
         "extras": []
       }
     ],
@@ -587,5 +599,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-21T09:12:08.418Z"
+  "syncedAt": "2026-04-21T14:22:09.782Z"
 }
