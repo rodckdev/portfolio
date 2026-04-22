@@ -273,6 +273,49 @@
         "extras": []
       },
       {
+        "id": "business-case-finops-first-service-maturity-score",
+        "num": "3",
+        "order": 3,
+        "title": "Business Case — FinOps-first + Service Maturity Score",
+        "sub": "Modelo integrado (FinOps+SRE+Observability) com score 0–100 por serviço para reduzir custo e aumentar confiabilidade",
+        "blocks": [
+          {
+            "heading": "O que foi feito",
+            "bullets": [
+              "Definir e operar Service Maturity Score: 0.40×Health + 0.30×Cost Efficiency + 0.30×(100−Risk). Planejar rollout: 0–30d visibilidade de custo + SLO inicial; 30–60d otimização + alert engineering; 60–90d score + ranking executivo; 90+d automação e escala. Governança leve para garantir tagging e calibração do score."
+            ]
+          },
+          {
+            "heading": "Impacto técnico",
+            "bullets": [
+              "4 pilares: (1) FinOps-first (custo por serviço + tagging + otimização contínua), (2) SLO-driven reliability (SLO + error budget + risco de deploy), (3) Operational excellence (alert engineering + automação), (4) Service Maturity Score único (0–100) por serviço com ranking e priorização."
+            ]
+          },
+          {
+            "heading": "Impacto financeiro",
+            "bullets": [
+              "Baseline: Cloud R$ 2,0M/mês; Observabilidade R$ 400k/mês. Economia esperada: Cloud -20% (R$ 400k/mês) + Observabilidade -30% (R$ 120k/mês) ⇒ ~R$ 520k/mês. Investimento R$ 400k–600k (3–6 meses). Payback: 1–2 meses após rollout."
+            ]
+          },
+          {
+            "heading": "Impacto operacional",
+            "bullets": [
+              "Aumenta visibilidade e transparência por serviço, cria accountability, reduz alert noise e melhora resposta a incidentes; decisões baseadas em dados; melhora produtividade operacional (↑ 20–40% em 6 meses)."
+            ]
+          },
+          {
+            "heading": "Stakeholders beneficiados",
+            "bullets": [
+              "Plataforma/SRE; FinOps; Observability; Times de serviço (owners); Engenharia/Leadership; Segurança/Compliance"
+            ]
+          }
+        ],
+        "metrics": [
+          "% serviços com tagging completo; custo por serviço (cloud+obs); budget variance; custo de observabilidade (%); incidentes críticos; MTTR; change failure rate; alert noise; score 0–100 e distribuição; economias R$/mês"
+        ],
+        "extras": []
+      },
+      {
         "id": "automacao-50-de-reducao-de-toil",
         "num": "E4",
         "order": 4,
@@ -458,6 +501,31 @@
         "extras": []
       },
       {
+        "id": "service-centric-kpis-base-para-business-centric",
+        "order": 2,
+        "tag": "service-centric,kpi,score,slo,finops,risk",
+        "title": "Service-Centric KPIs (base para business-centric)",
+        "fields": [
+          {
+            "label": "O que",
+            "value": "Implementar modelo service-centric por microserviço/API/workload com ownership definido e tagging obrigatório (service, env, cost_center). Medir Health (SLO/latência/erro/disponibilidade), Cost (custo por serviço/observabilidade) e Risk (incidentes/deploy/alert noise) e gerar ranking técnico + priorização."
+          },
+          {
+            "label": "Por que",
+            "value": "Criar visibilidade comparável entre serviços para priorizar ações técnicas e otimizações de custo, reduzir ruído operacional e aumentar confiabilidade; preparar terreno para ligar métricas técnicas a impacto de negócio (business-centric)."
+          },
+          {
+            "label": "Impacto",
+            "value": "Controle operacional e accountability por serviço; redução de custo; redução de incidentes; base para evolução business-centric."
+          },
+          {
+            "label": "Métrica",
+            "value": "Score 0–100 por serviço (0.40 Health + 0.30 Cost + 0.30 (100−Risk)); % serviços com tagging completo; score médio; nº serviços críticos; custo por request; incidentes/mês; MTTR; alert noise."
+          }
+        ],
+        "extras": []
+      },
+      {
         "id": "slo-framework-production",
         "order": 2,
         "tag": "Iniciativa 2 · Junho – Julho",
@@ -478,6 +546,31 @@
           {
             "label": "Métrica",
             "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage."
+          }
+        ],
+        "extras": []
+      },
+      {
+        "id": "finops-first-service-maturity-score-business-case",
+        "order": 3,
+        "tag": "finops,sre,observability,service-maturity-score,cost,reliability",
+        "title": "FinOps-first + Service Maturity Score (Business Case)",
+        "fields": [
+          {
+            "label": "O que",
+            "value": "Implantar modelo integrado de FinOps + SRE + Observability com 4 pilares: FinOps-first (custo por serviço + tagging + otimização contínua), SLO-driven reliability (SLO + error budget), Operational excellence (alert engineering + automação) e Service Maturity Score (0–100) com ranking e priorização baseada em dados."
+          },
+          {
+            "label": "Por que",
+            "value": "Custos crescentes e pouco transparentes + incidentes recorrentes + falta de accountability geram decisões por percepção. O modelo cria visibilidade por serviço, prioriza ações técnicas e otimizações de custo e reduz risco operacional com impacto financeiro direto."
+          },
+          {
+            "label": "Impacto",
+            "value": "Reduzir 20–30% custo de cloud e 20–50% custo de observabilidade; reduzir 20–40% incidentes críticos e 30–60% MTTR; aumentar produtividade operacional (20–40%) em 6 meses; transparência executiva e accountability por serviço."
+          },
+          {
+            "label": "Métrica",
+            "value": "Economia ~R$ 520k/mês (exemplo); score 0–100 por serviço (0.40 Health + 0.30 Cost Efficiency + 0.30 (100−Risk)); % serviços com tagging obrigatório; custo por serviço; budget variance; custo de observabilidade (%); incidentes/mês; MTTR; alert noise."
           }
         ],
         "extras": []
@@ -627,5 +720,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-22T23:12:44.057Z"
+  "syncedAt": "2026-04-22T23:15:36.971Z"
 }
