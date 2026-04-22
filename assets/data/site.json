@@ -108,7 +108,8 @@
           {
             "heading": "Impacto financeiro",
             "bullets": [
-              "Redução de eventos eviandos ao Datadog. Saving USD 100K"
+              "Redução de eventos eviandos ao Datadog.",
+              "Saving USD 100K"
             ]
           },
           {
@@ -168,7 +169,9 @@
             ]
           }
         ],
-        "metrics": [],
+        "metrics": [
+          "Savings USD -11M"
+        ],
         "extras": []
       },
       {
@@ -284,21 +287,21 @@
   "progress": {
     "rows": [
       {
+        "order": 1,
+        "dimension": "Splunk HA — operação",
+        "status": "stable",
+        "statusLabel": "✅ estável",
+        "target": "Manter 99,99%",
+        "evidence": "Uptime logs, query perf",
+        "extras": []
+      },
+      {
         "order": 2,
         "dimension": "FinOps",
         "status": "stable",
         "statusLabel": "✅ USD 11M entregue",
         "target": "+5% ano",
         "evidence": "Splunk Decommission",
-        "extras": []
-      },
-      {
-        "order": 3,
-        "dimension": "Datadog APM / SLO",
-        "status": "warn",
-        "statusLabel": "⚠️ piloto",
-        "target": "40+ serviços com SLO",
-        "evidence": "3 serviços hoje → 40",
         "extras": []
       },
       {
@@ -346,15 +349,8 @@
         "target": "Influenciador",
         "gap": "Médio",
         "gapBadge": "warn",
-        "plan": "Documentar cases cross-team",
-        "extras": [
-          {
-            "key": "nova-coluna",
-            "label": "nova coluna",
-            "kind": "text",
-            "value": "teste"
-          }
-        ]
+        "plan": "Adoção em escala",
+        "extras": []
       },
       {
         "order": 6,
@@ -365,14 +361,7 @@
         "gap": "Médio",
         "gapBadge": "warn",
         "plan": "Talks + posts + design docs",
-        "extras": [
-          {
-            "key": "nova-coluna",
-            "label": "nova coluna",
-            "kind": "text",
-            "value": "teste"
-          }
-        ]
+        "extras": []
       },
       {
         "order": 7,
@@ -383,20 +372,7 @@
         "gap": "Alto",
         "gapBadge": "err",
         "plan": "Aulas + apresentações em inglês",
-        "extras": [
-          {
-            "key": "teste-nova-coluna",
-            "label": "teste nova coluna ",
-            "kind": "text",
-            "value": "teste nova coluna"
-          },
-          {
-            "key": "nova-coluna",
-            "label": "nova coluna",
-            "kind": "text",
-            "value": "teste"
-          }
-        ]
+        "extras": []
       }
     ],
     "kicker": "05 · Skill matrix",
@@ -528,16 +504,16 @@
         "detail": "consolidação Splunk (~USD 5M), Graviton (USD 500K), Spot + SmartStore (~USD 3M), ingestão −30% (~USD 2,5M). ROI ~12 meses."
       },
       {
-        "title": "Datadog APM + SLOs",
-        "detail": "p95 800ms → 480ms (−40%); MTTR ~90min → ~30–40min; incidentes \"mystery\" <5%."
+        "title": "Pipeline Fluentbit",
+        "detail": "Fluentbit coletor principal para logs, redirect to S3, innersoruce, agrupamento recuros por capacity"
+      },
+      {
+        "title": "Otel Pipeline",
+        "detail": "Otel collector, otel agent agnostics, pipeline and redirect"
       },
       {
         "title": "Automação / self-healing",
         "detail": "lifecycle EC2, capacity scaling e runbooks automatizados. Toil: 20 h/sem → 10 h/sem."
-      },
-      {
-        "title": "Governance & compliance",
-        "detail": "padrões de alerting, retenção e audit trails. Onboarding de novos times em 1 dia (antes, 1 mês)."
       }
     ],
     "stack": [
@@ -599,5 +575,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-21T15:58:23.903Z"
+  "syncedAt": "2026-04-22T09:00:32.854Z"
 }
