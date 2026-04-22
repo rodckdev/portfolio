@@ -87,50 +87,51 @@
   "deliverables": {
     "items": [
       {
-        "id": "fluentbit-o11y-logs-routing",
-        "num": "E6",
+        "id": "roteamento-de-logs-para-aws-s3",
+        "num": "1",
         "order": 1,
-        "title": "Fluentbit o11y - logs routing",
-        "sub": "Info Logs to S3, Saving DD logs ingest.",
+        "title": "Roteamento de logs para AWS S3",
+        "sub": "Armazenamento centralizado, durável e barato para auditoria, analytics e retenção",
         "blocks": [
           {
             "heading": "O que foi feito",
             "bullets": [
-              "Implementação no innersource."
+              "Habilitar multi routing para Datadog , Splunk, S3 e cloudwatch. Configurar pipelines innersource para filtrar e gravar em buckets S3 por conta/ambiente com particionamento por data e prefixos; habilitar lifecycle, criptografia e políticas de acesso."
             ]
           },
           {
             "heading": "Impacto técnico",
             "bullets": [
-              "logs não criticos para cheap tier, Uso sob demanda. Redução de custo no armazenamento e ingestão Datadog."
+              "Alta durabilidade (11 9s) e escalabilidade, criptografia (SSE-S3/SSE-KMS), controle fino via IAM/bucket policies, versionamento e imutabilidade (Object Lock)."
             ]
           },
           {
             "heading": "Impacto financeiro",
             "bullets": [
-              "Redução de eventos eviandos ao Datadog.",
-              "Saving USD 100K"
+              "Reduz custo por GB vs. armazenamento quente e permite políticas de lifecycle (IA/Glacier) e expiração automática."
             ]
           },
           {
             "heading": "Impacto operacional",
             "bullets": [
-              "reducao custo"
+              "Simplifica retenção/compliance, padroniza exportação de logs, facilita compartilhamento entre times e integra com ferramentas (Athena, Glue, SIEM)."
             ]
           },
           {
             "heading": "Stakeholders beneficiados",
             "bullets": [
-              "Comunidade"
+              "SRE/Plataforma; Segurança/Compliance; Data/Analytics; FinOps"
             ]
           }
         ],
-        "metrics": [],
+        "metrics": [
+          "% de fontes de log roteadas; custo mensal de storage; tempo de retenção garantido; tempo para atender auditoria/forense; nº de consultas/insights via Athena"
+        ],
         "extras": []
       },
       {
         "id": "finops-usd-11m-em-economia-anual",
-        "num": "E2",
+        "num": "E1",
         "order": 1,
         "title": "FinOps + USD 11M+ em economia anual",
         "sub": "Consolidação, Graviton, Spot, SmartStore S3 e otimização de ingestão.",
@@ -155,9 +156,17 @@
           {
             "heading": "Impacto financeiro",
             "bullets": [
+              "Redução de capacity sem impactar performance.",
+              "Descomissionamento de recursos ociosos.",
               "USD 11M+/ano em economia comprovada.",
               "USD 500K/ano somente em Graviton.",
               "ROI em automação: payback em ~12 meses."
+            ]
+          },
+          {
+            "heading": "Impacto operacional",
+            "bullets": [
+              "Otimização de capacity."
             ]
           },
           {
@@ -170,7 +179,50 @@
           }
         ],
         "metrics": [
-          "Savings USD -11M"
+          "Savings USD -11M infra , Data retention 60 to 30 days, VCPU -32%"
+        ],
+        "extras": []
+      },
+      {
+        "id": "service-centric-key-points",
+        "num": "2",
+        "order": 2,
+        "title": "Service-Centric — Key Points",
+        "sub": "KPIs e score 0–100 por serviço (Health/Cost/Risk) para ranking técnico e priorização",
+        "blocks": [
+          {
+            "heading": "O que foi feito",
+            "bullets": [
+              "Definir unidade de medição (serviço), ownership e tagging obrigatório; estabelecer 3 pilares (Health/Cost/Risk) e KPIs; calcular score: 0.40×Health + 0.30×Cost + 0.30×(100−Risk); classificar faixas (≥85 saudável, 70–84 controlado, 50–69 atenção, <50 crítico); gerar outputs (score, ranking, priorização de ação)."
+            ]
+          },
+          {
+            "heading": "Impacto técnico",
+            "bullets": [
+              "Medição contínua por microserviço/API/workload com SLOs (latência/erro/disponibilidade), métricas de custo e risco (incidentes, change failure, alert noise); modelo de score para priorização."
+            ]
+          },
+          {
+            "heading": "Impacto financeiro",
+            "bullets": [
+              "Redução de custo por serviço via visibilidade de gasto + observabilidade, controle de budget variance e otimização de utilization; base para FinOps por serviço."
+            ]
+          },
+          {
+            "heading": "Impacto operacional",
+            "bullets": [
+              "Ownership e accountability por serviço; ranking técnico; identificação de gargalos; padronização de tagging (service, env, cost_center) e rotinas de acompanhamento."
+            ]
+          },
+          {
+            "heading": "Stakeholders beneficiados",
+            "bullets": [
+              "Times de serviço (owners); SRE/Plataforma; FinOps; Segurança/Compliance; Gestão técnica"
+            ]
+          }
+        ],
+        "metrics": [
+          "% serviços com tagging completo; cobertura de SLO; score médio/mediana; nº serviços críticos; budget variance; custo por request; incidentes/mês; MTTR; alert noise"
         ],
         "extras": []
       },
@@ -575,5 +627,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-22T09:00:32.854Z"
+  "syncedAt": "2026-04-22T23:12:44.057Z"
 }
