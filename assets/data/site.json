@@ -304,17 +304,6 @@
         "extras": []
       },
       {
-        "order": 3,
-        "skill": "OTEL / Modern O11y",
-        "current": "Básico",
-        "currentBadge": "mid",
-        "target": "Intermediário",
-        "gap": "Alto",
-        "gapBadge": "err",
-        "plan": "OTCA + blueprint em produção",
-        "extras": []
-      },
-      {
         "order": 5,
         "skill": "Liderança técnica",
         "current": "Operacional",
@@ -346,6 +335,28 @@
         "gapBadge": "err",
         "plan": "Aulas + apresentações em inglês",
         "extras": []
+      },
+      {
+        "order": 0,
+        "skill": "Kubernetes avançado + operators + admission/policies",
+        "current": "Operacional",
+        "currentBadge": "warn",
+        "target": "Avancado",
+        "gap": "Médio",
+        "gapBadge": "warn",
+        "plan": "",
+        "extras": []
+      },
+      {
+        "order": 0,
+        "skill": "OpenTelemetry + collector + pipelines",
+        "current": "Básico",
+        "currentBadge": "mid",
+        "target": "Expert",
+        "gap": "Médio",
+        "gapBadge": "warn",
+        "plan": "Treinamento OTCA e Splunk para Otel + blueprint em produção",
+        "extras": []
       }
     ],
     "kicker": "05 · Skill matrix",
@@ -354,76 +365,26 @@
   "initiatives": {
     "items": [
       {
-        "id": "pipeline-o11y",
+        "id": "otel-blueprint-production-pilot",
         "order": 1,
         "tag": "Iniciativa 1 · Maio – Junho",
-        "title": "Pipeline o11y",
+        "title": "OTEL Blueprint + Production Pilot",
         "fields": [
           {
             "label": "O que",
-            "value": "arquitetura e POC"
+            "value": "Arquitetura de OTEL collector, SDKs em 2–3 serviços."
           },
           {
             "label": "Por que",
-            "value": "otel pipeline"
+            "value": "OTEL é a direção do mercado (Splunk → Datadog → OTEL standards)."
           },
           {
             "label": "Impacto",
-            "value": "agnosticso"
+            "value": "Telemetria vendor-neutral, −30% de lock-in."
           },
           {
             "label": "Métrica",
-            "value": "reduzir o uso do pipe atual"
-          }
-        ],
-        "extras": []
-      },
-      {
-        "id": "service-centric-kpis-base-para-business-centric",
-        "order": 2,
-        "tag": "service-centric,kpi,score,slo,finops,risk",
-        "title": "Service-Centric KPIs (base para business-centric)",
-        "fields": [
-          {
-            "label": "O que",
-            "value": "Implementar modelo service-centric por microserviço/API/workload com ownership definido e tagging obrigatório (service, env, cost_center). Medir Health (SLO/latência/erro/disponibilidade), Cost (custo por serviço/observabilidade) e Risk (incidentes/deploy/alert noise) e gerar ranking técnico + priorização."
-          },
-          {
-            "label": "Por que",
-            "value": "Criar visibilidade comparável entre serviços para priorizar ações técnicas e otimizações de custo, reduzir ruído operacional e aumentar confiabilidade; preparar terreno para ligar métricas técnicas a impacto de negócio (business-centric)."
-          },
-          {
-            "label": "Impacto",
-            "value": "Controle operacional e accountability por serviço; redução de custo; redução de incidentes; base para evolução business-centric."
-          },
-          {
-            "label": "Métrica",
-            "value": "Score 0–100 por serviço (0.40 Health + 0.30 Cost + 0.30 (100−Risk)); % serviços com tagging completo; score médio; nº serviços críticos; custo por request; incidentes/mês; MTTR; alert noise."
-          }
-        ],
-        "extras": []
-      },
-      {
-        "id": "slo-framework-production",
-        "order": 2,
-        "tag": "Iniciativa 2 · Junho – Julho",
-        "title": "SLO Framework Production",
-        "fields": [
-          {
-            "label": "O que",
-            "value": "Burn rate policies e error budgets em 3–5 serviços críticos."
-          },
-          {
-            "label": "Por que",
-            "value": "SLO é confiabilidade mensurável e alinha engenharia com negócio."
-          },
-          {
-            "label": "Impacto",
-            "value": "−30% em incidentes virando emergência; decisões data-driven."
-          },
-          {
-            "label": "Métrica",
-            "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage."
+            "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção."
           }
         ],
         "extras": []
@@ -449,31 +410,6 @@
           {
             "label": "Métrica",
             "value": "Economia ~R$ 520k/mês (exemplo); score 0–100 por serviço (0.40 Health + 0.30 Cost Efficiency + 0.30 (100−Risk)); % serviços com tagging obrigatório; custo por serviço; budget variance; custo de observabilidade (%); incidentes/mês; MTTR; alert noise."
-          }
-        ],
-        "extras": []
-      },
-      {
-        "id": "cross-team-adoption-program",
-        "order": 3,
-        "tag": "Iniciativa 3 · Julho",
-        "title": "Cross-team Adoption Program",
-        "fields": [
-          {
-            "label": "O que",
-            "value": "Documentar 3+ cases de adoção do padrão por outros times."
-          },
-          {
-            "label": "Por que",
-            "value": "Staff = influenciador, não só especialista profundo."
-          },
-          {
-            "label": "Impacto",
-            "value": "Cultura de observability padronizada e replicável."
-          },
-          {
-            "label": "Métrica",
-            "value": "3+ cases documentados; 30+ serviços alinhados ao padrão."
           }
         ],
         "extras": []
@@ -598,5 +534,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-24T01:21:22.106Z"
+  "syncedAt": "2026-04-24T09:17:48.819Z"
 }
