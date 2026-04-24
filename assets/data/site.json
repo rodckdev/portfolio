@@ -1,4 +1,60 @@
 {
+  "sections": {
+    "overview": {
+      "kicker": "01 · Status Geral",
+      "title": "USD 11M+ em economia + 99,99% uptime: plataforma de observabilidade enterprise",
+      "sub": "",
+      "published": true
+    },
+    "deliverables": {
+      "kicker": "02 · Entregas principais",
+      "title": "Descritivo → Impacto → Stakeholders",
+      "sub": "Cinco frentes que definem o nível atual e sustentam a conversa de staff.",
+      "published": true
+    },
+    "influence": {
+      "kicker": "03 · Influência cross-team",
+      "title": "Arquitetura que outros times adotaram",
+      "sub": "Observability deixou de ser \"coisa da plataforma\" e virou \"padrão da empresa\".",
+      "published": true
+    },
+    "matrix": {
+      "kicker": "04 · Skills & Progresso",
+      "title": "Gap para Staff e status 2025",
+      "sub": "Duas leituras: onde estou hoje (skills) e como o ano está andando (progresso).",
+      "published": true
+    },
+    "skills": {
+      "kicker": "",
+      "title": "Skill matrix — gap para Staff",
+      "sub": "",
+      "published": true
+    },
+    "progress": {
+      "kicker": "",
+      "title": "Progresso 2025 — status das dimensões",
+      "sub": "",
+      "published": true
+    },
+    "initiatives": {
+      "kicker": "05 · Próximas iniciativas staff-level",
+      "title": "Q2 / Q3 2025",
+      "sub": "",
+      "published": true
+    },
+    "committee": {
+      "kicker": "",
+      "title": "Observações para o comitê",
+      "sub": "",
+      "published": true
+    },
+    "cv": {
+      "kicker": "09 · CV snapshot",
+      "title": "One-pager do currículo",
+      "sub": "Este card foi desenhado para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).",
+      "published": true
+    }
+  },
   "meta": {
     "title": "Rodrigo Kosai — Portfólio Profissional | Senior Observability & Platform Engineer no Banco Itaú",
     "description": "Entregas técnicas 2024-2026: 250TB+/day | USD 11M+/year cost savings | AWS, Splunk, Datadog, FinOps & SRE",

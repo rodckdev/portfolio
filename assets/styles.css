@@ -559,6 +559,45 @@ strong {
 }
 
 /* ===================================================================
+ * Matrix (seção Skills + Progresso unificada)
+ * =================================================================== */
+
+.matrix-subgroup {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.matrix-subgroup:first-of-type {
+  margin-top: 1.25rem;
+}
+
+.matrix-anchor {
+  display: block;
+  position: absolute;
+  top: -80px; /* compensa header fixo ao navegar por deep-link */
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.matrix-subhead {
+  margin: 0 0 0.6rem;
+}
+
+.matrix-subtitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+
+.matrix-subdesc {
+  color: var(--ink-500);
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0;
+}
+
+/* ===================================================================
  * Tabelas
  * =================================================================== */
 
