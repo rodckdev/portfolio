@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "Rodrigo Kosai — Portfólio Profissional | Observabilidade, FinOps & AWS Scale",
-    "description": "Entregas técnicas 2024-2025: observabilidade em escala (250TB+/dia), FinOps com USD 11M+/ano em economia, Splunk HA multi-site e automação em AWS.",
+    "title": "Rodrigo Kosai — Portfólio Profissional | Senior Observability & Platform Engineer no Banco Itaú" ,
+    "description": "Entregas técnicas 2024-2026: 250TB+/day | USD 11M+/year cost savings | AWS, Splunk, Datadog, FinOps & SRE",
     "siteUrl": "https://rodckdev.github.io/portfolio/"
   },
   "hero": {
-    "eyebrow": "Entregas técnicas · 2024 – 2025",
+    "eyebrow": "Entregas técnicas · 2024 – 2026",
     "headlineParts": [
       {
         "text": "Observabilidade "
@@ -32,7 +32,7 @@
         "text": " que sustenta milhares de engenheiros."
       }
     ],
-    "ledeHtml": "Sênior Site Reliability / Observability Engineer no Banco Itaú desde Aug/2021. Responsável pela operação de uma plataforma de telemetria crítica que serve <strong>2.000+ usuários</strong>, ingere <strong>250TB+/dia</strong> e roda sobre <strong>400+ EC2</strong>.",
+    "ledeHtml": "Sênior Site Reliability / Observability Plataform Engineer no Banco Itaú desde Aug/2021. Responsável pela operação de uma plataforma de telemetria crítica que serve <strong>2.000+ usuários</strong>, ingere <strong>250TB+/dia</strong> e roda sobre <strong>400+ EC2</strong>.",
     "cta": [
       {
         "label": "Ver entregas",
@@ -56,12 +56,12 @@
         "value": "250TB+"
       },
       {
-        "label": "Usuários atendidos",
+        "label": "Squads atendidos",
         "value": "2.000+"
       },
       {
         "label": "Frota gerenciada",
-        "value": "400+ EC2"
+        "value": "400+ EC2, EKS, ECS, Lambda, Glue"
       },
       {
         "label": "Uptime plataforma",
@@ -73,17 +73,20 @@
       }
     ]
   },
+
   "overview": {
-    "kicker": "01 · Status geral",
-    "title": "Visibilidade operacional para liderança & comitê",
-    "subHtml": "Este portfólio é um dashboard executivo: mostra o <em>que</em> foi entregue, <em>por que</em> importa tecnicamente e financeiramente, e <em>quem</em> se beneficia.",
+    "kicker": "01 · Status Geral",
+    "title": "USD 11M+ em economia + 99,99% uptime: plataforma de observabilidade enterprise",
+    "subHtml": "Portfólio executivo que traduz <em>engenharia de confiabilidade em escala</em> em <em>valor financeiro</em>: USD 11M+/ano em modernização, USD 500K/ano em FinOps, 15% redução infraestrutural. Documenta <em>o quê</em> foi arquitetado (plataforma Splunk/Datadog HA multi-site), <em>por quê</em> importa (2.000+ usuários críticos, finance/telecom, risk mitigation), e <em>o impacto</em> (reliability, cost control, automation at scale).",
     "pills": [
-      "📅 Aug 2021 – presente · Banco Itaú",
-      "🏦 Financial Services · Platform / Observability",
-      "🌎 Multi-AZ · Multi-site HA",
-      "🛠️ Splunk · Datadog · AWS · Terraform · OTEL"
+      "📅 Aug 2021 – presente (5 anos) · Banco Itaú",
+      "🏦 Financial Services | Platform Engineering & Observability | 2.000+ users | 400+ instances",
+      "🛠️ Splunk (Architect/Core/SmartStore) | Datadog (APM/SLO/Synthetics) | AWS (EC2/EKS/Lambda) | Terraform | OTEL",
+      "💡 SRE · FinOps · Observability Pipeline · HA Multi-site Infrastructure",
+      "📈 USD 11M+/ano · USD 500K/ano · 250TB+/dia · 99,99% SLO · 50% automation toil reduction"
     ]
   },
+
   "deliverables": {
     "items": [
       {
