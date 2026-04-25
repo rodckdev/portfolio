@@ -181,14 +181,14 @@
           }
         ],
         "metrics": [
-          "% de fontes de log roteadas; custo mensal de storage; tempo de retenção garantido; tempo para atender auditoria/forense; nº de consultas/insights via Athena"
+          "100% de log info roteadas; custo mensal de storage; tempo de retenção garantido; tempo para atender auditoria/forense; nº de consultas/insights via Athena"
         ],
         "extras": []
       },
       {
         "id": "lifecycle-automation-50-de-reducao-de-toil",
-        "num": "8",
-        "order": 8,
+        "num": "3",
+        "order": 3,
         "title": "Lifecycle automation + 50% de redução de toil",
         "sub": "Lifecycle automation, capacity scaling, self-healing e runbooks automatizados.",
         "blocks": [
@@ -304,6 +304,17 @@
         "extras": []
       },
       {
+        "order": 4,
+        "skill": "SLO framework",
+        "current": "Teórico",
+        "currentBadge": "warn",
+        "target": "Comprovado",
+        "gap": "Alto",
+        "gapBadge": "err",
+        "plan": "Pilotar em 3 serviços críticos",
+        "extras": []
+      },
+      {
         "order": 5,
         "skill": "Liderança técnica",
         "current": "Operacional",
@@ -344,7 +355,7 @@
         "target": "Avancado",
         "gap": "Médio",
         "gapBadge": "warn",
-        "plan": "",
+        "plan": "Trilhas CKA, CKD",
         "extras": []
       },
       {
@@ -365,10 +376,10 @@
   "initiatives": {
     "items": [
       {
-        "id": "otel-blueprint-production-pilot",
+        "id": "telemetry-pepiline-vendor-neutral",
         "order": 1,
         "tag": "Iniciativa 1 · Maio – Junho",
-        "title": "OTEL Blueprint + Production Pilot",
+        "title": "Telemetry pepiline vendor neutral",
         "fields": [
           {
             "label": "O que",
@@ -534,5 +545,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-24T09:17:48.819Z"
+  "syncedAt": "2026-04-25T06:59:00.298Z"
 }
