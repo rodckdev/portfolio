@@ -18,6 +18,7 @@
 //   NOTION_PROGRESS_DB_ID      — site.json → progress
 //   NOTION_KPIS_DB_ID          — site.json → hero.metrics + cv.kpis
 //   NOTION_CV_HIGHLIGHTS_DB_ID — site.json → cv.deliverables
+//   NOTION_SECTIONS_DB_ID      — site.json → sections.<key> (kicker/title/sub/published)
 //
 // Sem NOTION_API_KEY o script sai com exit 0 (não quebra CI enquanto os
 // secrets não estão setados). Cada DB é opcional — ausência simplesmente
@@ -42,6 +43,7 @@ const DB_IDS = {
   progress: process.env.NOTION_PROGRESS_DB_ID,
   kpis: process.env.NOTION_KPIS_DB_ID,
   cvHighlights: process.env.NOTION_CV_HIGHLIGHTS_DB_ID,
+  sections: process.env.NOTION_SECTIONS_DB_ID,
 };
 
 if (!NOTION_API_KEY) {
@@ -82,10 +84,21 @@ async function main() {
     pathUpdates['cv.deliverables'] = await syncCvHighlights(DB_IDS.cvHighlights);
   }
 
+  // Sections: headers editáveis (kicker/title/sub) + publish toggle por
+  // seção. Merge-update especial: chaves vindas do Notion sobrescrevem;
+  // chaves ausentes permanecem como estão (permite desativar um registro
+  // sem apagar o cabeçalho).
+  let sectionsUpdate = null;
+  if (DB_IDS.sections) {
+    sectionsUpdate = await syncSections(DB_IDS.sections);
+  }
+
   const anyUpdate =
-    Object.keys(siteUpdates).length > 0 || Object.keys(pathUpdates).length > 0;
+    Object.keys(siteUpdates).length > 0 ||
+    Object.keys(pathUpdates).length > 0 ||
+    (sectionsUpdate && Object.keys(sectionsUpdate).length > 0);
   if (anyUpdate) {
-    const sections = await mergeSite(siteUpdates, pathUpdates);
+    const sections = await mergeSite(siteUpdates, pathUpdates, sectionsUpdate);
     summary.push(
       ...Object.entries(sections).map(([k, v]) => `${k}: ${v.count} (${v.status})`),
     );
@@ -139,7 +152,7 @@ function toPost(page) {
 // ---------------------------------------------------------------------------
 // site.json — merge-update
 // ---------------------------------------------------------------------------
-async function mergeSite(updates, pathUpdates = {}) {
+async function mergeSite(updates, pathUpdates = {}, sectionsUpdate = null) {
   const current = await readJsonSafe(SITE_PATH);
   const status = {};
 
@@ -184,6 +197,21 @@ async function mergeSite(updates, pathUpdates = {}) {
     }
     setPath(current, dotted, fetched);
     status[dotted] = { count: fetched.length, status: 'updated' };
+  }
+
+  if (sectionsUpdate && typeof sectionsUpdate === 'object') {
+    const keys = Object.keys(sectionsUpdate);
+    if (keys.length === 0) {
+      status['sections'] = { count: 0, status: 'skipped-empty' };
+    } else {
+      if (!current.sections || typeof current.sections !== 'object') {
+        current.sections = {};
+      }
+      for (const [key, meta] of Object.entries(sectionsUpdate)) {
+        current.sections[key] = { ...(current.sections[key] || {}), ...meta };
+      }
+      status['sections'] = { count: keys.length, status: 'updated' };
+    }
   }
 
   current.syncedAt = new Date().toISOString();
@@ -511,6 +539,43 @@ async function syncCvHighlights(dbId) {
 }
 
 // ---------------------------------------------------------------------------
+// Sections — cabeçalhos editáveis (kicker/title/sub) + publish toggle por
+// seção. Uma linha por seção no Notion. Name define a chave (overview,
+// deliverables, influence, matrix, initiatives, committee, cv). Published=
+// false oculta a seção inteira no site.
+//
+// Schema:
+//   Name (title)               → chave da seção
+//   Kicker (rich_text)         → ex: "05 · Skills e Progresso"
+//   Title (rich_text)          → ex: "Status 2025 e gap para Staff"
+//   Sub (rich_text)            → subtítulo opcional
+//   Published (checkbox)       → false = seção some do site
+// ---------------------------------------------------------------------------
+async function syncSections(dbId) {
+  console.log('[sync-notion] sections ← DB', dbId);
+  const pages = await queryAll({
+    database_id: dbId,
+    page_size: 50,
+  });
+  logFetched('sections', pages, (p) => getTitle(p.properties.Name));
+  const out = {};
+  pages.forEach((page) => {
+    const p = page.properties;
+    const key = slug(getTitle(p.Name));
+    if (!key) return;
+    out[key] = {
+      kicker: getRichText(p.Kicker) || '',
+      title: getRichText(p.Title) || '',
+      sub: getRichText(p.Sub) || '',
+      published: p.Published && p.Published.type === 'checkbox'
+        ? !!p.Published.checkbox
+        : true,
+    };
+  });
+  return out;
+}
+
+// ---------------------------------------------------------------------------
 // Extras — colunas novas no Notion refletindo no site sem mexer no código
 // ---------------------------------------------------------------------------
 // Qualquer propriedade que NÃO esteja em `knownKeys` vira um item em `extras`:
@@ -595,6 +660,7 @@ const KNOWN = {
   ],
   kpis: ['Name', 'Value', 'HeroOrder', 'CvOrder', 'Published'],
   cvHighlights: ['Name', 'Detail', 'Order', 'Published'],
+  sections: ['Name', 'Kicker', 'Title', 'Sub', 'Published'],
 };
 
 // ---------------------------------------------------------------------------

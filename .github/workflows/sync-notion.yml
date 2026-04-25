@@ -44,6 +44,7 @@ jobs:
           NOTION_PROGRESS_DB_ID: ${{ secrets.NOTION_PROGRESS_DB_ID }}
           NOTION_KPIS_DB_ID: ${{ secrets.NOTION_KPIS_DB_ID }}
           NOTION_CV_HIGHLIGHTS_DB_ID: ${{ secrets.NOTION_CV_HIGHLIGHTS_DB_ID }}
+          NOTION_SECTIONS_DB_ID: ${{ secrets.NOTION_SECTIONS_DB_ID }}
         run: node .github/scripts/sync-notion.mjs
 
       - name: Commit changes (se houver)

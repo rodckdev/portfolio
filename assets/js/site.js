@@ -27,16 +27,74 @@
       return;
     }
 
+    SECTIONS = (data && typeof data.sections === 'object' && data.sections) || {};
+
     if (data.meta) applyMeta(data.meta);
-    if (data.hero) renderHero(data.hero);
-    if (data.overview) renderOverview(data.overview);
-    if (data.deliverables) renderDeliverables(data.deliverables);
-    if (data.influence) renderInfluence(data.influence);
-    if (data.progress) renderProgress(data.progress);
-    if (data.skills) renderSkills(data.skills);
-    if (data.initiatives) renderInitiatives(data.initiatives);
-    if (data.committee) renderCommittee(data.committee);
-    if (data.cv) renderCV(data.cv);
+    if (data.hero) renderIfPublished('top', () => renderHero(data.hero));
+    if (data.overview)
+      renderIfPublished('overview', () => renderOverview(data.overview));
+    if (data.deliverables)
+      renderIfPublished('deliverables', () => renderDeliverables(data.deliverables));
+    if (data.influence)
+      renderIfPublished('influence', () => renderInfluence(data.influence));
+    if (data.skills || data.progress)
+      renderIfPublished('matrix', () => renderMatrix(data.skills, data.progress));
+    if (data.initiatives)
+      renderIfPublished('next', () => renderInitiatives(data.initiatives));
+    if (data.committee)
+      renderIfPublished('committee', () => renderCommittee(data.committee));
+    if (data.cv) renderIfPublished('cv', () => renderCV(data.cv));
+  }
+
+  // Mapa section-id (DOM) → chave do DB Site Sections (Notion).
+  // Edite aqui se renomear uma seção ou adicionar uma nova gerenciada por
+  // cabeçalho dinâmico.
+  const SECTION_KEY_BY_DOM_ID = {
+    top: 'hero',
+    overview: 'overview',
+    deliverables: 'deliverables',
+    influence: 'influence',
+    matrix: 'matrix',
+    next: 'initiatives',
+    committee: 'committee',
+    cv: 'cv',
+  };
+
+  // Preenchido em init(). Guarda data.sections para o headerOf().
+  let SECTIONS = {};
+
+  // Busca metadados (kicker/title/sub/published) de uma seção no objeto
+  // `sections` do site.json. Aceita tanto o id do DOM quanto a chave direta.
+  function sectionMeta(domIdOrKey) {
+    const key = SECTION_KEY_BY_DOM_ID[domIdOrKey] || domIdOrKey;
+    return (SECTIONS && SECTIONS[key]) || null;
+  }
+
+  // Aplica o publish toggle por seção. Se `published === false` no DB Site
+  // Sections, a <section> correspondente é ocultada e o renderer não roda.
+  function renderIfPublished(domId, renderer) {
+    const section = document.getElementById(domId);
+    const meta = sectionMeta(domId);
+    if (meta && meta.published === false) {
+      if (section) section.hidden = true;
+      return;
+    }
+    if (section) section.hidden = false;
+    renderer();
+  }
+
+  // Mescla cabeçalho vindo do DB Site Sections (se houver) com o fallback
+  // estático do site.json (kicker/title/sub por seção). Qualquer campo
+  // preenchido no Notion sobrescreve o estático; vazios caem para o fallback
+  // para não apagar headers já bons por acidente.
+  function mergeHead(domId, fallback) {
+    const meta = sectionMeta(domId) || {};
+    return {
+      kicker: meta.kicker || (fallback && fallback.kicker) || '',
+      title: meta.title || (fallback && fallback.title) || '',
+      sub: meta.sub || (fallback && fallback.sub) || '',
+      subHtml: (fallback && fallback.subHtml) || '',
+    };
   }
 
   // ---------------------------------------------------------------------
@@ -142,8 +200,10 @@
     if (!section) return;
     const container = section.querySelector('.container');
     if (!container) return;
+    const head = mergeHead('overview', ov);
+    const subHtml = head.sub ? '' : head.subHtml; // Notion sobrescreve HTML
     container.replaceChildren(
-      buildSectionHead(ov.kicker, ov.title, ov.subHtml || ov.sub, !!ov.subHtml),
+      buildSectionHead(head.kicker, head.title, subHtml || head.sub, !!subHtml),
       buildPillRow(ov.pills || []),
     );
   }
@@ -164,7 +224,8 @@
     if (!container) return;
 
     const frag = document.createDocumentFragment();
-    frag.appendChild(buildSectionHead(d.kicker, d.title, d.sub));
+    const head = mergeHead('deliverables', d);
+    frag.appendChild(buildSectionHead(head.kicker, head.title, head.sub));
     const sorted = [...(d.items || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
     sorted.forEach((item) => frag.appendChild(buildDeliverable(item)));
     container.replaceChildren(frag);
@@ -274,7 +335,8 @@
     if (!container) return;
 
     const frag = document.createDocumentFragment();
-    frag.appendChild(buildSectionHead(inf.kicker, inf.title, inf.sub));
+    const head = mergeHead('influence', inf);
+    frag.appendChild(buildSectionHead(head.kicker, head.title, head.sub));
     const ul = el('ul', 'adoption-list');
     const sorted = [...(inf.items || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
     sorted.forEach((item) => {
@@ -296,74 +358,142 @@
   }
 
   // ---------------------------------------------------------------------
-  // Progress dashboard
+  // Matrix — seção unificada: duas sub-tabelas (Skills e Progresso 2025)
+  // num único cabeçalho editável via DB Site Sections (key=matrix).
+  //
+  // Sub-tabelas também têm headers próprios (H3) editáveis via Site Sections
+  // usando as chaves `skills` e `progress`. Cada sub-tabela respeita seu
+  // próprio `published` — é possível ocultar só skills ou só progresso
+  // mantendo o bloco matrix visível.
   // ---------------------------------------------------------------------
-  function renderProgress(p) {
-    const section = document.getElementById('progress');
+  function renderMatrix(skills, progress) {
+    const section = document.getElementById('matrix');
     if (!section) return;
     const container = section.querySelector('.container');
     if (!container) return;
 
-    const rows = [...(p.rows || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
-    const extraCols = unionExtraColumns(rows);
-    const wrap = el('div', 'table-wrap');
-    const t = el('table', 'data-table');
-    const headers = ['Dimensão', 'Status', 'Target 2025', 'Evidência'].concat(
-      extraCols.map((c) => c.label),
-    );
-    const thead = el('thead');
-    const trh = el('tr');
-    headers.forEach((h) => {
-      const th = el('th', null, h);
-      th.setAttribute('scope', 'col');
-      trh.appendChild(th);
+    const head = mergeHead('matrix', {
+      kicker: '05 · Skills & Progresso',
+      title: 'Gap para Staff e status 2025',
     });
-    thead.appendChild(trh);
-    t.appendChild(thead);
+    const frag = document.createDocumentFragment();
+    frag.appendChild(buildSectionHead(head.kicker, head.title, head.sub));
 
-    const tbody = el('tbody');
-    rows.forEach((r) => {
-      const tr = el('tr');
-      const th = el('th', null, r.dimension || '');
-      th.setAttribute('scope', 'row');
-      tr.appendChild(th);
+    const skillsMeta = sectionMeta('skills');
+    if (skills && (!skillsMeta || skillsMeta.published !== false)) {
+      frag.appendChild(
+        buildMatrixSubgroup({
+          anchorId: 'skills',
+          head: mergeHead('skills', {
+            title: 'Skill matrix — gap para Staff',
+            sub: (skills && skills.sub) || '',
+          }),
+          table: buildSkillsTable(skills),
+        }),
+      );
+    }
 
-      const td1 = el('td');
-      td1.appendChild(badgeNode(r.status, r.statusLabel));
-      tr.appendChild(td1);
+    const progressMeta = sectionMeta('progress');
+    if (progress && (!progressMeta || progressMeta.published !== false)) {
+      frag.appendChild(
+        buildMatrixSubgroup({
+          anchorId: 'progress',
+          head: mergeHead('progress', {
+            title: 'Progresso 2025 — status das dimensões',
+            sub: (progress && progress.sub) || '',
+          }),
+          table: buildProgressTable(progress),
+        }),
+      );
+    }
 
-      tr.appendChild(el('td', null, r.target || ''));
-
-      const td3 = el('td');
-      if (r.evidenceHtml) td3.innerHTML = r.evidenceHtml;
-      else td3.textContent = r.evidence || '';
-      tr.appendChild(td3);
-
-      appendExtraCells(tr, r.extras, extraCols);
-      tbody.appendChild(tr);
-    });
-    t.appendChild(tbody);
-    wrap.appendChild(t);
-
-    container.replaceChildren(buildSectionHead(p.kicker, p.title, p.sub), wrap);
+    container.replaceChildren(frag);
   }
 
-  // ---------------------------------------------------------------------
-  // Skills
-  // ---------------------------------------------------------------------
-  function renderSkills(s) {
-    const section = document.getElementById('skills');
-    if (!section) return;
-    const container = section.querySelector('.container');
-    if (!container) return;
+  function buildMatrixSubgroup({ anchorId, head, table }) {
+    const wrap = el('div', 'matrix-subgroup');
+    if (anchorId) {
+      // Âncora interna para preservar deep-links antigos (#skills, #progress)
+      const anchor = document.createElement('span');
+      anchor.id = anchorId;
+      anchor.className = 'matrix-anchor';
+      wrap.appendChild(anchor);
+    }
+    const sub = el('header', 'matrix-subhead');
+    if (head.title) sub.appendChild(el('h3', 'matrix-subtitle', head.title));
+    if (head.sub) sub.appendChild(el('p', 'matrix-subdesc', head.sub));
+    wrap.appendChild(sub);
+    wrap.appendChild(table);
+    return wrap;
+  }
 
-    const rows = [...(s.rows || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
+  function buildSkillsTable(s) {
+    const rows = [...((s && s.rows) || [])].sort(
+      (a, b) => (a.order || 0) - (b.order || 0),
+    );
     const extraCols = unionExtraColumns(rows);
     const wrap = el('div', 'table-wrap');
     const t = el('table', 'data-table');
     const headers = [
       'Skill', 'Nível atual', 'Esperado (Staff)', 'Gap', 'Plano de fechamento',
     ].concat(extraCols.map((c) => c.label));
+    t.appendChild(buildThead(headers));
+    const tbody = el('tbody');
+    rows.forEach((r) => {
+      const tr = el('tr');
+      const th = el('th', null, r.skill || '');
+      th.setAttribute('scope', 'row');
+      tr.appendChild(th);
+      const tdCur = el('td');
+      tdCur.appendChild(badgeNode(r.currentBadge, r.current));
+      tr.appendChild(tdCur);
+      tr.appendChild(el('td', null, r.target || ''));
+      const tdGap = el('td');
+      tdGap.appendChild(badgeNode(r.gapBadge, r.gap));
+      tr.appendChild(tdGap);
+      tr.appendChild(el('td', null, r.plan || ''));
+      appendExtraCells(tr, r.extras, extraCols);
+      tbody.appendChild(tr);
+    });
+    t.appendChild(tbody);
+    wrap.appendChild(t);
+    return wrap;
+  }
+
+  function buildProgressTable(p) {
+    const rows = [...((p && p.rows) || [])].sort(
+      (a, b) => (a.order || 0) - (b.order || 0),
+    );
+    const extraCols = unionExtraColumns(rows);
+    const wrap = el('div', 'table-wrap');
+    const t = el('table', 'data-table');
+    const headers = ['Dimensão', 'Status', 'Target 2025', 'Evidência'].concat(
+      extraCols.map((c) => c.label),
+    );
+    t.appendChild(buildThead(headers));
+    const tbody = el('tbody');
+    rows.forEach((r) => {
+      const tr = el('tr');
+      const th = el('th', null, r.dimension || '');
+      th.setAttribute('scope', 'row');
+      tr.appendChild(th);
+      const td1 = el('td');
+      td1.appendChild(badgeNode(r.status, r.statusLabel));
+      tr.appendChild(td1);
+      tr.appendChild(el('td', null, r.target || ''));
+      const td3 = el('td');
+      if (r.evidenceHtml) td3.innerHTML = r.evidenceHtml;
+      else td3.textContent = r.evidence || '';
+      tr.appendChild(td3);
+      appendExtraCells(tr, r.extras, extraCols);
+      tbody.appendChild(tr);
+    });
+    t.appendChild(tbody);
+    wrap.appendChild(t);
+    return wrap;
+  }
+
+  function buildThead(headers) {
     const thead = el('thead');
     const trh = el('tr');
     headers.forEach((h) => {
@@ -372,33 +502,7 @@
       trh.appendChild(th);
     });
     thead.appendChild(trh);
-    t.appendChild(thead);
-
-    const tbody = el('tbody');
-    rows.forEach((r) => {
-      const tr = el('tr');
-      const th = el('th', null, r.skill || '');
-      th.setAttribute('scope', 'row');
-      tr.appendChild(th);
-
-      const tdCur = el('td');
-      tdCur.appendChild(badgeNode(r.currentBadge, r.current));
-      tr.appendChild(tdCur);
-
-      tr.appendChild(el('td', null, r.target || ''));
-
-      const tdGap = el('td');
-      tdGap.appendChild(badgeNode(r.gapBadge, r.gap));
-      tr.appendChild(tdGap);
-
-      tr.appendChild(el('td', null, r.plan || ''));
-      appendExtraCells(tr, r.extras, extraCols);
-      tbody.appendChild(tr);
-    });
-    t.appendChild(tbody);
-    wrap.appendChild(t);
-
-    container.replaceChildren(buildSectionHead(s.kicker, s.title, s.sub), wrap);
+    return thead;
   }
 
   // ---------------------------------------------------------------------
@@ -437,7 +541,8 @@
       grid.appendChild(art);
     });
 
-    container.replaceChildren(buildSectionHead(ini.kicker, ini.title, ini.sub), grid);
+    const head = mergeHead('next', ini);
+    container.replaceChildren(buildSectionHead(head.kicker, head.title, head.sub), grid);
   }
 
   // ---------------------------------------------------------------------
@@ -449,8 +554,9 @@
     const container = section.querySelector('.container');
     if (!container) return;
 
+    const head = mergeHead('committee', { title: c.title });
     const callout = el('div', 'callout');
-    callout.appendChild(el('h2', null, c.title || 'Observações para o comitê'));
+    callout.appendChild(el('h2', null, head.title || 'Observações para o comitê'));
     (c.paragraphs || []).forEach((html) => {
       const p = el('p');
       p.innerHTML = html;
@@ -468,12 +574,13 @@
     const container = section.querySelector('.container');
     if (!container) return;
 
+    const meta = mergeHead('cv', cv);
     const head = el('header', 'section-head section-head-cv');
-    head.appendChild(el('span', 'section-kicker', cv.kicker || '09 · CV snapshot'));
-    head.appendChild(el('h2', null, cv.title || 'One-pager do currículo'));
-    if (cv.sub) {
+    head.appendChild(el('span', 'section-kicker', meta.kicker || '09 · CV snapshot'));
+    head.appendChild(el('h2', null, meta.title || 'One-pager do currículo'));
+    if (meta.sub) {
       const sub = el('p', 'section-sub no-print');
-      sub.textContent = cv.sub;
+      sub.textContent = meta.sub;
       head.appendChild(sub);
     }
 

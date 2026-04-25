@@ -1,6 +1,62 @@
 {
+  "sections": {
+    "overview": {
+      "kicker": "01 · Status Geral",
+      "title": "USD 11M+ em economia + 99,99% uptime: plataforma de observabilidade enterprise",
+      "sub": "",
+      "published": true
+    },
+    "deliverables": {
+      "kicker": "02 · Entregas principais",
+      "title": "Descritivo → Impacto → Stakeholders",
+      "sub": "Cinco frentes que definem o nível atual e sustentam a conversa de staff.",
+      "published": true
+    },
+    "influence": {
+      "kicker": "03 · Influência cross-team",
+      "title": "Arquitetura que outros times adotaram",
+      "sub": "Observability deixou de ser \"coisa da plataforma\" e virou \"padrão da empresa\".",
+      "published": true
+    },
+    "matrix": {
+      "kicker": "04 · Skills & Progresso",
+      "title": "Gap para Staff e status 2025",
+      "sub": "Duas leituras: onde estou hoje (skills) e como o ano está andando (progresso).",
+      "published": true
+    },
+    "skills": {
+      "kicker": "",
+      "title": "Skill matrix — gap para Staff",
+      "sub": "",
+      "published": true
+    },
+    "progress": {
+      "kicker": "",
+      "title": "Progresso 2025 — status das dimensões",
+      "sub": "",
+      "published": true
+    },
+    "initiatives": {
+      "kicker": "05 · Próximas iniciativas staff-level",
+      "title": "Q2 / Q3 2025",
+      "sub": "",
+      "published": true
+    },
+    "committee": {
+      "kicker": "",
+      "title": "Observações para o comitê",
+      "sub": "",
+      "published": true
+    },
+    "cv": {
+      "kicker": "09 · CV snapshot",
+      "title": "One-pager do currículo",
+      "sub": "Este card foi desenhado para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).",
+      "published": true
+    }
+  },
   "meta": {
-    "title": "Rodrigo Kosai — Portfólio Profissional | Senior Observability & Platform Engineer no Banco Itaú" ,
+    "title": "Rodrigo Kosai — Portfólio Profissional | Senior Observability & Platform Engineer no Banco Itaú",
     "description": "Entregas técnicas 2024-2026: 250TB+/day | USD 11M+/year cost savings | AWS, Splunk, Datadog, FinOps & SRE",
     "siteUrl": "https://rodckdev.github.io/portfolio/"
   },
@@ -56,12 +112,12 @@
         "value": "250TB+"
       },
       {
-        "label": "Squads atendidos",
+        "label": "Usuários atendidos",
         "value": "2.000+"
       },
       {
         "label": "Frota gerenciada",
-        "value": "400+ EC2, EKS, ECS, Lambda, Glue"
+        "value": "400+ EC2"
       },
       {
         "label": "Uptime plataforma",
@@ -73,7 +129,6 @@
       }
     ]
   },
-
   "overview": {
     "kicker": "01 · Status Geral",
     "title": "USD 11M+ em economia + 99,99% uptime: plataforma de observabilidade enterprise",
@@ -86,14 +141,13 @@
       "📈 USD 11M+/ano · USD 500K/ano · 250TB+/dia · 99,99% SLO · 50% automation toil reduction"
     ]
   },
-
   "deliverables": {
     "items": [
       {
-        "id": "finops-usd-11m-em-economia-anual",
+        "id": "finops-usd-11m-ano-processamento-com-capacity",
         "num": "1",
         "order": 1,
-        "title": "FinOps + USD 11M+ em economia anual",
+        "title": "FinOps + USD 11M+/ano, +Processamento com - Capacity.",
         "sub": "Consolidação, Graviton, Spot, SmartStore S3 e otimização de ingestão.",
         "blocks": [
           {
@@ -144,10 +198,10 @@
         "extras": []
       },
       {
-        "id": "roteamento-de-logs-para-aws-s3",
+        "id": "multi-roteamemento-de-logs-fluentbit-s3-splunk-datadog",
         "num": "2",
         "order": 2,
-        "title": "Roteamento de logs para AWS S3",
+        "title": "Multi Roteamemento de logs FluentBit/S3/Splunk/Datadog.",
         "sub": "Armazenamento centralizado, durável e barato para auditoria, analytics e retenção",
         "blocks": [
           {
@@ -159,7 +213,8 @@
           {
             "heading": "Impacto técnico",
             "bullets": [
-              "Alta durabilidade (11 9s) e escalabilidade, criptografia (SSE-S3/SSE-KMS), controle fino via IAM/bucket policies, versionamento e imutabilidade (Object Lock)."
+              "Alta durabilidade e escalabilidade, versionamento e imutabilidade (Object Lock).",
+              "Opcao de roteamento entre CLoudwatch, S3, Splunk e Datadog."
             ]
           },
           {
@@ -182,147 +237,15 @@
           }
         ],
         "metrics": [
-          "% de fontes de log roteadas; custo mensal de storage; tempo de retenção garantido; tempo para atender auditoria/forense; nº de consultas/insights via Athena"
+          "100% de log info roteadas; custo mensal de storage; tempo de retenção garantido; tempo para atender auditoria/forense; nº de consultas/insights via Athena"
         ],
         "extras": []
       },
       {
-        "id": "ha-multi-site-splunk-infraestrutura-moderna",
+        "id": "lifecycle-automation-50-de-reducao-de-toil",
         "num": "3",
         "order": 3,
-        "title": "HA multi-site Splunk + infraestrutura moderna",
-        "sub": "Splunk em alta disponibilidade multi-site na AWS, IaC em CI/CD.",
-        "blocks": [
-          {
-            "heading": "O que foi feito",
-            "bullets": [
-              "Operação de Splunk HA multi-site em AWS (SmartStore, indexer clusters, search heads distribuídos).",
-              "Suporte a 2.000+ usuários, 250TB+/dia e 400+ EC2.",
-              "Terraform + CloudFormation em CI/CD para IaC consistente."
-            ]
-          },
-          {
-            "heading": "Impacto técnico",
-            "bullets": [
-              "Zero downtime para 2.000+ usuários (SLA crítico).",
-              "Resiliência multi-AZ com capacidade de disaster recovery.",
-              "Queries performáticas mesmo em escala (p95 otimizado)."
-            ]
-          },
-          {
-            "heading": "Impacto financeiro",
-            "bullets": [
-              "Evitou ~USD 2M+/ano em redundância manual e falhas operacionais.",
-              "Infraestrutura ágil para scaling rápido."
-            ]
-          },
-          {
-            "heading": "Stakeholders beneficiados",
-            "bullets": [
-              "NOC / SOC — confiabilidade.",
-              "Finance / Audit — compliance com dados críticos.",
-              "Platform teams — infraestrutura como base."
-            ]
-          }
-        ],
-        "metrics": [
-          "99,99% uptime",
-          "0 RPO/RTO críticos por falha infraestrutural",
-          "250TB/dia sem degradação"
-        ],
-        "extras": []
-      },
-      {
-        "id": "service-centric-key-points",
-        "num": "4",
-        "order": 4,
-        "title": "Service-Centric — Key Points",
-        "sub": "KPIs e score 0–100 por serviço (Health/Cost/Risk) para ranking técnico e priorização",
-        "blocks": [
-          {
-            "heading": "O que foi feito",
-            "bullets": [
-              "Definir unidade de medição (serviço), ownership e tagging obrigatório; estabelecer 3 pilares (Health/Cost/Risk) e KPIs; calcular score: 0.40×Health + 0.30×Cost + 0.30×(100−Risk); classificar faixas (≥85 saudável, 70–84 controlado, 50–69 atenção, <50 crítico); gerar outputs (score, ranking, priorização de ação)."
-            ]
-          },
-          {
-            "heading": "Impacto técnico",
-            "bullets": [
-              "Medição contínua por microserviço/API/workload com SLOs (latência/erro/disponibilidade), métricas de custo e risco (incidentes, change failure, alert noise); modelo de score para priorização."
-            ]
-          },
-          {
-            "heading": "Impacto financeiro",
-            "bullets": [
-              "Redução de custo por serviço via visibilidade de gasto + observabilidade, controle de budget variance e otimização de utilization; base para FinOps por serviço."
-            ]
-          },
-          {
-            "heading": "Impacto operacional",
-            "bullets": [
-              "Ownership e accountability por serviço; ranking técnico; identificação de gargalos; padronização de tagging (service, env, cost_center) e rotinas de acompanhamento."
-            ]
-          },
-          {
-            "heading": "Stakeholders beneficiados",
-            "bullets": [
-              "Times de serviço (owners); SRE/Plataforma; FinOps; Segurança/Compliance; Gestão técnica"
-            ]
-          }
-        ],
-        "metrics": [
-          "% serviços com tagging completo; cobertura de SLO; score médio/mediana; nº serviços críticos; budget variance; custo por request; incidentes/mês; MTTR; alert noise"
-        ],
-        "extras": []
-      },
-      {
-        "id": "business-case-finops-first-service-maturity-score",
-        "num": "7",
-        "order": 7,
-        "title": "Business Case — FinOps-first + Service Maturity Score",
-        "sub": "Modelo integrado (FinOps+SRE+Observability) com score 0–100 por serviço para reduzir custo e aumentar confiabilidade",
-        "blocks": [
-          {
-            "heading": "O que foi feito",
-            "bullets": [
-              "Definir e operar Service Maturity Score: 0.40×Health + 0.30×Cost Efficiency + 0.30×(100−Risk). Planejar rollout: 0–30d visibilidade de custo + SLO inicial; 30–60d otimização + alert engineering; 60–90d score + ranking executivo; 90+d automação e escala. Governança leve para garantir tagging e calibração do score."
-            ]
-          },
-          {
-            "heading": "Impacto técnico",
-            "bullets": [
-              "4 pilares: (1) FinOps-first (custo por serviço + tagging + otimização contínua), (2) SLO-driven reliability (SLO + error budget + risco de deploy), (3) Operational excellence (alert engineering + automação), (4) Service Maturity Score único (0–100) por serviço com ranking e priorização."
-            ]
-          },
-          {
-            "heading": "Impacto financeiro",
-            "bullets": [
-              "Baseline: Cloud R$ 2,0M/mês; Observabilidade R$ 400k/mês. Economia esperada: Cloud -20% (R$ 400k/mês) + Observabilidade -30% (R$ 120k/mês) ⇒ ~R$ 520k/mês. Investimento R$ 400k–600k (3–6 meses). Payback: 1–2 meses após rollout."
-            ]
-          },
-          {
-            "heading": "Impacto operacional",
-            "bullets": [
-              "Aumenta visibilidade e transparência por serviço, cria accountability, reduz alert noise e melhora resposta a incidentes; decisões baseadas em dados; melhora produtividade operacional (↑ 20–40% em 6 meses)."
-            ]
-          },
-          {
-            "heading": "Stakeholders beneficiados",
-            "bullets": [
-              "Plataforma/SRE; FinOps; Observability; Times de serviço (owners); Engenharia/Leadership; Segurança/Compliance"
-            ]
-          }
-        ],
-        "metrics": [
-          "% serviços com tagging completo; custo por serviço (cloud+obs); budget variance; custo de observabilidade (%); incidentes críticos; MTTR; change failure rate; alert noise; score 0–100 e distribuição; economias R$/mês"
-        ],
-        "extras": []
-      },
-      {
-        "id": "automacao-50-de-reducao-de-toil",
-        "num": "8",
-        "order": 8,
-        "title": "Automação + 50% de redução de toil",
+        "title": "Lifecycle automation + 50% de redução de toil",
         "sub": "Lifecycle automation, capacity scaling, self-healing e runbooks automatizados.",
         "blocks": [
           {
@@ -330,8 +253,16 @@
             "bullets": [
               "Lifecycle automation: provisioning, patching e decommissioning de EC2.",
               "Políticas de capacity scaling (weekends, off-peak).",
-              "Self-healing via Lambda + Auto Scaling.",
-              "Runbooks automatizados."
+              "Self-AMI update via Lambda + Auto Scaling.",
+              "Runbooks automatizados via Lambda, API Gateway."
+            ]
+          },
+          {
+            "heading": "Impacto técnico",
+            "bullets": [
+              "Padronização de golden Imagem.",
+              "Reducao do cyber Score.",
+              "Atualização de AMI sem intervenção."
             ]
           },
           {
@@ -429,14 +360,14 @@
         "extras": []
       },
       {
-        "order": 3,
-        "skill": "OTEL / Modern O11y",
-        "current": "Básico",
-        "currentBadge": "mid",
-        "target": "Intermediário",
+        "order": 4,
+        "skill": "SLO framework",
+        "current": "Teórico",
+        "currentBadge": "warn",
+        "target": "Comprovado",
         "gap": "Alto",
         "gapBadge": "err",
-        "plan": "OTCA + blueprint em produção",
+        "plan": "Pilotar em 3 serviços críticos",
         "extras": []
       },
       {
@@ -471,6 +402,28 @@
         "gapBadge": "err",
         "plan": "Aulas + apresentações em inglês",
         "extras": []
+      },
+      {
+        "order": 0,
+        "skill": "Kubernetes avançado + operators + admission/policies",
+        "current": "Operacional",
+        "currentBadge": "warn",
+        "target": "Avancado",
+        "gap": "Médio",
+        "gapBadge": "warn",
+        "plan": "Trilhas CKA, CKD",
+        "extras": []
+      },
+      {
+        "order": 0,
+        "skill": "OpenTelemetry + collector + pipelines",
+        "current": "Básico",
+        "currentBadge": "mid",
+        "target": "Expert",
+        "gap": "Médio",
+        "gapBadge": "warn",
+        "plan": "Treinamento OTCA e Splunk para Otel + blueprint em produção",
+        "extras": []
       }
     ],
     "kicker": "05 · Skill matrix",
@@ -479,76 +432,26 @@
   "initiatives": {
     "items": [
       {
-        "id": "pipeline-o11y",
+        "id": "telemetry-pepiline-vendor-neutral",
         "order": 1,
         "tag": "Iniciativa 1 · Maio – Junho",
-        "title": "Pipeline o11y",
+        "title": "Telemetry pepiline vendor neutral",
         "fields": [
           {
             "label": "O que",
-            "value": "arquitetura e POC"
+            "value": "Arquitetura de OTEL collector, SDKs em 2–3 serviços."
           },
           {
             "label": "Por que",
-            "value": "otel pipeline"
+            "value": "OTEL é a direção do mercado (Splunk → Datadog → OTEL standards)."
           },
           {
             "label": "Impacto",
-            "value": "agnosticso"
+            "value": "Telemetria vendor-neutral, −30% de lock-in."
           },
           {
             "label": "Métrica",
-            "value": "reduzir o uso do pipe atual"
-          }
-        ],
-        "extras": []
-      },
-      {
-        "id": "service-centric-kpis-base-para-business-centric",
-        "order": 2,
-        "tag": "service-centric,kpi,score,slo,finops,risk",
-        "title": "Service-Centric KPIs (base para business-centric)",
-        "fields": [
-          {
-            "label": "O que",
-            "value": "Implementar modelo service-centric por microserviço/API/workload com ownership definido e tagging obrigatório (service, env, cost_center). Medir Health (SLO/latência/erro/disponibilidade), Cost (custo por serviço/observabilidade) e Risk (incidentes/deploy/alert noise) e gerar ranking técnico + priorização."
-          },
-          {
-            "label": "Por que",
-            "value": "Criar visibilidade comparável entre serviços para priorizar ações técnicas e otimizações de custo, reduzir ruído operacional e aumentar confiabilidade; preparar terreno para ligar métricas técnicas a impacto de negócio (business-centric)."
-          },
-          {
-            "label": "Impacto",
-            "value": "Controle operacional e accountability por serviço; redução de custo; redução de incidentes; base para evolução business-centric."
-          },
-          {
-            "label": "Métrica",
-            "value": "Score 0–100 por serviço (0.40 Health + 0.30 Cost + 0.30 (100−Risk)); % serviços com tagging completo; score médio; nº serviços críticos; custo por request; incidentes/mês; MTTR; alert noise."
-          }
-        ],
-        "extras": []
-      },
-      {
-        "id": "slo-framework-production",
-        "order": 2,
-        "tag": "Iniciativa 2 · Junho – Julho",
-        "title": "SLO Framework Production",
-        "fields": [
-          {
-            "label": "O que",
-            "value": "Burn rate policies e error budgets em 3–5 serviços críticos."
-          },
-          {
-            "label": "Por que",
-            "value": "SLO é confiabilidade mensurável e alinha engenharia com negócio."
-          },
-          {
-            "label": "Impacto",
-            "value": "−30% em incidentes virando emergência; decisões data-driven."
-          },
-          {
-            "label": "Métrica",
-            "value": "5+ serviços com SLO, burn rate alerting, dashboard de coverage."
+            "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção."
           }
         ],
         "extras": []
@@ -574,31 +477,6 @@
           {
             "label": "Métrica",
             "value": "Economia ~R$ 520k/mês (exemplo); score 0–100 por serviço (0.40 Health + 0.30 Cost Efficiency + 0.30 (100−Risk)); % serviços com tagging obrigatório; custo por serviço; budget variance; custo de observabilidade (%); incidentes/mês; MTTR; alert noise."
-          }
-        ],
-        "extras": []
-      },
-      {
-        "id": "cross-team-adoption-program",
-        "order": 3,
-        "tag": "Iniciativa 3 · Julho",
-        "title": "Cross-team Adoption Program",
-        "fields": [
-          {
-            "label": "O que",
-            "value": "Documentar 3+ cases de adoção do padrão por outros times."
-          },
-          {
-            "label": "Por que",
-            "value": "Staff = influenciador, não só especialista profundo."
-          },
-          {
-            "label": "Impacto",
-            "value": "Cultura de observability padronizada e replicável."
-          },
-          {
-            "label": "Métrica",
-            "value": "3+ cases documentados; 30+ serviços alinhados ao padrão."
           }
         ],
         "extras": []
@@ -644,15 +522,15 @@
     ],
     "deliverables": [
       {
-        "title": "HA multi-site Splunk",
-        "detail": "99,99% uptime, 250TB/dia, 0 RPO/RTO crítico por falha infra. Evitou ~USD 2M+/ano."
-      },
-      {
         "title": "FinOps — USD 11M+/ano",
         "detail": "consolidação Splunk (~USD 5M), Graviton (USD 500K), Spot + SmartStore (~USD 3M), ingestão −30% (~USD 2,5M). ROI ~12 meses."
       },
       {
-        "title": "Pipeline Fluentbit",
+        "title": "HA multi-site Splunk",
+        "detail": "99,99% uptime, 250TB/dia, 0 RPO/RTO crítico por falha infra. Evitou ~USD 2M+/ano."
+      },
+      {
+        "title": "FluentBit log collector",
         "detail": "Fluentbit coletor principal para logs, redirect to S3, innersoruce, agrupamento recuros por capacity"
       },
       {
@@ -723,5 +601,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-23T09:13:01.257Z"
+  "syncedAt": "2026-04-25T06:59:00.298Z"
 }

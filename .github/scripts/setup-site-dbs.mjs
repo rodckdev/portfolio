@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // setup-site-dbs.mjs — bootstrap one-shot (roda localmente, NÃO no Action).
 //
-// Cria no workspace do Notion os 7 DBs que alimentam o site:
+// Cria no workspace do Notion os 8 DBs que alimentam o site:
 //   - Site Deliverables
 //   - Site Skills
 //   - Site Initiatives
@@ -9,6 +9,7 @@
 //   - Site Progress
 //   - Site KPIs             (hero.metrics + cv.kpis)
 //   - Site CV Highlights    (cv.deliverables)
+//   - Site Sections         (kicker/title/sub + publish toggle por seção)
 //
 // Todos como filhos da página apontada por NOTION_PARENT_PAGE_ID, com schema
 // exatamente compatível com o que `sync-notion.mjs` espera. Depois de criar,
@@ -24,7 +25,7 @@
 // Ao final imprime os IDs — copie para os secrets do repo:
 //   NOTION_DELIVERABLES_DB_ID, NOTION_SKILLS_DB_ID, NOTION_INITIATIVES_DB_ID,
 //   NOTION_INFLUENCE_DB_ID, NOTION_PROGRESS_DB_ID, NOTION_KPIS_DB_ID,
-//   NOTION_CV_HIGHLIGHTS_DB_ID.
+//   NOTION_CV_HIGHLIGHTS_DB_ID, NOTION_SECTIONS_DB_ID.
 
 import { Client } from '@notionhq/client';
 import fs from 'node:fs/promises';
@@ -134,6 +135,13 @@ const SCHEMAS = {
     Order: { number: {} },
     Published: { checkbox: {} },
   },
+  'Site Sections': {
+    Name: { title: {} },
+    Kicker: { rich_text: {} },
+    Title: { rich_text: {} },
+    Sub: { rich_text: {} },
+    Published: { checkbox: {} },
+  },
 };
 
 async function main() {
@@ -173,6 +181,7 @@ async function main() {
       site.cv?.kpis || [],
     );
     await seedCvHighlights(ids['Site CV Highlights'], site.cv?.deliverables || []);
+    await seedSections(ids['Site Sections'], site.sections || {});
   }
 
   console.log('\n=== SECRETS (cole no repo rodckdev/portfolio) ===');
@@ -183,7 +192,26 @@ async function main() {
   console.log(`NOTION_PROGRESS_DB_ID=${ids['Site Progress']}`);
   console.log(`NOTION_KPIS_DB_ID=${ids['Site KPIs']}`);
   console.log(`NOTION_CV_HIGHLIGHTS_DB_ID=${ids['Site CV Highlights']}`);
+  console.log(`NOTION_SECTIONS_DB_ID=${ids['Site Sections']}`);
   console.log('===============================================');
+}
+
+async function seedSections(dbId, sections) {
+  const entries = Object.entries(sections || {});
+  if (entries.length === 0) return;
+  for (const [key, meta] of entries) {
+    await notion.pages.create({
+      parent: { database_id: dbId },
+      properties: {
+        Name: titleProp(key),
+        Kicker: rt(meta.kicker),
+        Title: rt(meta.title),
+        Sub: rt(meta.sub),
+        Published: { checkbox: meta.published !== false },
+      },
+    });
+    console.log(`  · section seeded: ${key}`);
+  }
 }
 
 // ---------------------------------------------------------------------------

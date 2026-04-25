@@ -109,9 +109,18 @@ grava em `Atividades` + (se `publicavel=true`) em `Portfólio` → vira post.
      node setup-site-dbs.mjs
    ```
 
-   Cria 7 DBs (`Site Deliverables`, `Site Skills`, `Site Initiatives`,
-   `Site Influence`, `Site Progress`, `Site KPIs`, `Site CV Highlights`) +
-   seed com o conteúdo atual do `site.json`. Imprime os IDs no final.
+   Cria 8 DBs (`Site Deliverables`, `Site Skills`, `Site Initiatives`,
+   `Site Influence`, `Site Progress`, `Site KPIs`, `Site CV Highlights`,
+   `Site Sections`) + seed com o conteúdo atual do `site.json`. Imprime os
+   IDs no final.
+
+   > Já tem os 7 DBs antigos e quer adicionar só o `Site Sections`? Use o
+   > script dedicado para não duplicar:
+   >
+   > ```bash
+   > NOTION_API_KEY=ntn_... NOTION_PARENT_PAGE_ID=... \
+   >   node .github/scripts/setup-sections-db.mjs
+   > ```
 
 3. Salve os IDs como secrets no repo:
 
@@ -123,6 +132,7 @@ grava em `Atividades` + (se `publicavel=true`) em `Portfólio` → vira post.
    gh secret set NOTION_PROGRESS_DB_ID      --repo rodckdev/portfolio
    gh secret set NOTION_KPIS_DB_ID          --repo rodckdev/portfolio
    gh secret set NOTION_CV_HIGHLIGHTS_DB_ID --repo rodckdev/portfolio
+   gh secret set NOTION_SECTIONS_DB_ID      --repo rodckdev/portfolio
    ```
 
 4. (Se ainda não tiver) os secrets originais:
@@ -147,6 +157,7 @@ grava em `Atividades` + (se `publicavel=true`) em `Portfólio` → vira post.
 | `NOTION_PROGRESS_DB_ID`     | `site.json.progress`                  | Opcional              |
 | `NOTION_KPIS_DB_ID`         | `hero.metrics` + `cv.kpis`            | Opcional              |
 | `NOTION_CV_HIGHLIGHTS_DB_ID`| `cv.deliverables` (one-pager)         | Opcional              |
+| `NOTION_SECTIONS_DB_ID`     | `sections.<key>` (kicker/title/sub + publish toggle) | Opcional |
 
 Cada DB é opcional e independente. DB ausente ou vazio ⇒ `sync-notion.mjs`
 **não mexe** naquela seção (preserva o que está comitado em `site.json`).
@@ -192,6 +203,48 @@ Alimenta o bloco **"Destaques"** do CV (antes `cv.deliverables`).
 | `Published` | checkbox   | Obrigatório marcar para o sync puxar                |
 
 Novo destaque = criar linha, marcar `Published`, rodar o Action.
+
+## Títulos de seção + publicar/despublicar por seção — via `Site Sections`
+
+Cada bloco do site (Visão geral, Entregas, Influência, Skills & Progresso,
+Próximas, CV…) agora tem **cabeçalho editável pelo Notion** e um **toggle
+de publish** por seção. Uma linha do DB `Site Sections` = uma seção do site.
+
+| Coluna      | Tipo       | Efeito                                                   |
+| ----------- | ---------- | -------------------------------------------------------- |
+| `Name`      | title      | Chave da seção (ex: `deliverables`, `matrix`, `cv`…)    |
+| `Kicker`    | rich_text  | Texto pequeno acima do título (ex: `02 · Entregas`)     |
+| `Title`     | rich_text  | Título grande do bloco                                   |
+| `Sub`       | rich_text  | Subtítulo/descrição opcional                             |
+| `Published` | checkbox   | **Desmarcar = seção inteira some do site**              |
+
+**Chaves válidas** (use exatamente, minúsculas): `overview`, `deliverables`,
+`influence`, `matrix`, `skills`, `progress`, `initiatives`, `committee`, `cv`.
+
+**Casos de uso:**
+
+- **Renomear o bloco "05 · Skill matrix"** → abre a linha `matrix`, muda
+  `Kicker` para `05 · Skills & Progresso` e `Title` para `Gap para Staff e
+  status 2025`. Rodar o Action → refresh.
+- **Esconder a seção de comitê** enquanto você reescreve → abre a linha
+  `committee`, desmarca `Published`. O site some com a seção inteira.
+  Remarcar devolve.
+- **Campo vazio no Notion** = usa o fallback estático em `site.json`. Ou seja,
+  só edita o que você quer mudar — não precisa preencher todos os campos.
+
+### Consolidação Skills + Progresso
+
+A seção antiga "04 · Dashboard de progresso" + "05 · Skill matrix" virou uma
+só, `#matrix`, com duas sub-tabelas empilhadas sob um cabeçalho comum:
+
+- Cabeçalho principal (kicker/title/sub) → linha `matrix` no `Site Sections`.
+- Sub-título da tabela de Skills → linha `skills` (Title = H3 da sub-tabela).
+- Sub-título da tabela de Progresso → linha `progress` (idem).
+- `Published=false` em `skills` esconde **só** a sub-tabela de skills; em
+  `progress` idem. Em `matrix` esconde **o bloco inteiro**.
+
+Âncoras `#skills` e `#progress` continuam funcionando como deep-links
+internos para cada sub-tabela.
 
 ### O que segue em `site.json` (não vem do Notion)
 
