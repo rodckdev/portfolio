@@ -349,6 +349,17 @@
   "skills": {
     "rows": [
       {
+        "order": 1,
+        "skill": "OpenTelemetry + collector + pipelines",
+        "current": "Básico",
+        "currentBadge": "mid",
+        "target": "Expert",
+        "gap": "Médio",
+        "gapBadge": "warn",
+        "plan": "Treinamento OTCA e Splunk para Otel + blueprint em produção",
+        "extras": []
+      },
+      {
         "order": 2,
         "skill": "AWS cloud scale",
         "current": "Sênior",
@@ -357,6 +368,17 @@
         "gap": "Pequeno",
         "gapBadge": "warn",
         "plan": "Mais EKS, mais patterns Lambda",
+        "extras": []
+      },
+      {
+        "order": 3,
+        "skill": "Kubernetes avançado + operators + admission/policies",
+        "current": "Operacional",
+        "currentBadge": "warn",
+        "target": "Avancado",
+        "gap": "Médio",
+        "gapBadge": "warn",
+        "plan": "Trilhas CKA, CKD",
         "extras": []
       },
       {
@@ -401,28 +423,6 @@
         "gap": "Alto",
         "gapBadge": "err",
         "plan": "Aulas + apresentações em inglês",
-        "extras": []
-      },
-      {
-        "order": 0,
-        "skill": "Kubernetes avançado + operators + admission/policies",
-        "current": "Operacional",
-        "currentBadge": "warn",
-        "target": "Avancado",
-        "gap": "Médio",
-        "gapBadge": "warn",
-        "plan": "Trilhas CKA, CKD",
-        "extras": []
-      },
-      {
-        "order": 0,
-        "skill": "OpenTelemetry + collector + pipelines",
-        "current": "Básico",
-        "currentBadge": "mid",
-        "target": "Expert",
-        "gap": "Médio",
-        "gapBadge": "warn",
-        "plan": "Treinamento OTCA e Splunk para Otel + blueprint em produção",
         "extras": []
       }
     ],
@@ -601,5 +601,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-25T15:10:21.445Z"
+  "syncedAt": "2026-04-25T15:14:05.750Z"
 }
