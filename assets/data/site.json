@@ -16,29 +16,29 @@
       "kicker": "03 · Influência cross-team",
       "title": "Arquitetura que outros times adotaram",
       "sub": "Observability deixou de ser \"coisa da plataforma\" e virou \"padrão da empresa\".",
-      "published": true
+      "published": false
     },
     "matrix": {
       "kicker": "04 · Skills & Progresso",
-      "title": "Gap para Staff e status 2025",
+      "title": "Status 2026",
       "sub": "Duas leituras: onde estou hoje (skills) e como o ano está andando (progresso).",
       "published": true
     },
     "skills": {
       "kicker": "",
-      "title": "Skill matrix — gap para Staff",
+      "title": "Skill matrix",
       "sub": "",
       "published": true
     },
     "progress": {
       "kicker": "",
-      "title": "Progresso 2025 — status das dimensões",
+      "title": "Progresso 2026  — status das dimensões",
       "sub": "",
-      "published": true
+      "published": false
     },
     "initiatives": {
       "kicker": "05 · Próximas iniciativas staff-level",
-      "title": "Q2 / Q3 2025",
+      "title": "Q2 / Q3 2026",
       "sub": "",
       "published": true
     },
@@ -46,12 +46,18 @@
       "kicker": "",
       "title": "Observações para o comitê",
       "sub": "",
-      "published": true
+      "published": false
     },
     "cv": {
       "kicker": "09 · CV snapshot",
       "title": "One-pager do currículo",
       "sub": "Este card foi desenhado para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).",
+      "published": true
+    },
+    "teste-nova-secao": {
+      "kicker": "TESTE",
+      "title": "",
+      "sub": "TESTE",
       "published": true
     }
   },
@@ -601,5 +607,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-25T15:14:05.750Z"
+  "syncedAt": "2026-04-25T15:19:46.008Z"
 }
