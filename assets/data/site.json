@@ -34,7 +34,7 @@
       "kicker": "",
       "title": "Progresso 2026  — status das dimensões",
       "sub": "",
-      "published": false
+      "published": true
     },
     "initiatives": {
       "kicker": "05 · Próximas iniciativas",
@@ -651,5 +651,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-26T20:45:34.807Z"
+  "syncedAt": "2026-04-26T20:47:59.897Z"
 }
