@@ -20,8 +20,8 @@
     },
     "matrix": {
       "kicker": "04 · Skills & Progresso",
-      "title": "Status 2026",
-      "sub": "Onde estou hoje (skills) e Progresso.",
+      "title": "Skill 2026 - Trilhas de Progresso e Evolução",
+      "sub": "",
       "published": true
     },
     "skills": {
@@ -37,9 +37,9 @@
       "published": false
     },
     "initiatives": {
-      "kicker": "05 · Próximas iniciativas staff-level",
+      "kicker": "05 · Próximas iniciativas",
       "title": "Q2 / Q3 2026",
-      "sub": "",
+      "sub": "Iniciativas e Busisnes cases",
       "published": true
     },
     "projects": {
@@ -63,7 +63,7 @@
     "cv": {
       "kicker": "09 · CV snapshot",
       "title": "One-pager do currículo",
-      "sub": "Este card foi desenhado para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).",
+      "sub": "CV para ser impresso ou salvo como PDF (⌘/Ctrl + P → Salvar como PDF).",
       "published": true
     },
     "teste-nova-secao": {
@@ -651,5 +651,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-26T18:18:15.492Z"
+  "syncedAt": "2026-04-26T20:45:34.807Z"
 }
