@@ -274,7 +274,7 @@ async function syncDeliverables(dbId) {
     page_size: 50,
   });
   logFetched('deliverables', pages, (p) => getTitle(p.properties.Name));
-  return pages.map((page) => {
+  const items = pages.map((page) => {
     const p = page.properties;
     const blocks = [];
     addBlock(blocks, 'O que foi feito', getMultiline(p.WhatWasDone));
@@ -293,6 +293,8 @@ async function syncDeliverables(dbId) {
       extras: extractExtras(p, KNOWN.deliverables),
     };
   });
+  await resolveRelations(items);
+  return items;
 }
 
 function addBlock(blocks, heading, bullets) {
@@ -320,7 +322,7 @@ async function syncSkills(dbId) {
     page_size: 50,
   });
   logFetched('skills', pages, (p) => getTitle(p.properties.Name));
-  return pages.map((page) => {
+  const items = pages.map((page) => {
     const p = page.properties;
     const current = getSelect(p.Current);
     const gap = getSelect(p.Gap);
@@ -336,6 +338,8 @@ async function syncSkills(dbId) {
       extras: extractExtras(p, KNOWN.skills),
     };
   });
+  await resolveRelations(items);
+  return items;
 }
 
 function badgeForLevel(v) {
@@ -377,7 +381,7 @@ async function syncInitiatives(dbId) {
     page_size: 50,
   });
   logFetched('initiatives', pages, (p) => getTitle(p.properties.Name));
-  return pages.map((page) => {
+  const items = pages.map((page) => {
     const p = page.properties;
     const fields = [];
     pushField(fields, 'O que', getRichText(p.What));
@@ -393,6 +397,8 @@ async function syncInitiatives(dbId) {
       extras: extractExtras(p, KNOWN.initiatives),
     };
   });
+  await resolveRelations(items);
+  return items;
 }
 
 function pushField(fields, label, value) {
@@ -429,7 +435,7 @@ async function syncInfluence(dbId) {
     page_size: 50,
   });
   logFetched('influence', pages, (p) => getTitle(p.properties.Name));
-  return pages.map((page) => {
+  const items = pages.map((page) => {
     const p = page.properties;
     return {
       id: slug(getTitle(p.Name)) || page.id,
@@ -439,6 +445,8 @@ async function syncInfluence(dbId) {
       extras: extractExtras(p, KNOWN.influence),
     };
   });
+  await resolveRelations(items);
+  return items;
 }
 
 // ---------------------------------------------------------------------------
@@ -461,7 +469,7 @@ async function syncProgress(dbId) {
     page_size: 50,
   });
   logFetched('progress', pages, (p) => getTitle(p.properties.Name));
-  return pages.map((page) => {
+  const items = pages.map((page) => {
     const p = page.properties;
     return {
       order: getNumber(p.Order) || 0,
@@ -473,6 +481,8 @@ async function syncProgress(dbId) {
       extras: extractExtras(p, KNOWN.progress),
     };
   });
+  await resolveRelations(items);
+  return items;
 }
 
 // ---------------------------------------------------------------------------
@@ -600,6 +610,7 @@ function extractExtras(properties, knownKeys) {
     if (parsed == null) continue;
     if (parsed.kind === 'text' && !parsed.value) continue;
     if (parsed.kind === 'multi_select' && parsed.value.length === 0) continue;
+    if (parsed.kind === 'relation' && parsed.value.length === 0) continue;
     extras.push({
       key: slug(label),
       label,
@@ -608,6 +619,53 @@ function extractExtras(properties, knownKeys) {
     });
   }
   return extras;
+}
+
+// Cache compartilhado entre todas as resoluções de relation deste run.
+const _relationCache = new Map();
+
+async function resolveRelations(items) {
+  if (!Array.isArray(items) || items.length === 0) return;
+  const ids = new Set();
+  items.forEach((item) => {
+    (item.extras || []).forEach((ex) => {
+      if (ex.kind === 'relation') {
+        (ex.value || []).forEach((id) => ids.add(id));
+      }
+    });
+  });
+  if (ids.size === 0) return;
+
+  for (const id of ids) {
+    if (_relationCache.has(id)) continue;
+    try {
+      const page = await notion.pages.retrieve({ page_id: id });
+      const titleProp = Object.values(page.properties || {}).find(
+        (p) => p && p.type === 'title',
+      );
+      const title = ((titleProp && titleProp.title) || [])
+        .map((t) => t.plain_text)
+        .join('')
+        .trim();
+      _relationCache.set(id, { title: title || '(sem título)', href: page.url || '' });
+    } catch (err) {
+      console.warn(
+        `[sync-notion] relation ${id} não resolveu: ${err?.message || err}`,
+      );
+      _relationCache.set(id, { title: '', href: '' });
+    }
+  }
+
+  items.forEach((item) => {
+    (item.extras || []).forEach((ex) => {
+      if (ex.kind !== 'relation') return;
+      const links = (ex.value || [])
+        .map((id) => _relationCache.get(id))
+        .filter((c) => c && c.title);
+      ex.kind = 'multi_link';
+      ex.value = links;
+    });
+  });
 }
 
 function coerceProp(prop) {
@@ -637,8 +695,14 @@ function coerceProp(prop) {
       const value = d.end ? `${d.start} → ${d.end}` : d.start || '';
       return { kind: 'date', value };
     }
+    case 'relation': {
+      const ids = (prop.relation || []).map((r) => r && r.id).filter(Boolean);
+      // Placeholder — resolveRelations() faz uma 2ª passada e troca por
+      // { kind: 'multi_link', value: [{label, href}] } com o título da página.
+      return { kind: 'relation', value: ids };
+    }
     default:
-      // title, files, people, relation, rollup, formula, created_*, last_*
+      // title, files, people, rollup, formula, created_*, last_*
       // ficam de fora: são derivados ou precisam de resolução extra.
       return null;
   }

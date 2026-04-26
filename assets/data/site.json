@@ -42,6 +42,18 @@
       "sub": "",
       "published": true
     },
+    "projects": {
+      "kicker": "07 · Projetos abertos",
+      "title": "Repositórios com topic portfolio",
+      "sub": "",
+      "published": false
+    },
+    "posts": {
+      "kicker": "08 · Posts publicados",
+      "title": "Feed do Notion — DB Portfólio",
+      "sub": "",
+      "published": false
+    },
     "committee": {
       "kicker": "",
       "title": "Observações para o comitê",

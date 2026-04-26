@@ -219,7 +219,12 @@ de publish** por seção. Uma linha do DB `Site Sections` = uma seção do site.
 | `Published` | checkbox   | **Desmarcar = seção inteira some do site**              |
 
 **Chaves válidas** (use exatamente, minúsculas): `overview`, `deliverables`,
-`influence`, `matrix`, `skills`, `progress`, `initiatives`, `committee`, `cv`.
+`influence`, `matrix`, `skills`, `progress`, `initiatives`, `projects`,
+`posts`, `committee`, `cv`.
+
+> `projects` (07 · Projetos abertos, feed do GitHub) e `posts` (08 · Posts
+> publicados, feed do Notion) saem por padrão `Published=false`. Para reativar:
+> abra a linha correspondente no `Site Sections` e marque `Published`.
 
 **Casos de uso:**
 
@@ -277,6 +282,7 @@ sincronização.
 | `Phone`          | Texto simples                                   | Texto simples                                 | —                         |
 | `Checkbox`       | ✅ / ❌                                          | ✅ / ❌                                         | —                         |
 | `Date`           | `início → fim` ou `início`                     | Mesmo                                         | Data range se tiver `end` |
+| `Relation`       | Chips/links para o título da página relacionada | Mesmo                                         | Resolvido em 2ª passada (1 fetch por ID, com cache) |
 
 Na seção **Influência** os extras viram *chips* depois do corpo do item.
 
@@ -292,10 +298,10 @@ Na seção **Influência** os extras viram *chips* depois do corpo do item.
 
 ### Tipos **não** suportados (e por quê)
 
-`Title` (é o `Name`, já consumido), `Files`, `People`, `Relation`, `Rollup`,
-`Formula`, `Created time/by`, `Last edited time/by` — precisam de resolução
-extra (upload, lookup) que foge do escopo. Se você precisar de algum, abre
-uma issue no repo.
+`Title` (é o `Name`, já consumido), `Files`, `People`, `Rollup`, `Formula`,
+`Created time/by`, `Last edited time/by` — precisam de resolução extra
+(upload, lookup ou são derivados) que foge do escopo. Se você precisar de
+algum, abre uma issue no repo.
 
 ### Como o sync sabe o que é "conhecido" vs "extra"
 
