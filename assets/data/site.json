@@ -445,22 +445,29 @@
         "fields": [
           {
             "label": "O que",
-            "value": "• OTel Collector como gateway central\n• Integração com Datadog\n• FluentBit mantido para logs"
+            "value": "Definição de arquitetura com OTel Collector como gateway central desacoplando ingestão e backend; \nIntegração com Datadog via exporters; Manutenção estratégica do FluentBit para logs; Implementação inicial de tracing distribuído com estratégia de sampling controlada; Criação de blueprint reutilizável para expansão cross-team"
           },
           {
             "label": "Por que",
-            "value": "Diminui lock-in e viabiliza evolução da arquitetura sem ruptura."
+            "value": "Criação de base estratégica para redução de custos de observabilidade, aumento da flexibilidade arquitetural e aceleração de iniciativas futuras (multi-vendor / otimização de ingestão), reduzindo dependência estrutural da stack atual."
           },
           {
             "label": "Impacto",
-            "value": "Observability pipeline agnóstico, com redução da dependência da stack atual e base pronta para migração."
+            "value": "Estabelecer uma pipeline de observabilidade vendor-neutral, reduzindo dependência de fornecedores e criando base para otimização de custo, portabilidade e evolução arquitetural."
           },
           {
             "label": "Métrica",
-            "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção."
+            "value": "• Definição e validação de blueprint de observabilidade + instrumentação de 2 serviços críticos com OpenTelemetry,  >70% de cobertura de tracing distribuído."
           }
         ],
-        "extras": []
+        "extras": [
+          {
+            "key": "challenges-trade-offs",
+            "label": "Challenges & Trade-offs",
+            "kind": "text",
+            "value": "Maior complexidade operacional, necessidade de governança rigorosa de cardinalidade e risco de aumento de custo sem estratégia de sampling adequada."
+          }
+        ]
       },
       {
         "id": "decomissionamento-de-ferramentas",
@@ -488,26 +495,26 @@
         "extras": []
       },
       {
-        "id": "finops-first-service-maturity-score-business-case",
+        "id": "service-maturity-score-business-case",
         "order": 3,
         "tag": "finops,sre,observability,service-maturity-score,cost,reliability",
-        "title": "FinOps-first + Service Maturity Score (Business Case)",
+        "title": "Service Maturity Score (Business Case)",
         "fields": [
           {
             "label": "O que",
-            "value": "Implantar modelo integrado de FinOps + SRE + Observability com 4 pilares: FinOps-first (custo por serviço + tagging + otimização contínua), SLO-driven reliability (SLO + error budget), Operational excellence (alert engineering + automação) e Service Maturity Score (0–100) com ranking e priorização baseada em dados."
+            "value": "Implantar modelo integrado de FinOps + SRE + Observability com 4 pilares: FinOps-first (custo por serviço + tagging + otimização contínua), SLO-driven reliability (SLO + error budget), Operational excellence (alert engineering + automação) e Service Maturity Score (0–100)"
           },
           {
             "label": "Por que",
-            "value": "Custos crescentes e pouco transparentes + incidentes recorrentes + falta de accountability geram decisões por percepção. O modelo cria visibilidade por serviço, prioriza ações técnicas e otimizações de custo e reduz risco operacional com impacto financeiro direto."
+            "value": "Criar visibilidade por serviço, prioriza ações técnicas e otimizações de custo e reduz risco operacional com impacto financeiro direto."
           },
           {
             "label": "Impacto",
-            "value": "Reduzir 20–30% custo de cloud e 20–50% custo de observabilidade; reduzir 20–40% incidentes críticos e 30–60% MTTR; aumentar produtividade operacional (20–40%) em 6 meses; transparência executiva e accountability por serviço."
+            "value": "Reduzir 20–30% custo de cloud e 20–50% custo de observabilidade; reduzir 20–40% incidentes críticos e 30–60% MTTR; aumentar produtividade operacional (20–40%); transparência executiva e accountability por serviço."
           },
           {
             "label": "Métrica",
-            "value": "Economia ~R$ 520k/mês (exemplo); score 0–100 por serviço (0.40 Health + 0.30 Cost Efficiency + 0.30 (100−Risk)); % serviços com tagging obrigatório; custo por serviço; budget variance; custo de observabilidade (%); incidentes/mês; MTTR; alert noise."
+            "value": "Score 0–100 por serviço (0.40 Health + 0.30 Cost Efficiency + 0.30 (100−Risk));  custo por serviço; budget variance; custo de observabilidade (%)."
           }
         ],
         "extras": []
@@ -632,5 +639,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-26T08:07:43.691Z"
+  "syncedAt": "2026-04-26T18:18:15.492Z"
 }
