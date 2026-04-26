@@ -9,7 +9,7 @@
     "deliverables": {
       "kicker": "02 · Entregas principais",
       "title": "Descritivo → Impacto → Stakeholders",
-      "sub": "Cinco frentes que definem o nível atual e sustentam a conversa de staff.",
+      "sub": "Frentes que definem o nível atual e sustentam a conversa de staff.",
       "published": true
     },
     "influence": {
@@ -21,7 +21,7 @@
     "matrix": {
       "kicker": "04 · Skills & Progresso",
       "title": "Status 2026",
-      "sub": "Duas leituras: onde estou hoje (skills) e como o ano está andando (progresso).",
+      "sub": "Onde estou hoje (skills) e Progresso.",
       "published": true
     },
     "skills": {
@@ -445,19 +445,44 @@
         "fields": [
           {
             "label": "O que",
-            "value": "Arquitetura de OTEL collector, SDKs em 2–3 serviços."
+            "value": "• OTel Collector como gateway central\n• Integração com Datadog\n• FluentBit mantido para logs"
           },
           {
             "label": "Por que",
-            "value": "OTEL é a direção do mercado (Splunk → Datadog → OTEL standards)."
+            "value": "Diminui lock-in e viabiliza evolução da arquitetura sem ruptura."
           },
           {
             "label": "Impacto",
-            "value": "Telemetria vendor-neutral, −30% de lock-in."
+            "value": "Observability pipeline agnóstico, com redução da dependência da stack atual e base pronta para migração."
           },
           {
             "label": "Métrica",
             "value": "Blueprint documentado + 2 serviços com OTEL + dashboard de adoção."
+          }
+        ],
+        "extras": []
+      },
+      {
+        "id": "decomissionamento-de-ferramentas",
+        "order": 2,
+        "tag": "finops,sre,observability,splunk,decommission,cost",
+        "title": "Decomissionamento de Ferramentas",
+        "fields": [
+          {
+            "label": "O que",
+            "value": "Desativar clusters Splunk com capacity ocioso com base em: inventário → análise de uso → redução de retenção/ingestão → migração do essencial → desligamento controlado."
+          },
+          {
+            "label": "Por que",
+            "value": "Custo elevado com baixo valor (dados não usados + retenção excessiva); oportunidade direta de saving e simplificação."
+          },
+          {
+            "label": "Impacto",
+            "value": "Redução de  20–40% em infraestrutura; eliminação de ingestão desnecessária; simplificação operacional."
+          },
+          {
+            "label": "Métrica",
+            "value": "Economia mensal (R$ 500k); ↓ GB/dia ingeridos; ↓ índices ativos; custo/GB; % redução de ingestão; forwarders desativados."
           }
         ],
         "extras": []
@@ -607,5 +632,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-25T15:19:46.008Z"
+  "syncedAt": "2026-04-26T08:07:43.691Z"
 }
