@@ -34,7 +34,7 @@
       "kicker": "",
       "title": "Progresso 2026  — status das dimensões",
       "sub": "",
-      "published": true
+      "published": false
     },
     "initiatives": {
       "kicker": "05 · Próximas iniciativas",
@@ -529,7 +529,14 @@
             "value": "Score 0–100 por serviço (0.40 Health + 0.30 Cost Efficiency + 0.30 (100−Risk));  custo por serviço; budget variance; custo de observabilidade (%)."
           }
         ],
-        "extras": []
+        "extras": [
+          {
+            "key": "challenges-trade-offs",
+            "label": "Challenges & Trade-offs",
+            "kind": "text",
+            "value": "Iniciativa Cross team, Adoção de SLO no lugar de thresholds, Maturidade nos custos por serviço"
+          }
+        ]
       }
     ],
     "kicker": "06 · Próximas iniciativas staff-level",
@@ -651,5 +658,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-26T20:47:59.897Z"
+  "syncedAt": "2026-04-26T21:05:21.803Z"
 }
