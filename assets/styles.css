@@ -728,15 +728,15 @@ strong {
 
 .initiative-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.25rem;
 }
 
 .initiative {
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.5rem 1.4rem;
+  padding: 1.5rem 1.75rem;
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
@@ -744,6 +744,7 @@ strong {
 }
 
 .initiative-tag {
+  display: inline-block;
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.1em;
@@ -753,7 +754,9 @@ strong {
 }
 
 .initiative h3 {
-  margin: 0.15rem 0 0.75rem;
+  margin: 0.4rem 0 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border);
 }
 
 .initiative dl {
@@ -835,9 +838,10 @@ strong {
   margin-right: 0.25rem;
 }
 
-@media (max-width: 900px) {
-  .initiative-grid {
-    grid-template-columns: 1fr;
+@media (min-width: 900px) {
+  .initiative dl {
+    grid-template-columns: max-content 1fr max-content 1fr;
+    column-gap: 1.5rem;
   }
 }
 
