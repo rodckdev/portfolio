@@ -44,6 +44,20 @@
     if (data.committee)
       renderIfPublished('committee', () => renderCommittee(data.committee));
     if (data.cv) renderIfPublished('cv', () => renderCV(data.cv));
+
+    // Aplica publish toggle também em seções sem renderer próprio
+    // (ex.: #projects e #posts são populadas por feeds.js / posts.js).
+    hideUnpublishedSections();
+  }
+
+  function hideUnpublishedSections() {
+    Object.keys(SECTION_KEY_BY_DOM_ID).forEach((domId) => {
+      const meta = sectionMeta(domId);
+      if (meta && meta.published === false) {
+        const s = document.getElementById(domId);
+        if (s) s.hidden = true;
+      }
+    });
   }
 
   // Mapa section-id (DOM) → chave do DB Site Sections (Notion).
@@ -56,6 +70,8 @@
     influence: 'influence',
     matrix: 'matrix',
     next: 'initiatives',
+    projects: 'projects',
+    posts: 'posts',
     committee: 'committee',
     cv: 'cv',
   };
@@ -723,6 +739,22 @@
     }
     if (kind === 'multi_select' && Array.isArray(v)) {
       v.forEach((label) => target.appendChild(el('span', 'extras-tag', label)));
+      return;
+    }
+    if (kind === 'multi_link' && Array.isArray(v)) {
+      v.forEach((link, i) => {
+        if (i > 0) target.appendChild(document.createTextNode(' '));
+        if (link.href) {
+          const a = el('a', 'extras-tag extras-link');
+          a.href = link.href;
+          a.rel = 'noopener';
+          a.target = '_blank';
+          a.textContent = link.label || link.href;
+          target.appendChild(a);
+        } else {
+          target.appendChild(el('span', 'extras-tag', link.label || ''));
+        }
+      });
       return;
     }
     if (kind === 'checkbox') {
