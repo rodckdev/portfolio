@@ -591,12 +591,12 @@
         "detail": "Fluentbit coletor principal para logs, redirect to S3, innersoruce, agrupamento recuros por capacity"
       },
       {
-        "title": "Otel Pipeline",
-        "detail": "Otel collector, otel agent agnostics, pipeline and redirect"
-      },
-      {
         "title": "Automação / self-healing",
         "detail": "lifecycle EC2, capacity scaling e runbooks automatizados. Toil: 20 h/sem → 10 h/sem."
+      },
+      {
+        "title": "Otel Pipeline",
+        "detail": "Otel collector, otel agent agnostics, pipeline and redirect"
       }
     ],
     "stack": [
@@ -658,5 +658,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-04-29T10:21:23.198Z"
+  "syncedAt": "2026-04-30T10:21:39.111Z"
 }
