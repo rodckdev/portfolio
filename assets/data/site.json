@@ -368,80 +368,735 @@
     "rows": [
       {
         "order": 1,
-        "skill": "OpenTelemetry + collector + pipelines",
-        "current": "Básico",
-        "currentBadge": "mid",
-        "target": "Expert",
-        "gap": "Médio",
+        "skill": "Preparação Kubernetes CKA",
+        "current": "",
+        "currentBadge": "warn",
+        "target": "",
+        "gap": "",
         "gapBadge": "warn",
-        "plan": "Treinamento OTCA e Splunk para Otel + blueprint em produção",
-        "extras": []
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": "2026-10-30"
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 80
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 4
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "Kubernetes/CKA"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "6-9 meses"
+          },
+          {
+            "key": "proxima-acao",
+            "label": "Próxima ação",
+            "kind": "text",
+            "value": "roadmap de estudos"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Simulados + labs completos"
+          },
+          {
+            "key": "evidencia",
+            "label": "Evidência",
+            "kind": "text",
+            "value": "Mock exams aprovados"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Alto"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": "2026-07-20"
+          }
+        ]
       },
       {
         "order": 2,
-        "skill": "AWS cloud scale",
-        "current": "Sênior",
-        "currentBadge": "ok",
-        "target": "Expert+",
-        "gap": "Pequeno",
+        "skill": "Treinamento AWS  Devops Pro",
+        "current": "",
+        "currentBadge": "warn",
+        "target": "",
+        "gap": "",
         "gapBadge": "warn",
-        "plan": "Mais EKS, mais patterns Lambda",
-        "extras": []
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": "2026-09-30"
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 80
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 3
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "Kubernetes/CKA"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "6-9 meses"
+          },
+          {
+            "key": "proxima-acao",
+            "label": "Próxima ação",
+            "kind": "text",
+            "value": "Roadmap de estudos"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Certificação obtida"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Alto"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": "2026-08-20"
+          }
+        ]
       },
       {
         "order": 3,
-        "skill": "Kubernetes avançado + operators + admission/policies",
-        "current": "Operacional",
+        "skill": "Implementar burn-rate alerts",
+        "current": "",
         "currentBadge": "warn",
-        "target": "Avancado",
-        "gap": "Médio",
+        "target": "",
+        "gap": "",
         "gapBadge": "warn",
-        "plan": "Trilhas CKA, CKD",
-        "extras": []
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": "2026-06-19"
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 15
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 4
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "SLO Engineering"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "0-3 meses"
+          },
+          {
+            "key": "proxima-acao",
+            "label": "Próxima ação",
+            "kind": "text",
+            "value": "Configurar no Datadog"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Alertas de erro por budget"
+          },
+          {
+            "key": "evidencia",
+            "label": "Evidência",
+            "kind": "text",
+            "value": "Alertas ativos em produção"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Alto"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": "2026-05-12"
+          }
+        ]
       },
       {
         "order": 4,
-        "skill": "SLO framework",
-        "current": "Teórico",
+        "skill": "Mapear custo por serviço",
+        "current": "",
         "currentBadge": "warn",
-        "target": "Comprovado",
-        "gap": "Alto",
-        "gapBadge": "err",
-        "plan": "Pilotar em 3 serviços críticos",
-        "extras": []
+        "target": "",
+        "gap": "",
+        "gapBadge": "warn",
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": ""
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 25
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 2
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "FinOps de Observability"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "3-6 meses"
+          },
+          {
+            "key": "proxima-acao",
+            "label": "Próxima ação",
+            "kind": "text",
+            "value": "Extrair dados de billing"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Modelo de custo por produto"
+          },
+          {
+            "key": "evidencia",
+            "label": "Evidência",
+            "kind": "text",
+            "value": "Relatório de custo detalhado"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Médio"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": ""
+          }
+        ]
       },
       {
         "order": 5,
-        "skill": "Liderança técnica",
-        "current": "Operacional",
+        "skill": "Implementar pipeline OpenTelemetry",
+        "current": "",
         "currentBadge": "warn",
-        "target": "Influenciador",
-        "gap": "Médio",
+        "target": "",
+        "gap": "",
         "gapBadge": "warn",
-        "plan": "Adoção em escala",
-        "extras": []
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": "2026-07-31"
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 40
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 3
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "OpenTelemetry"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "3-6 meses"
+          },
+          {
+            "key": "proxima-acao",
+            "label": "Próxima ação",
+            "kind": "text",
+            "value": "Setup collector local"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Pipeline funcional com collector"
+          },
+          {
+            "key": "evidencia",
+            "label": "Evidência",
+            "kind": "text",
+            "value": "Dados fluindo via OTel"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Muito alto"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": "2026-05-04"
+          }
+        ]
       },
       {
         "order": 6,
-        "skill": "Comunicação / sistêmico",
-        "current": "Funcional",
+        "skill": "Treinamento Otel",
+        "current": "",
         "currentBadge": "warn",
-        "target": "Estratégico",
-        "gap": "Médio",
+        "target": "",
+        "gap": "",
         "gapBadge": "warn",
-        "plan": "Talks + posts + design docs",
-        "extras": []
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": "2026-06-19"
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 40
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 3
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "OpenTelemetry"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "3-6 meses"
+          },
+          {
+            "key": "proxima-acao",
+            "label": "Próxima ação",
+            "kind": "text",
+            "value": "Treinamento oficial Splunk/Udemy/certificado"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Certificação obtida"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Muito alto"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": "2026-05-04"
+          }
+        ]
       },
       {
         "order": 7,
+        "skill": "Certificação Datadog APM",
+        "current": "",
+        "currentBadge": "warn",
+        "target": "",
+        "gap": "",
+        "gapBadge": "warn",
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": "2026-06-10"
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 25
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 2
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "Datadog Certs"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "0-3 meses"
+          },
+          {
+            "key": "proxima-acao",
+            "label": "Próxima ação",
+            "kind": "text",
+            "value": "Agendar prova"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Certificação obtida"
+          },
+          {
+            "key": "evidencia",
+            "label": "Evidência",
+            "kind": "text",
+            "value": "Badge oficial"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Médio"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": "2026-05-12"
+          }
+        ]
+      },
+      {
+        "order": 8,
+        "skill": "Certificação Datadog Logs",
+        "current": "",
+        "currentBadge": "warn",
+        "target": "",
+        "gap": "",
+        "gapBadge": "warn",
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": "2026-05-12"
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 25
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 2
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "Datadog Certs"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "0-3 meses"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Certificação obtida"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Médio"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "order": 9,
         "skill": "Inglês (global)",
-        "current": "B1",
-        "currentBadge": "mid",
-        "target": "B2 / C1",
-        "gap": "Alto",
-        "gapBadge": "err",
-        "plan": "Aulas + apresentações em inglês",
-        "extras": []
+        "current": "",
+        "currentBadge": "warn",
+        "target": "",
+        "gap": "",
+        "gapBadge": "warn",
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": ""
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 80
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 3
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "SoftSkill"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "6-9 meses"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "podcast/posts em ingles"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Médio"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "order": 10,
+        "skill": "Comunicação / sistêmico",
+        "current": "",
+        "currentBadge": "warn",
+        "target": "",
+        "gap": "",
+        "gapBadge": "warn",
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": ""
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 30
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 3
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "SoftSkill"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "3-6 meses"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Story telling/"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Alto"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": ""
+          }
+        ]
+      },
+      {
+        "order": 11,
+        "skill": "Liderança técnica",
+        "current": "",
+        "currentBadge": "warn",
+        "target": "",
+        "gap": "",
+        "gapBadge": "warn",
+        "plan": "",
+        "extras": [
+          {
+            "key": "prazo",
+            "label": "Prazo",
+            "kind": "date",
+            "value": ""
+          },
+          {
+            "key": "estimativa-h",
+            "label": "Estimativa (h)",
+            "kind": "number",
+            "value": 40
+          },
+          {
+            "key": "prioridade",
+            "label": "Prioridade",
+            "kind": "number",
+            "value": 3
+          },
+          {
+            "key": "trilha",
+            "label": "Trilha",
+            "kind": "select",
+            "value": "SoftSkill"
+          },
+          {
+            "key": "fase",
+            "label": "Fase",
+            "kind": "select",
+            "value": "3-6 meses"
+          },
+          {
+            "key": "entregavel",
+            "label": "Entregável",
+            "kind": "text",
+            "value": "Adocao de estrategia"
+          },
+          {
+            "key": "impacto",
+            "label": "Impacto",
+            "kind": "select",
+            "value": "Alto"
+          },
+          {
+            "key": "inicio",
+            "label": "Início",
+            "kind": "date",
+            "value": ""
+          }
+        ]
       }
     ],
     "kicker": "05 · Skill matrix",
@@ -658,5 +1313,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-05-07T10:54:52.782Z"
+  "syncedAt": "2026-05-07T23:53:18.155Z"
 }
