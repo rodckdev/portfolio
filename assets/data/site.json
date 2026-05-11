@@ -577,78 +577,6 @@
         ]
       },
       {
-        "order": 4,
-        "skill": "Mapear custo por serviço",
-        "current": "",
-        "currentBadge": "warn",
-        "target": "",
-        "gap": "",
-        "gapBadge": "warn",
-        "plan": "",
-        "extras": [
-          {
-            "key": "prazo",
-            "label": "Prazo",
-            "kind": "date",
-            "value": ""
-          },
-          {
-            "key": "estimativa-h",
-            "label": "Estimativa (h)",
-            "kind": "number",
-            "value": 25
-          },
-          {
-            "key": "prioridade",
-            "label": "Prioridade",
-            "kind": "number",
-            "value": 2
-          },
-          {
-            "key": "trilha",
-            "label": "Trilha",
-            "kind": "select",
-            "value": "FinOps de Observability"
-          },
-          {
-            "key": "fase",
-            "label": "Fase",
-            "kind": "select",
-            "value": "3-6 meses"
-          },
-          {
-            "key": "proxima-acao",
-            "label": "Próxima ação",
-            "kind": "text",
-            "value": "Extrair dados de billing"
-          },
-          {
-            "key": "entregavel",
-            "label": "Entregável",
-            "kind": "text",
-            "value": "Modelo de custo por produto"
-          },
-          {
-            "key": "evidencia",
-            "label": "Evidência",
-            "kind": "text",
-            "value": "Relatório de custo detalhado"
-          },
-          {
-            "key": "impacto",
-            "label": "Impacto",
-            "kind": "select",
-            "value": "Médio"
-          },
-          {
-            "key": "inicio",
-            "label": "Início",
-            "kind": "date",
-            "value": ""
-          }
-        ]
-      },
-      {
         "order": 5,
         "skill": "Implementar pipeline OpenTelemetry",
         "current": "",
@@ -1133,5 +1061,5 @@
     ],
     "footerHtml": "Documento gerado a partir de <a href=\"https://rodckdev.github.io/portfolio/\">rodckdev.github.io/portfolio</a> — atualizado continuamente."
   },
-  "syncedAt": "2026-05-10T22:35:47.063Z"
+  "syncedAt": "2026-05-11T12:49:45.894Z"
 }
